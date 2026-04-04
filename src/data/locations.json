@@ -1,0 +1,123 @@
+[
+  {
+    "name": "Lake Texoma Public Launch",
+    "slug": "lake-texoma-public-launch",
+    "state": "Texas",
+    "stateSlug": "texas",
+    "city": "Denison",
+    "lat": 33.7626,
+    "lng": -96.5269,
+    "description": "Large public boat ramp facility with multiple launch lanes and extensive parking. Popular for fishing and recreational boating on Lake Texoma.",
+    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Fishing pier", "Picnic area"]
+  },
+  {
+    "name": "Clear Lake Park Ramp",
+    "slug": "clear-lake-park-ramp",
+    "state": "Texas",
+    "stateSlug": "texas",
+    "city": "Houston",
+    "lat": 29.3250,
+    "lng": -95.0847,
+    "description": "Well-maintained public boat ramp in Clear Lake area, excellent for saltwater and bay fishing. Parking available for vehicles with trailers.",
+    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Bait shop nearby"]
+  },
+  {
+    "name": "Lake Okeechobee Public Access",
+    "slug": "lake-okeechobee-public-access",
+    "state": "Florida",
+    "stateSlug": "florida",
+    "city": "Clewiston",
+    "lat": 26.7590,
+    "lng": -80.9364,
+    "description": "Free public boat ramp providing access to one of Florida's largest freshwater lakes. Ideal for bass fishing and recreational boating.",
+    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Fishing pier", "Picnic area"]
+  },
+  {
+    "name": "California Delta Public Ramp",
+    "slug": "california-delta-public-ramp",
+    "state": "California",
+    "stateSlug": "california",
+    "city": "Stockton",
+    "lat": 38.0816,
+    "lng": -121.2944,
+    "description": "Public boat launch providing access to the California Delta waterways. Great for fishing, water skiing, and cruising.",
+    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Fuel available"]
+  },
+  {
+    "name": "Minnesota River Public Launch",
+    "slug": "minnesota-river-public-launch",
+    "state": "Minnesota",
+    "stateSlug": "minnesota",
+    "city": "Bloomington",
+    "lat": 44.8510,
+    "lng": -93.2874,
+    "description": "Free public boat ramp on the Minnesota River. Perfect for kayaking, fishing, and recreational boating in the Minneapolis area.",
+    "amenities": ["Gravel ramp", "Parking", "Picnic area"]
+  },
+  {
+    "name": "Wisconsin Dells Public Ramp",
+    "slug": "wisconsin-dells-public-ramp",
+    "state": "Wisconsin",
+    "stateSlug": "wisconsin",
+    "city": "Wisconsin Dells",
+    "lat": 43.6283,
+    "lng": -89.7625,
+    "description": "Public boat launch on the Wisconsin River near Wisconsin Dells. Popular for tube floats, water sports, and scenic cruising.",
+    "amenities": ["Paved ramp", "Trailer parking", "Restrooms"]
+  },
+  {
+    "name": "Douglas Lake Public Access",
+    "slug": "douglas-lake-public-access",
+    "state": "Tennessee",
+    "stateSlug": "tennessee",
+    "city": "Seymour",
+    "lat": 36.1647,
+    "lng": -83.5553,
+    "description": "Free public boat ramp providing access to scenic Douglas Lake. Excellent for fishing and recreational boating in East Tennessee.",
+    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Picnic area"]
+  },
+  {
+    "name": "Neuse River Public Ramp",
+    "slug": "neuse-river-public-ramp",
+    "state": "North Carolina",
+    "stateSlug": "north-carolina",
+    "city": "New Bern",
+    "lat": 35.1087,
+    "lng": -77.0427,
+    "description": "Free public boat ramp on the Neuse River. Popular for fishing, crabbing, and recreational boating in Coastal North Carolina.",
+    "amenities": ["Paved ramp", "Parking", "Restrooms"]
+  },
+  {
+    "name": "Indian Lake Public Launch",
+    "slug": "indian-lake-public-launch",
+    "state": "Ohio",
+    "stateSlug": "ohio",
+    "city": "Chillicothe",
+    "lat": 39.3438,
+    "lng": -82.9678,
+    "description": "Large public boat ramp on scenic Indian Lake. Great for fishing, skiing, and family boating outings.",
+    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Picnic area"]
+  },
+  {
+    "name": "Lake Monroe Public Ramp",
+    "slug": "lake-monroe-public-ramp",
+    "state": "Indiana",
+    "stateSlug": "indiana",
+    "city": "Bloomington",
+    "lat": 39.1480,
+    "lng": -86.4253,
+    "description": "Free public boat launch on Indiana's largest man-made lake. Excellent for fishing, water sports, and scenic cruising.",
+    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Picnic area"]
+  },
+  {
+    "name": "Lake Union Public Launch",
+    "slug": "lake-union-public-launch",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "Seattle",
+    "lat": 47.6205,
+    "lng": -122.3493,
+    "description": "Popular public boat ramp in downtown Seattle on scenic Lake Union. Perfect for sailboating, fishing, and waterfront recreation.",
+    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Fuel available"]
+  }
+]

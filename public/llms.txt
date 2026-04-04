@@ -1,0 +1,13 @@
+# Public Boat Ramps Directory
+
+> A free directory of public boat ramps, launches, and water access points across the United States.
+
+## Browse
+- [Home](https://publicboatramps.com): Search all public boat ramps
+- [Texas](https://publicboatramps.com/texas): Public boat ramps in Texas
+- [Florida](https://publicboatramps.com/florida): Public boat ramps in Florida
+
+## About
+- [About Us](https://publicboatramps.com/about): About this directory
+- [Privacy Policy](https://publicboatramps.com/privacy): How we handle data
+- [Contact](https://publicboatramps.com/contact): Get in touch
