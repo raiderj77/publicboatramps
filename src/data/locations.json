@@ -1,123 +1,675 @@
 [
   {
-    "name": "Lake Texoma Public Launch",
-    "slug": "lake-texoma-public-launch",
-    "state": "Texas",
-    "stateSlug": "texas",
-    "city": "Denison",
-    "lat": 33.7626,
-    "lng": -96.5269,
-    "description": "Large public boat ramp facility with multiple launch lanes and extensive parking. Popular for fishing and recreational boating on Lake Texoma.",
-    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Fishing pier", "Picnic area"]
+    "name": "Sunbury Access",
+    "slug": "sunbury-access",
+    "state": "Pennsylvania",
+    "stateSlug": "pennsylvania",
+    "city": "",
+    "lat": 40.846961,
+    "lng": -76.804596,
+    "description": "Sunbury Access is a public boat launch in Pennsylvania. Operated by Pennsylvania Fish and Boat Commission.",
+    "amenities": [
+      "Boat launch",
+      "Trailer parking"
+    ]
   },
   {
-    "name": "Clear Lake Park Ramp",
-    "slug": "clear-lake-park-ramp",
-    "state": "Texas",
-    "stateSlug": "texas",
-    "city": "Houston",
-    "lat": 29.3250,
-    "lng": -95.0847,
-    "description": "Well-maintained public boat ramp in Clear Lake area, excellent for saltwater and bay fishing. Parking available for vehicles with trailers.",
-    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Bait shop nearby"]
+    "name": "Shikellamy State Park North Access",
+    "slug": "shikellamy-state-park-north-access",
+    "state": "Pennsylvania",
+    "stateSlug": "pennsylvania",
+    "city": "",
+    "lat": 40.883408,
+    "lng": -76.792625,
+    "description": "Shikellamy State Park North Access is a public boat launch in Pennsylvania.",
+    "amenities": [
+      "Boat launch"
+    ]
   },
   {
-    "name": "Lake Okeechobee Public Access",
-    "slug": "lake-okeechobee-public-access",
-    "state": "Florida",
-    "stateSlug": "florida",
-    "city": "Clewiston",
-    "lat": 26.7590,
-    "lng": -80.9364,
-    "description": "Free public boat ramp providing access to one of Florida's largest freshwater lakes. Ideal for bass fishing and recreational boating.",
-    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Fishing pier", "Picnic area"]
+    "name": "Clinton Lake Boat Ramp 3",
+    "slug": "clinton-lake-boat-ramp-3",
+    "state": "Kansas",
+    "stateSlug": "kansas",
+    "city": "",
+    "lat": 38.936171,
+    "lng": -95.388543,
+    "description": "Clinton Lake Boat Ramp 3 is a public boat launch in Kansas.",
+    "amenities": [
+      "Boat launch"
+    ]
   },
   {
-    "name": "California Delta Public Ramp",
-    "slug": "california-delta-public-ramp",
-    "state": "California",
-    "stateSlug": "california",
-    "city": "Stockton",
-    "lat": 38.0816,
-    "lng": -121.2944,
-    "description": "Public boat launch providing access to the California Delta waterways. Great for fishing, water skiing, and cruising.",
-    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Fuel available"]
+    "name": "Boat Ramp 5",
+    "slug": "boat-ramp-5",
+    "state": "Missouri",
+    "stateSlug": "missouri",
+    "city": "",
+    "lat": 38.915617,
+    "lng": -95.372043,
+    "description": "Boat Ramp 5 is a public boat launch in Missouri.",
+    "amenities": [
+      "Boat launch"
+    ]
   },
   {
-    "name": "Minnesota River Public Launch",
-    "slug": "minnesota-river-public-launch",
-    "state": "Minnesota",
-    "stateSlug": "minnesota",
-    "city": "Bloomington",
-    "lat": 44.8510,
-    "lng": -93.2874,
-    "description": "Free public boat ramp on the Minnesota River. Perfect for kayaking, fishing, and recreational boating in the Minneapolis area.",
-    "amenities": ["Gravel ramp", "Parking", "Picnic area"]
-  },
-  {
-    "name": "Wisconsin Dells Public Ramp",
-    "slug": "wisconsin-dells-public-ramp",
-    "state": "Wisconsin",
-    "stateSlug": "wisconsin",
-    "city": "Wisconsin Dells",
-    "lat": 43.6283,
-    "lng": -89.7625,
-    "description": "Public boat launch on the Wisconsin River near Wisconsin Dells. Popular for tube floats, water sports, and scenic cruising.",
-    "amenities": ["Paved ramp", "Trailer parking", "Restrooms"]
-  },
-  {
-    "name": "Douglas Lake Public Access",
-    "slug": "douglas-lake-public-access",
-    "state": "Tennessee",
-    "stateSlug": "tennessee",
-    "city": "Seymour",
-    "lat": 36.1647,
-    "lng": -83.5553,
-    "description": "Free public boat ramp providing access to scenic Douglas Lake. Excellent for fishing and recreational boating in East Tennessee.",
-    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Picnic area"]
-  },
-  {
-    "name": "Neuse River Public Ramp",
-    "slug": "neuse-river-public-ramp",
-    "state": "North Carolina",
-    "stateSlug": "north-carolina",
-    "city": "New Bern",
-    "lat": 35.1087,
-    "lng": -77.0427,
-    "description": "Free public boat ramp on the Neuse River. Popular for fishing, crabbing, and recreational boating in Coastal North Carolina.",
-    "amenities": ["Paved ramp", "Parking", "Restrooms"]
-  },
-  {
-    "name": "Indian Lake Public Launch",
-    "slug": "indian-lake-public-launch",
+    "name": "Belleville West Launch",
+    "slug": "belleville-west-launch",
     "state": "Ohio",
     "stateSlug": "ohio",
-    "city": "Chillicothe",
-    "lat": 39.3438,
-    "lng": -82.9678,
-    "description": "Large public boat ramp on scenic Indian Lake. Great for fishing, skiing, and family boating outings.",
-    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Picnic area"]
+    "city": "",
+    "lat": 42.209804,
+    "lng": -83.539491,
+    "description": "Belleville West Launch is a public boat launch in Ohio.",
+    "amenities": [
+      "Boat launch"
+    ]
   },
   {
-    "name": "Lake Monroe Public Ramp",
-    "slug": "lake-monroe-public-ramp",
-    "state": "Indiana",
-    "stateSlug": "indiana",
-    "city": "Bloomington",
-    "lat": 39.1480,
-    "lng": -86.4253,
-    "description": "Free public boat launch on Indiana's largest man-made lake. Excellent for fishing, water sports, and scenic cruising.",
-    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Picnic area"]
+    "name": "Echo Lake Boat Launch",
+    "slug": "echo-lake-boat-launch",
+    "state": "New Hampshire",
+    "stateSlug": "new-hampshire",
+    "city": "",
+    "lat": 44.172933,
+    "lng": -71.691444,
+    "description": "Echo Lake Boat Launch is a public boat launch in New Hampshire.",
+    "amenities": [
+      "Boat launch"
+    ]
   },
   {
-    "name": "Lake Union Public Launch",
-    "slug": "lake-union-public-launch",
+    "name": "Boat Ramp",
+    "slug": "boat-ramp",
     "state": "Washington",
     "stateSlug": "washington",
-    "city": "Seattle",
-    "lat": 47.6205,
-    "lng": -122.3493,
-    "description": "Popular public boat ramp in downtown Seattle on scenic Lake Union. Perfect for sailboating, fishing, and waterfront recreation.",
-    "amenities": ["Paved ramp", "Trailer parking", "Restrooms", "Fuel available"]
+    "city": "",
+    "lat": 47.660198,
+    "lng": -122.920363,
+    "description": "Boat Ramp is a public boat launch in Washington. Free public access.",
+    "amenities": [
+      "Boat launch",
+      "Free access"
+    ]
+  },
+  {
+    "name": "West Street Launch Ramp",
+    "slug": "west-street-launch-ramp",
+    "state": "New York",
+    "stateSlug": "new-york",
+    "city": "",
+    "lat": 44.223837,
+    "lng": -76.485481,
+    "description": "West Street Launch Ramp is a public boat launch in New York.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Steiner Boat Launch",
+    "slug": "steiner-boat-launch",
+    "state": "Oregon",
+    "stateSlug": "oregon",
+    "city": "",
+    "lat": 45.43034,
+    "lng": -123.818518,
+    "description": "Steiner Boat Launch is a public boat launch in Oregon.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Boat launch for Lake Padden",
+    "slug": "boat-launch-for-lake-padden",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "",
+    "lat": 48.705645,
+    "lng": -122.448961,
+    "description": "Boat launch for Lake Padden is a public boat launch in Washington.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Meldrum Bar Park",
+    "slug": "meldrum-bar-park",
+    "state": "Oregon",
+    "stateSlug": "oregon",
+    "city": "",
+    "lat": 45.377238,
+    "lng": -122.616508,
+    "description": "Meldrum Bar Park is a public boat launch in Oregon.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Bradley Lake Boat Ramp",
+    "slug": "bradley-lake-boat-ramp",
+    "state": "Oregon",
+    "stateSlug": "oregon",
+    "city": "",
+    "lat": 43.063445,
+    "lng": -124.42464,
+    "description": "Bradley Lake Boat Ramp is a public boat launch in Oregon.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Doris Place Boat Ramp",
+    "slug": "doris-place-boat-ramp",
+    "state": "Oregon",
+    "stateSlug": "oregon",
+    "city": "",
+    "lat": 43.380134,
+    "lng": -124.094997,
+    "description": "Doris Place Boat Ramp is a public boat launch in Oregon.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Dayton Boat Landing",
+    "slug": "dayton-boat-landing",
+    "state": "Oregon",
+    "stateSlug": "oregon",
+    "city": "",
+    "lat": 45.221723,
+    "lng": -123.070316,
+    "description": "Dayton Boat Landing is a public boat launch in Oregon.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Twin Bridges Memorial Park Boat Launch",
+    "slug": "twin-bridges-memorial-park-boat-launch",
+    "state": "Oregon",
+    "stateSlug": "oregon",
+    "city": "",
+    "lat": 44.733147,
+    "lng": -123.842205,
+    "description": "Twin Bridges Memorial Park Boat Launch is a public boat launch in Oregon. Surface: asphalt.",
+    "amenities": [
+      "Boat launch",
+      "Paved ramp"
+    ]
+  },
+  {
+    "name": "Pleasant Valley Boat Ramp",
+    "slug": "pleasant-valley-boat-ramp",
+    "state": "Oregon",
+    "stateSlug": "oregon",
+    "city": "",
+    "lat": 44.400483,
+    "lng": -122.737388,
+    "description": "Pleasant Valley Boat Ramp is a public boat launch in Oregon.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Westlake Boat Ramp",
+    "slug": "westlake-boat-ramp",
+    "state": "Oregon",
+    "stateSlug": "oregon",
+    "city": "",
+    "lat": 43.884718,
+    "lng": -124.113799,
+    "description": "Westlake Boat Ramp is a public boat launch in Oregon.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Swan Island Boat Ramp",
+    "slug": "swan-island-boat-ramp",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "",
+    "lat": 45.562376,
+    "lng": -122.706475,
+    "description": "Swan Island Boat Ramp is a public boat launch in Washington. Surface: asphalt.",
+    "amenities": [
+      "Boat launch",
+      "Paved ramp"
+    ]
+  },
+  {
+    "name": "123rd Street Boat Launch",
+    "slug": "123rd-street-boat-launch",
+    "state": "New York",
+    "stateSlug": "new-york",
+    "city": "",
+    "lat": 42.784642,
+    "lng": -73.674419,
+    "description": "123rd Street Boat Launch is a public boat launch in New York.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Sprague Lake Boat Launch",
+    "slug": "sprague-lake-boat-launch",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "",
+    "lat": 47.244982,
+    "lng": -118.077916,
+    "description": "Sprague Lake Boat Launch is a public boat launch in Washington. Operated by Washington Department of Fish and Wildlife. Surface: concrete.",
+    "amenities": [
+      "Boat launch",
+      "Paved ramp"
+    ],
+    "website": "https://wdfw.wa.gov/places-to-go/water-access-sites/30904"
+  },
+  {
+    "name": "Ankeny Road North",
+    "slug": "ankeny-road-north",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "",
+    "lat": 47.640431,
+    "lng": -119.321597,
+    "description": "Ankeny Road North is a public boat launch in Washington. Operated by Washington Department of Fish and Wildlife. Surface: gravel.",
+    "amenities": [
+      "Boat launch"
+    ],
+    "website": "https://wdfw.wa.gov/places-to-go/water-access-sites/30104"
+  },
+  {
+    "name": "Ankeny Road South",
+    "slug": "ankeny-road-south",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "",
+    "lat": 47.628162,
+    "lng": -119.327335,
+    "description": "Ankeny Road South is a public boat launch in Washington. Operated by Washington Department of Fish and Wildlife. Surface: unpaved.",
+    "amenities": [
+      "Boat launch"
+    ],
+    "website": "https://wdfw.wa.gov/places-to-go/water-access-sites/30105"
+  },
+  {
+    "name": "Woodland Bottoms Water Access Site",
+    "slug": "woodland-bottoms-water-access-site",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "",
+    "lat": 45.919222,
+    "lng": -122.803485,
+    "description": "Woodland Bottoms Water Access Site is a public boat launch in Washington.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Steel Lake Boat Launch",
+    "slug": "steel-lake-boat-launch",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "",
+    "lat": 47.326122,
+    "lng": -122.300178,
+    "description": "Steel Lake Boat Launch is a public boat launch in Washington.",
+    "amenities": [
+      "Boat launch"
+    ],
+    "website": "https://wdfw.wa.gov/places-to-go/water-access-sites/steel-lake-645"
+  },
+  {
+    "name": "Alkali Lake Hand Boat Launch",
+    "slug": "alkali-lake-hand-boat-launch",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "",
+    "lat": 47.523196,
+    "lng": -119.494971,
+    "description": "Alkali Lake Hand Boat Launch is a public boat launch in Washington. Operated by Washington Department of Fish and Wildlife. Surface: unpaved.",
+    "amenities": [
+      "Boat launch"
+    ],
+    "website": "https://wdfw.wa.gov/places-to-go/water-access-sites/30102"
+  },
+  {
+    "name": "Billy Clapp Lake Boat Launch",
+    "slug": "billy-clapp-lake-boat-launch",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "",
+    "lat": 47.452664,
+    "lng": -119.25248,
+    "description": "Billy Clapp Lake Boat Launch is a public boat launch in Washington. Operated by Washington Department of Fish and Wildlife. Surface: concrete.",
+    "amenities": [
+      "Boat launch",
+      "Paved ramp"
+    ],
+    "website": "https://wdfw.wa.gov/places-to-go/water-access-sites/30108"
+  },
+  {
+    "name": "Columbia Hills State Park Boat Launch",
+    "slug": "columbia-hills-state-park-boat-launch",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "",
+    "lat": 45.642727,
+    "lng": -121.104551,
+    "description": "Columbia Hills State Park Boat Launch is a public boat launch in Washington.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Ski Beach",
+    "slug": "ski-beach",
+    "state": "California",
+    "stateSlug": "california",
+    "city": "",
+    "lat": 32.773225,
+    "lng": -117.233276,
+    "description": "Ski Beach is a public boat launch in California. Surface: concrete.",
+    "amenities": [
+      "Boat launch",
+      "Paved ramp"
+    ]
+  },
+  {
+    "name": "Arcadia Point Boat Ramp",
+    "slug": "arcadia-point-boat-ramp",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "",
+    "lat": 47.19741,
+    "lng": -122.938738,
+    "description": "Arcadia Point Boat Ramp is a public boat launch in Washington. Surface: concrete.",
+    "amenities": [
+      "Boat launch",
+      "Paved ramp"
+    ]
+  },
+  {
+    "name": "Horseshoe Lake",
+    "slug": "horseshoe-lake",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "",
+    "lat": 48.10913,
+    "lng": -117.422599,
+    "description": "Horseshoe Lake is a public boat launch in Washington. Operated by Washington Department of Fish and Wildlife. Surface: gravel.",
+    "amenities": [
+      "Boat launch"
+    ],
+    "website": "https://wdfw.wa.gov/places-to-go/water-access-sites/30424"
+  },
+  {
+    "name": "Beacon Rock Boat Ramp",
+    "slug": "beacon-rock-boat-ramp",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "",
+    "lat": 45.621362,
+    "lng": -122.020137,
+    "description": "Beacon Rock Boat Ramp is a public boat launch in Washington.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Luhr Beach Boat Launch",
+    "slug": "luhr-beach-boat-launch",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "",
+    "lat": 47.100875,
+    "lng": -122.726766,
+    "description": "Luhr Beach Boat Launch is a public boat launch in Washington. Operated by Washington Department of Fish and Wildlife.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "SE 40th Boat Launch",
+    "slug": "se-40th-boat-launch",
+    "state": "Washington",
+    "stateSlug": "washington",
+    "city": "",
+    "lat": 47.574918,
+    "lng": -122.188934,
+    "description": "SE 40th Boat Launch is a public boat launch in Washington. Surface: concrete. Free public access.",
+    "amenities": [
+      "Boat launch",
+      "Free access",
+      "Paved ramp"
+    ]
+  },
+  {
+    "name": "Winnequah Trail Boat Launch",
+    "slug": "winnequah-trail-boat-launch",
+    "state": "Wisconsin",
+    "stateSlug": "wisconsin",
+    "city": "Monona",
+    "lat": 43.056308,
+    "lng": -89.349626,
+    "description": "Winnequah Trail Boat Launch is a public boat launch in Monona, Wisconsin.",
+    "amenities": [
+      "Boat launch"
+    ],
+    "website": "http://www.monona.wi.us/322/Boat-Launch-Sites-Permits"
+  },
+  {
+    "name": "McConnel Street Boat Launch",
+    "slug": "mcconnel-street-boat-launch",
+    "state": "Wisconsin",
+    "stateSlug": "wisconsin",
+    "city": "",
+    "lat": 43.013266,
+    "lng": -89.333551,
+    "description": "McConnel Street Boat Launch is a public boat launch in Wisconsin.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Scott Landing Boat Launch",
+    "slug": "scott-landing-boat-launch",
+    "state": "Alabama",
+    "stateSlug": "alabama",
+    "city": "",
+    "lat": 34.367533,
+    "lng": -87.923817,
+    "description": "Scott Landing Boat Launch is a public boat launch in Alabama.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Hwy 2 Public Ramp (Mud Creek)",
+    "slug": "hwy-2-public-ramp-mud-creek",
+    "state": "Alabama",
+    "stateSlug": "alabama",
+    "city": "",
+    "lat": 34.75466,
+    "lng": -85.900417,
+    "description": "Hwy 2 Public Ramp (Mud Creek) is a public boat launch in Alabama. Free public access.",
+    "amenities": [
+      "Boat launch",
+      "Free access"
+    ]
+  },
+  {
+    "name": "Co Rd 676 (Long Island Cove)",
+    "slug": "co-rd-676-long-island-cove",
+    "state": "Alabama",
+    "stateSlug": "alabama",
+    "city": "",
+    "lat": 34.898936,
+    "lng": -85.708713,
+    "description": "Co Rd 676 (Long Island Cove) is a public boat launch in Alabama. Free public access.",
+    "amenities": [
+      "Boat launch",
+      "Free access"
+    ]
+  },
+  {
+    "name": "Hwy 46 (TN River)",
+    "slug": "hwy-46-tn-river",
+    "state": "Alabama",
+    "stateSlug": "alabama",
+    "city": "",
+    "lat": 34.75741,
+    "lng": -85.858897,
+    "description": "Hwy 46 (TN River) is a public boat launch in Alabama. Free public access.",
+    "amenities": [
+      "Boat launch",
+      "Free access"
+    ]
+  },
+  {
+    "name": "Lee Row (TN River)",
+    "slug": "lee-row-tn-river",
+    "state": "Alabama",
+    "stateSlug": "alabama",
+    "city": "",
+    "lat": 34.941234,
+    "lng": -85.698071,
+    "description": "Lee Row (TN River) is a public boat launch in Alabama. Free public access.",
+    "amenities": [
+      "Boat launch",
+      "Free access"
+    ]
+  },
+  {
+    "name": "Shoal Creek US 72 Boat Ramp",
+    "slug": "shoal-creek-us-72-boat-ramp",
+    "state": "Alabama",
+    "stateSlug": "alabama",
+    "city": "",
+    "lat": 34.849217,
+    "lng": -87.570927,
+    "description": "Shoal Creek US 72 Boat Ramp is a public boat launch in Alabama.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Barnetts Landing Ramp",
+    "slug": "barnetts-landing-ramp",
+    "state": "Alabama",
+    "stateSlug": "alabama",
+    "city": "",
+    "lat": 34.786873,
+    "lng": -87.272835,
+    "description": "Barnetts Landing Ramp is a public boat launch in Alabama.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Madison County Park Boat Ramp",
+    "slug": "madison-county-park-boat-ramp",
+    "state": "Alabama",
+    "stateSlug": "alabama",
+    "city": "",
+    "lat": 34.562253,
+    "lng": -86.545912,
+    "description": "Madison County Park Boat Ramp is a public boat launch in Alabama.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Saraland Boat Launch",
+    "slug": "saraland-boat-launch",
+    "state": "Alabama",
+    "stateSlug": "alabama",
+    "city": "",
+    "lat": 30.820273,
+    "lng": -88.058823,
+    "description": "Saraland Boat Launch is a public boat launch in Alabama.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Cedar Creek Landing",
+    "slug": "cedar-creek-landing",
+    "state": "Alabama",
+    "stateSlug": "alabama",
+    "city": "",
+    "lat": 31.065791,
+    "lng": -88.009425,
+    "description": "Cedar Creek Landing is a public boat launch in Alabama.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Bluff City Boat Ramp",
+    "slug": "bluff-city-boat-ramp",
+    "state": "Alabama",
+    "stateSlug": "alabama",
+    "city": "",
+    "lat": 34.548322,
+    "lng": -86.781163,
+    "description": "Bluff City Boat Ramp is a public boat launch in Alabama.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Boat Ramp",
+    "slug": "boat-ramp-2",
+    "state": "Alabama",
+    "stateSlug": "alabama",
+    "city": "",
+    "lat": 33.329409,
+    "lng": -85.557132,
+    "description": "Boat Ramp is a public boat launch in Alabama.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Canoe Creek Boat Launch",
+    "slug": "canoe-creek-boat-launch",
+    "state": "Alabama",
+    "stateSlug": "alabama",
+    "city": "",
+    "lat": 33.864854,
+    "lng": -86.104028,
+    "description": "Canoe Creek Boat Launch is a public boat launch in Alabama.",
+    "amenities": [
+      "Boat launch"
+    ],
+    "website": "https://www.stclairco.com/347/Parks-and-Recreation"
+  },
+  {
+    "name": "Petapawag Boat Launch",
+    "slug": "petapawag-boat-launch",
+    "state": "Massachusetts",
+    "stateSlug": "massachusetts",
+    "city": "",
+    "lat": 42.628374,
+    "lng": -71.593325,
+    "description": "Petapawag Boat Launch is a public boat launch in Massachusetts.",
+    "amenities": [
+      "Boat launch"
+    ]
+  },
+  {
+    "name": "Johns Pond Boat Launch",
+    "slug": "johns-pond-boat-launch",
+    "state": "Massachusetts",
+    "stateSlug": "massachusetts",
+    "city": "",
+    "lat": 41.634884,
+    "lng": -70.522322,
+    "description": "Johns Pond Boat Launch is a public boat launch in Massachusetts.",
+    "amenities": [
+      "Boat launch"
+    ]
   }
 ]
