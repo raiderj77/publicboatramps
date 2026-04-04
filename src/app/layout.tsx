@@ -11,7 +11,8 @@ export const metadata: Metadata = {
     'Find free public boat ramps, launches, and water access points near you. Browse by state and discover available amenities.',
   keywords:
     'boat ramp, public boat launch, free boat ramp, boat ramp near me, public water access, boat launch, fishing access',
-  canonical: 'https://publicboatramps.com',
+  alternates: { canonical: 'https://publicboatramps.com' },
+  verification: { google: 'JO8wsuC-N2Dy3caNOM8Umb16JpluD74KupzHJm6Fnls' },
   openGraph: {
     title: 'Public Boat Ramps Directory',
     description:
