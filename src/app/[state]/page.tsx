@@ -71,7 +71,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
 
       {/* Hero */}
       <section style={{ background: 'linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%)', padding: '4rem 1.5rem 3rem', position: 'relative', overflow: 'hidden' }}>
-        <div aria-hidden style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', background: 'url("https://source.unsplash.com/1200x600/?lake,boat&sig=99") center/cover no-repeat', opacity: 0.12, pointerEvents: 'none' }} />
+        <div aria-hidden style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', background: 'url("https://picsum.photos/seed/hero-bg-state/1200/600") center/cover no-repeat', opacity: 0.12, pointerEvents: 'none' }} />
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <Link href="/" style={{ color: 'var(--gold)', fontSize: '0.875rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '1.5rem', fontWeight: 600 }}>← Back to All States</Link>
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', color: 'white', marginBottom: '0.75rem' }}>
@@ -96,7 +96,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
                 <Link key={ramp.slug} href={`/${state}/${ramp.slug}`} style={{ textDecoration: 'none' }}>
                   <article className="card">
                     <img
-                      src={`https://source.unsplash.com/800x500/?${IMG_KEYWORDS[i % IMG_KEYWORDS.length]}&sig=${i + 20}`}
+                      src={`https://picsum.photos/seed/${ramp.slug}/800/500`}
                       alt={ramp.name}
                       className="card-img"
                       loading="lazy"

@@ -96,7 +96,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
       {/* Hero image */}
       <div style={{ position: 'relative', height: '420px', overflow: 'hidden' }}>
         <img
-          src={`https://source.unsplash.com/1600x800/?boat+ramp,lake&sig=${slug.length}`}
+          src={`https://picsum.photos/seed/${slug}/1400/600`}
           alt={`${location.name} boat ramp`}
           style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
           width={1600}
@@ -197,7 +197,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
               {related.map((ramp, i) => (
                 <Link key={ramp.slug} href={`/${state}/${ramp.slug}`} style={{ textDecoration: 'none' }}>
                   <article className="card">
-                    <img src={`https://source.unsplash.com/800x400/?boat,lake&sig=${i + 50}`} alt={ramp.name} className="card-img" loading="lazy" width={800} height={400} />
+                    <img src={`https://picsum.photos/seed/${ramp.slug}/800/500`} alt={ramp.name} className="card-img" loading="lazy" width={800} height={400} />
                     <div className="card-body">
                       <div className="card-meta"><span>📍</span><span>{ramp.city ? `${ramp.city}, ` : ''}{ramp.state}</span></div>
                       <h3 className="card-title">{ramp.name}</h3>

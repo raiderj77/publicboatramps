@@ -110,7 +110,7 @@ export default function Home() {
               <Link key={ramp.slug} href={`/${ramp.stateSlug}/${ramp.slug}`} style={{ textDecoration: 'none' }}>
                 <article className="card">
                   <img
-                    src={`https://source.unsplash.com/800x500/?${IMG_KEYWORDS[i % IMG_KEYWORDS.length]}&sig=${i + 10}`}
+                    src={`https://picsum.photos/seed/${ramp.slug}/800/500`}
                     alt={ramp.name}
                     className="card-img"
                     loading="lazy"
