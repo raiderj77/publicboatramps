@@ -40,16 +40,33 @@ export default function Home() {
         '@context': 'https://schema.org', '@type': 'WebSite',
         url: 'https://publicboatramps.com',
         name: 'Public Boat Ramps Directory',
+        dateModified: '2026-04-07',
         potentialAction: { '@type': 'SearchAction', target: { '@type': 'EntryPoint', urlTemplate: 'https://publicboatramps.com/search?q={search_term_string}' }, 'query-input': 'required name=search_term_string' },
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org', '@type': 'Organization',
+        name: 'Public Boat Ramps',
+        url: 'https://publicboatramps.com',
+        description: 'Directory of public boat ramps across the United States',
+        dateModified: '2026-04-07',
+      }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org', '@type': 'LocalBusiness',
+        name: 'Public Boat Ramps Directory',
+        url: 'https://publicboatramps.com',
+        description: 'Find public boat ramps near you across the United States',
+        areaServed: 'United States',
+        dateModified: '2026-04-07',
+      }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org', '@type': 'FAQPage',
+        dateModified: '2026-04-07',
         mainEntity: [
-          { '@type': 'Question', name: 'What are public boat ramps?', acceptedAnswer: { '@type': 'Answer', text: 'Public boat ramps are free or low-cost water access points where boaters can launch their vessels. Most are maintained by government agencies and allow recreational boating.' } },
-          { '@type': 'Question', name: 'Are there fees to use public boat ramps?', acceptedAnswer: { '@type': 'Answer', text: 'Most public boat ramps are free to use. Some facilities may charge nominal parking fees or require a permit, which is typically inexpensive.' } },
-          { '@type': 'Question', name: 'What amenities are available at public boat ramps?', acceptedAnswer: { '@type': 'Answer', text: 'Common amenities include paved launch ramps, trailer parking, restrooms, picnic areas, and fishing piers.' } },
-          { '@type': 'Question', name: 'Do I need a permit to launch a boat at public ramps?', acceptedAnswer: { '@type': 'Answer', text: 'Most public ramps are free to use without a permit. Some states may require boat registration or launch permits.' } },
-          { '@type': 'Question', name: 'How can I find boat ramps near me?', acceptedAnswer: { '@type': 'Answer', text: 'Browse our directory by state to find public boat ramps in your area.' } },
+          { '@type': 'Question', name: 'How do I find a public boat ramp near me?', acceptedAnswer: { '@type': 'Answer', text: 'Use the Public Boat Ramps directory to search by state, county, or city. Each listing includes the ramp address, number of lanes, parking availability, fees, and facility amenities like courtesy docks and fish cleaning stations.' } },
+          { '@type': 'Question', name: 'Are public boat ramps free to use?', acceptedAnswer: { '@type': 'Answer', text: 'Many public boat ramps are free, but some charge a daily or annual launch fee ranging from $5 to $25 per day. Fee structures vary by state and managing agency — some ramps are managed by the Army Corps of Engineers, state fish and wildlife agencies, or local municipalities. Always check the individual listing for current fee information.' } },
+          { '@type': 'Question', name: 'What should I bring to a public boat ramp?', acceptedAnswer: { '@type': 'Answer', text: 'Bring your boat registration, a valid fishing or boating license if required in your state, sufficient cash or card for launch fees, and safety equipment including life jackets and a throwable device. Check local regulations for required equipment specific to your state.' } },
+          { '@type': 'Question', name: 'Can I launch any type of boat at a public ramp?', acceptedAnswer: { '@type': 'Answer', text: 'Most public ramps accommodate trailered powerboats, jon boats, and fishing boats. Some smaller or steeper ramps may have length or weight restrictions. Check the ramp listing for maximum boat size, trailer length limits, and surface condition (concrete, gravel, or dirt).' } },
+          { '@type': 'Question', name: 'Do public boat ramps have parking for trailers?', acceptedAnswer: { '@type': 'Answer', text: 'Most public boat ramps include trailer parking, though capacity varies significantly. Popular ramps at peak times like summer weekends can fill quickly — arriving early is recommended. Some locations charge separate trailer parking fees. Check individual listings for parking details.' } },
         ],
       }) }} />
 
@@ -187,6 +204,85 @@ export default function Home() {
             <p style={{ lineHeight: 1.85 }}>
               Most U.S. states require boat registration for recreational vessels. Registration fees are typically modest and help fund water safety programs and facility maintenance. Some states also offer launch permits or day-use passes for specific facilities, though many public ramps are completely free to use. Contact your state's fish and wildlife agency or check their website to confirm current requirements for your vessel and the specific ramp you plan to visit.
             </p>
+          </article>
+        </div>
+      </section>
+
+      {/* ── GEO Content ── */}
+      <section style={{ background: 'var(--cream)', borderTop: '1px solid rgba(10,22,40,0.06)', padding: '5rem 1.5rem' }}>
+        <div className="container" style={{ maxWidth: '860px' }}>
+          <article>
+
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--navy)', marginBottom: '0.75rem' }}>
+              How to find the best public boat ramp for your trip
+            </h2>
+            <p style={{ fontStyle: 'italic', color: 'var(--navy)', fontWeight: 600, marginBottom: '1rem', lineHeight: 1.7 }}>
+              Search by state or county, then filter by amenities — concrete ramps, courtesy docks, trailer parking, and restrooms are the key features that separate a good ramp from a frustrating one.
+            </p>
+            <p style={{ lineHeight: 1.85, marginBottom: '1.25rem' }}>
+              When evaluating a ramp, match the facility to your boat type. A flat-bottomed jon boat can handle a gravel or dirt ramp, but a deep-V trailered boat needs a concrete surface that extends far enough into the water for a safe float-off. Courtesy docks are essential if you&apos;re launching solo. There are over 20,000 public boat ramps across the United States, managed by a mix of federal, state, and local agencies — the quality and amenities vary widely even within the same county.
+            </p>
+            <p style={{ lineHeight: 1.85, marginBottom: '2.5rem' }}>
+              Trailer parking capacity is often the deciding factor on busy weekends. A ramp with only 10 trailer spaces fills before 8am on summer Saturdays at popular lakes. Use the listings to check parking notes before you make the drive. Recreational boating contributes over $230 billion to the U.S. economy annually, according to the National Marine Manufacturers Association — well-maintained public infrastructure is part of what sustains that activity.
+            </p>
+
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--navy)', marginBottom: '0.75rem' }}>
+              What are the busiest times at public boat ramps?
+            </h2>
+            <p style={{ fontStyle: 'italic', color: 'var(--navy)', fontWeight: 600, marginBottom: '1rem', lineHeight: 1.7 }}>
+              Summer weekends between 6am and 10am are the busiest times at most public boat ramps. Arriving before 8am on Saturday and Sunday significantly reduces wait times at popular launches.
+            </p>
+            <p style={{ lineHeight: 1.85, marginBottom: '1.25rem' }}>
+              Seasonal patterns matter too. Spring and fall weekdays are typically the least crowded times to launch, with shorter ramp queues and more available trailer parking. Summer holiday weekends — Memorial Day, Fourth of July, and Labor Day — see the longest waits, often with ramp lines forming before sunrise at well-known fishing destinations.
+            </p>
+            <p style={{ lineHeight: 1.85, marginBottom: '2.5rem' }}>
+              Fishing tournaments create unpredictable congestion even on weekdays. A bass tournament drawing 200 boats can back up a ramp for 90 minutes starting at 5am. Over 100 million Americans participate in recreational boating and fishing each year, according to the U.S. Fish and Wildlife Service — the demand on public launches is significant and growing. Check local fishing club schedules and tournament calendars before planning a mid-week launch.
+            </p>
+
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--navy)', marginBottom: '0.75rem' }}>
+              What boat ramp etiquette should I follow?
+            </h2>
+            <p style={{ fontStyle: 'italic', color: 'var(--navy)', fontWeight: 600, marginBottom: '1rem', lineHeight: 1.7 }}>
+              Prepare your boat fully in the staging area before pulling onto the ramp. Move quickly during the launch, then immediately pull your vehicle and trailer out of the ramp lane to allow the next boater access.
+            </p>
+            <p style={{ lineHeight: 1.85, marginBottom: '1.25rem' }}>
+              Loading and unloading etiquette follows the same principle: retrieve your boat from the water, pull to the staging area, then take your time securing the vessel and gear without blocking the ramp. When retrieving, have your trailer backed and ready before your boat reaches the dock — don&apos;t back the trailer while other boaters wait on the water.
+            </p>
+            <p style={{ lineHeight: 1.85, marginBottom: '2.5rem' }}>
+              Most ramp conflicts arise from boats being rigged on the ramp itself rather than in designated staging areas. Attaching downriggers, loading gear, and adjusting straps while occupying the active launch lane delays everyone behind you. Courteous ramp use means arriving prepared and treating the ramp as a high-traffic shared resource, not a private marina slip.
+            </p>
+
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--navy)', marginBottom: '0.75rem' }}>
+              Are public boat ramps open year-round?
+            </h2>
+            <p style={{ fontStyle: 'italic', color: 'var(--navy)', fontWeight: 600, marginBottom: '1rem', lineHeight: 1.7 }}>
+              Many public boat ramps are open year-round, but seasonal closures are common in northern states where ice or flooding makes launching unsafe. Some ramps close October through April.
+            </p>
+            <p style={{ lineHeight: 1.85, marginBottom: '2.5rem' }}>
+              Water levels after heavy rainfall can temporarily close ramps even during open seasons — a ramp that&apos;s submerged under 3 feet of flood water is unusable regardless of its posted hours. Always check with the local managing agency — Army Corps of Engineers project offices, state DNR websites, and county park departments typically post current closure notices online before you make the trip.
+            </p>
+
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', color: 'var(--navy)', marginBottom: '1rem' }}>
+              Further Reading
+            </h2>
+            <ul style={{ lineHeight: 2, paddingLeft: '1.25rem' }}>
+              <li>
+                <a href="https://www.recreation.gov" rel="nofollow noopener noreferrer" target="_blank" style={{ color: 'var(--navy)' }}>
+                  U.S. Army Corps of Engineers — Recreation Area Finder
+                </a>{' '}(recreation.gov)
+              </li>
+              <li>
+                <a href="https://www.nmma.org" rel="nofollow noopener noreferrer" target="_blank" style={{ color: 'var(--navy)' }}>
+                  National Marine Manufacturers Association — Boating Resources
+                </a>{' '}(nmma.org)
+              </li>
+              <li>
+                <a href="https://www.fws.gov" rel="nofollow noopener noreferrer" target="_blank" style={{ color: 'var(--navy)' }}>
+                  U.S. Fish and Wildlife Service — Fishing and Boating
+                </a>{' '}(fws.gov)
+              </li>
+            </ul>
+
           </article>
         </div>
       </section>
