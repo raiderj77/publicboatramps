@@ -13,7 +13,7 @@ export default function PrivacyPage() {
       </h1>
 
       <p style={{ marginBottom: '1rem' }}>
-        <strong>Last Updated: April 4, 2026</strong>
+        <strong>Last Updated: April 7, 2026</strong>
       </p>
 
       <p>
@@ -44,15 +44,25 @@ export default function PrivacyPage() {
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        3. Google AdSense
+        3. Advertising Cookies
       </h2>
       <p>
-        Our Site uses Google AdSense to display advertising. Google uses cookies to serve ads based on your
-        prior visits to this Site and other websites. You can opt out of Google's use of cookies for
-        personalized advertising by visiting Google's Ads Settings
-        (https://www.google.com/settings/ads). Additionally, you can opt out of a third-party vendor's use
-        of cookies by visiting the Network Advertising Initiative opt-out page
-        (https://www.networkadvertising.org/choices/).
+        We work with third-party advertising partners, including Google, who may use cookies to serve ads
+        based on your prior visits to this website or other websites. Our Site uses Google AdSense to display
+        advertising. Google and its partners use cookies and similar technologies to personalize ads, measure
+        ad performance, and help us generate revenue to keep this directory free.
+      </p>
+      <p style={{ marginTop: '0.75rem' }}>
+        You can opt out of personalized advertising by visiting{' '}
+        <a href="https://ads.google.com/settings" rel="nofollow noopener noreferrer" target="_blank">
+          Google Ads Settings
+        </a>
+        . You can also opt out of interest-based advertising from other participating companies by visiting{' '}
+        <a href="https://optout.aboutads.info" rel="nofollow noopener noreferrer" target="_blank">
+          optout.aboutads.info
+        </a>
+        . Opting out does not remove all ads — it means ads shown to you will not be personalized based on
+        your browsing history.
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
