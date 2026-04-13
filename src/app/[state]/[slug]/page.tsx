@@ -109,11 +109,11 @@ export default async function LocationPage({ params }: { params: Promise<{ state
       }) }} />
 
       {/* Hero image */}
-      <div style={{ position: 'relative', height: '420px', overflow: 'hidden' }}>
+      <div style={{ position: 'relative', height: '420px', overflow: 'hidden', background: 'linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 100%)' }}>
         <img
           src={getMapboxImage(location.lat, location.lng, 1400, 600)}
           alt={`${location.name} boat ramp`}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: 0.85 }}
           width={1600}
           height={800}
         />
