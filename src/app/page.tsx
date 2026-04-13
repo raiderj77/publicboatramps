@@ -5,6 +5,21 @@ import locations from '@/data/locations.json';
 
 export const dynamic = 'force-static';
 
+const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? '';
+
+function getMapboxImage(lat: number, lng: number, width = 800, height = 500): string {
+  return `https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/static/${lng},${lat},14,0/${width}x${height}?access_token=${MAPBOX_TOKEN}`;
+}
+
+function getRampPreview(ramp: { name: string; state: string; city: string; amenities: string[]; description: string }): string {
+  const amenityCount = ramp.amenities.length;
+  const location = ramp.city ? `${ramp.city}, ${ramp.state}` : ramp.state;
+  if (amenityCount >= 2) {
+    return `Public boat launch in ${location} with ${amenityCount} amenities including ${ramp.amenities.slice(0, 2).join(' and ').toLowerCase()}.`;
+  }
+  return `Public boat launch in ${location}. Free access to local waterways for boating and fishing.`;
+}
+
 export const metadata: Metadata = {
   title: 'Find Public Boat Ramps Near You | Free Directory',
   description:
@@ -25,8 +40,6 @@ const ALL_STATES = [
   'South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont',
   'Virginia','Washington','West Virginia','Wisconsin','Wyoming',
 ];
-
-const IMG_KEYWORDS = ['boat+ramp','lake+dock','marina','fishing+boat','boat+launch','river+boat'];
 
 export default function Home() {
   const featuredRamps = locations.slice(0, 6);
@@ -85,12 +98,10 @@ export default function Home() {
           <p className="anim-fade-up anim-delay-2" style={{ fontSize: '1.15rem', color: '#9ab8cf', marginBottom: '2.5rem', maxWidth: '520px', margin: '0 auto 2.5rem' }}>
             Discover free public boat launches and water access points across all 50 states.
           </p>
-          <form method="GET" action="/search" className="anim-fade-up anim-delay-3">
-            <div className="search-wrap">
-              <input type="text" name="q" placeholder="Search by city, state, or ramp name…" className="search-input" />
-              <button type="submit" className="search-btn">Search</button>
-            </div>
-          </form>
+          <div className="anim-fade-up anim-delay-3" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
+            <a href="#states" className="btn btn-gold">Browse by State →</a>
+            <a href="/pennsylvania" className="btn btn-outline">View Sample Ramps</a>
+          </div>
         </div>
 
         {/* Wave SVG */}
@@ -127,7 +138,7 @@ export default function Home() {
               <Link key={ramp.slug} href={`/${ramp.stateSlug}/${ramp.slug}`} style={{ textDecoration: 'none' }}>
                 <article className="card">
                   <img
-                    src={`https://picsum.photos/seed/${ramp.slug}/800/500`}
+                    src={getMapboxImage(ramp.lat, ramp.lng)}
                     alt={ramp.name}
                     className="card-img"
                     loading="lazy"
@@ -141,7 +152,7 @@ export default function Home() {
                     </div>
                     <h3 className="card-title">{ramp.name}</h3>
                     <p style={{ fontSize: '0.875rem', color: '#667', lineHeight: 1.6, flex: 1, marginBottom: '1rem' }}>
-                      {ramp.description.slice(0, 110)}…
+                      {getRampPreview(ramp)}
                     </p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
                       {ramp.amenities.slice(0, 3).map((a) => <span key={a} className="chip">{a}</span>)}
@@ -310,7 +321,7 @@ export default function Home() {
       </section>
 
       {/* ── Browse by State ── */}
-      <section style={{ padding: '5rem 1.5rem' }}>
+      <section id="states" style={{ padding: '5rem 1.5rem' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <p className="section-label">All States</p>

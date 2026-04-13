@@ -5,6 +5,12 @@ import locations from '@/data/locations.json';
 
 export const revalidate = 86400;
 
+const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? '';
+
+function getMapboxImage(lat: number, lng: number, width = 800, height = 500): string {
+  return `https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/static/${lng},${lat},14,0/${width}x${height}?access_token=${MAPBOX_TOKEN}`;
+}
+
 const stateList = [
   { name: 'Alabama', slug: 'alabama' }, { name: 'Alaska', slug: 'alaska' },
   { name: 'Arizona', slug: 'arizona' }, { name: 'Arkansas', slug: 'arkansas' },
@@ -96,7 +102,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
       {/* Hero image */}
       <div style={{ position: 'relative', height: '420px', overflow: 'hidden' }}>
         <img
-          src={`https://picsum.photos/seed/${slug}/1400/600`}
+          src={getMapboxImage(location.lat, location.lng, 1400, 600)}
           alt={`${location.name} boat ramp`}
           style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
           width={1600}
@@ -122,7 +128,11 @@ export default async function LocationPage({ params }: { params: Promise<{ state
           {/* Left — description + amenities */}
           <div>
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', color: 'var(--navy)', marginBottom: '1rem' }}>About This Ramp</h2>
-            <p style={{ lineHeight: 1.85, marginBottom: '2.5rem', color: 'var(--text)' }}>{location.description}</p>
+            <p style={{ lineHeight: 1.85, marginBottom: '2.5rem', color: 'var(--text)' }}>
+              {location.name} is a public boat launch located in {location.city ? `${location.city}, ` : ''}{location.state}.{' '}
+              This facility offers free public water access{location.amenities.length > 0 ? ` with ${location.amenities.length} available amenities including ${location.amenities.slice(0, 2).join(' and ').toLowerCase()}` : ''}.{' '}
+              GPS coordinates are available for navigation directly to the launch site.
+            </p>
 
             {location.amenities.length > 0 && (
               <>
@@ -197,7 +207,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
               {related.map((ramp, i) => (
                 <Link key={ramp.slug} href={`/${state}/${ramp.slug}`} style={{ textDecoration: 'none' }}>
                   <article className="card">
-                    <img src={`https://picsum.photos/seed/${ramp.slug}/800/500`} alt={ramp.name} className="card-img" loading="lazy" width={800} height={400} />
+                    <img src={getMapboxImage(ramp.lat, ramp.lng)} alt={ramp.name} className="card-img" loading="lazy" width={800} height={400} />
                     <div className="card-body">
                       <div className="card-meta"><span>📍</span><span>{ramp.city ? `${ramp.city}, ` : ''}{ramp.state}</span></div>
                       <h3 className="card-title">{ramp.name}</h3>

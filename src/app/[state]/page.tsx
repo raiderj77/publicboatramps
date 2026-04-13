@@ -5,6 +5,21 @@ import locations from '@/data/locations.json';
 
 export const revalidate = 86400;
 
+const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? '';
+
+function getMapboxImage(lat: number, lng: number, width = 800, height = 500): string {
+  return `https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/static/${lng},${lat},14,0/${width}x${height}?access_token=${MAPBOX_TOKEN}`;
+}
+
+function getRampPreview(ramp: { name: string; state: string; city: string; amenities: string[]; description: string }): string {
+  const amenityCount = ramp.amenities.length;
+  const location = ramp.city ? `${ramp.city}, ${ramp.state}` : ramp.state;
+  if (amenityCount >= 2) {
+    return `Public boat launch in ${location} with ${amenityCount} amenities including ${ramp.amenities.slice(0, 2).join(' and ').toLowerCase()}.`;
+  }
+  return `Public boat launch in ${location}. Free access to local waterways for boating and fishing.`;
+}
+
 const stateList = [
   { name: 'Alabama', slug: 'alabama' }, { name: 'Alaska', slug: 'alaska' },
   { name: 'Arizona', slug: 'arizona' }, { name: 'Arkansas', slug: 'arkansas' },
@@ -52,8 +67,6 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   };
 }
 
-const IMG_KEYWORDS = ['boat+ramp','lake+dock','fishing+boat','marina','boat+launch','river+boat','lake+fishing','waterway'];
-
 export default async function StatePage({ params }: { params: Promise<{ state: string }> }) {
   const { state } = await params;
   const stateName = getStateName(state);
@@ -71,7 +84,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
 
       {/* Hero */}
       <section style={{ background: 'linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%)', padding: '4rem 1.5rem 3rem', position: 'relative', overflow: 'hidden' }}>
-        <div aria-hidden style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', background: 'url("https://picsum.photos/seed/hero-bg-state/1200/600") center/cover no-repeat', opacity: 0.12, pointerEvents: 'none' }} />
+        <div aria-hidden style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', background: 'rgba(201,168,76,0.05)', pointerEvents: 'none' }} />
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <Link href="/" style={{ color: 'var(--gold)', fontSize: '0.875rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '1.5rem', fontWeight: 600 }}>← Back to All States</Link>
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', color: 'white', marginBottom: '0.75rem' }}>
@@ -96,7 +109,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
                 <Link key={ramp.slug} href={`/${state}/${ramp.slug}`} style={{ textDecoration: 'none' }}>
                   <article className="card">
                     <img
-                      src={`https://picsum.photos/seed/${ramp.slug}/800/500`}
+                      src={getMapboxImage(ramp.lat, ramp.lng)}
                       alt={ramp.name}
                       className="card-img"
                       loading="lazy"
@@ -110,7 +123,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
                       </div>
                       <h2 className="card-title">{ramp.name}</h2>
                       <p style={{ fontSize: '0.875rem', color: '#667', lineHeight: 1.6, flex: 1, marginBottom: '1rem' }}>
-                        {ramp.description.slice(0, 100)}…
+                        {getRampPreview(ramp)}
                       </p>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
                         {ramp.amenities.slice(0, 3).map((a) => <span key={a} className="chip">{a}</span>)}
