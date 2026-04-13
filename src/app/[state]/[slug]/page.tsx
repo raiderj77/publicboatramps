@@ -8,7 +8,7 @@ export const revalidate = 86400;
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? '';
 
 function getMapboxImage(lat: number, lng: number, width = 800, height = 500): string {
-  return `https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/static/${lng},${lat},14,0/${width}x${height}?access_token=${MAPBOX_TOKEN}`;
+  return `https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/${lng},${lat},13,0/${width}x${height}?access_token=${MAPBOX_TOKEN}`;
 }
 
 const stateList = [
@@ -64,6 +64,15 @@ const AMENITY_ICONS: Record<string, string> = {
   'Picnic area': '🌳', 'Fishing pier': '🎣', 'Fish cleaning station': '🐟',
   'Handicap accessible': '♿', 'Lighting': '💡', 'Security': '🔒',
 };
+
+function getRampPreview(ramp: { name: string; state: string; city: string; amenities: string[]; description: string }): string {
+  const amenityCount = ramp.amenities.length;
+  const location = ramp.city ? `${ramp.city}, ${ramp.state}` : ramp.state;
+  if (amenityCount >= 2) {
+    return `Public boat launch in ${location} with ${amenityCount} amenities including ${ramp.amenities.slice(0, 2).join(' and ').toLowerCase()}.`;
+  }
+  return `Public boat launch in ${location}. Free access to local waterways for boating and fishing.`;
+}
 
 export default async function LocationPage({ params }: { params: Promise<{ state: string; slug: string }> }) {
   const { state, slug } = await params;
@@ -211,7 +220,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
                     <div className="card-body">
                       <div className="card-meta"><span>📍</span><span>{ramp.city ? `${ramp.city}, ` : ''}{ramp.state}</span></div>
                       <h3 className="card-title">{ramp.name}</h3>
-                      <p style={{ fontSize: '0.85rem', color: '#667', lineHeight: 1.6 }}>{ramp.description.slice(0, 80)}…</p>
+                      <p style={{ fontSize: '0.85rem', color: '#667', lineHeight: 1.6 }}>{getRampPreview(ramp)}</p>
                     </div>
                   </article>
                 </Link>
