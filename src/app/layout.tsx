@@ -47,16 +47,10 @@ const toolSites = [
   { name: 'Medical Bill Reader', href: 'https://medicalbillreader.com' },
   { name: 'Tax Break Tools', href: 'https://taxbreaktools.com' },
   { name: '524 Tracker', href: 'https://524tracker.com' },
+  { name: 'AI Business Alternative', href: 'https://aibusinessalternative.com' },
 ];
 
 const directorySites = [
-  { name: 'Find Swim Spots', href: 'https://findswimspots.com' },
-  { name: 'Craft Distillery Finder', href: 'https://craftdistilleryfinder.com' },
-  { name: 'Drive-In Tonight', href: 'https://driveintonight.com' },
-  { name: 'All Skate Parks', href: 'https://allskateparks.com' },
-  { name: 'Rockhounding Finder', href: 'https://rockhoundingfinder.com' },
-  { name: 'Nearby Escape Rooms', href: 'https://nearbyescaperooms.com' },
-  { name: 'All Skating Rinks', href: 'https://allskatingrinks.com' },
   { name: 'Soak USA', href: 'https://soakusa.net' },
 ];
 
@@ -119,6 +113,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </Link>
             <nav style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
               <Link href="/" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em', transition: 'color 0.2s' }}>Home</Link>
+              <Link href="/editorial" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>Editorial</Link>
               <Link href="/about" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>About</Link>
               <Link href="/contact" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>Contact</Link>
             </nav>

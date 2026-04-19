@@ -1,13 +1,22 @@
-# Public Boat Ramps Directory
+# Public Boat Ramps Directory — LLM-Friendly Site Summary
 
 > A free directory of public boat ramps, launches, and water access points across the United States.
 
-## Browse
-- [Home](https://publicboatramps.com): Search all public boat ramps
-- [Texas](https://publicboatramps.com/texas): Public boat ramps in Texas
-- [Florida](https://publicboatramps.com/florida): Public boat ramps in Florida
-
 ## About
-- [About Us](https://publicboatramps.com/about): About this directory
-- [Privacy Policy](https://publicboatramps.com/privacy): How we handle data
+- Domain: publicboatramps.com
+- Type: Location directory
+- Coverage: All 50 US states, 102+ public boat ramp locations
+- Data: GPS coordinates, amenities, access hours, fees, ramp type
+
+## Key Pages
+- [Home](https://publicboatramps.com): Browse all public boat ramps by state
+- [Editorial](https://publicboatramps.com/editorial): Guides and expert content
+- [Privacy Policy](https://publicboatramps.com/privacy): MODPA/GDPR/CCPA compliant, honors GPC signals
+- [About](https://publicboatramps.com/about): Mission and editorial standards
 - [Contact](https://publicboatramps.com/contact): Get in touch
+
+## Data Coverage
+Each boat ramp listing includes: name, state, county, GPS coordinates, address, amenities (parking, restrooms, courtesy dock, fishing pier), ramp type (concrete/gravel), fee information, and seasonal availability.
+
+## Sitemap
+https://publicboatramps.com/sitemap.xml

@@ -72,6 +72,17 @@ export default function Home() {
         dateModified: '2026-04-07',
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: 'Public Boat Ramps Editorial Team',
+        url: 'https://publicboatramps.com/editorial',
+        worksFor: {
+          '@type': 'Organization',
+          name: 'Public Boat Ramps Directory',
+          url: 'https://publicboatramps.com',
+        },
+      }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org', '@type': 'FAQPage',
         dateModified: '2026-04-07',
         mainEntity: [
