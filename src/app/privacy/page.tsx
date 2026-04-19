@@ -13,7 +13,7 @@ export default function PrivacyPage() {
       </h1>
 
       <p style={{ marginBottom: '1rem' }}>
-        <strong>Last Updated: April 7, 2026</strong>
+        <strong>Last Updated: April 2026</strong>
       </p>
 
       <p>
@@ -106,7 +106,33 @@ export default function PrivacyPage() {
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        8. Third-Party Links
+        8. MODPA (Maryland Online Data Privacy Act) Compliance
+      </h2>
+      <p>
+        The Maryland Online Data Privacy Act (MODPA) became enforceable on April 1, 2026. This law provides Maryland residents with the following consumer rights:
+      </p>
+      <ul style={{ marginTop: '0.75rem', marginBottom: '0.75rem', paddingLeft: '2rem' }}>
+        <li><strong>Right to Access:</strong> You have the right to know what personal data we collect about you.</li>
+        <li><strong>Right to Correct:</strong> You may request correction of inaccurate personal data.</li>
+        <li><strong>Right to Delete:</strong> You may request deletion of your personal data, with limited exceptions.</li>
+        <li><strong>Right to Opt-Out of Sale or Targeted Advertising:</strong> You may opt out of the sale or sharing of your personal data for targeted advertising purposes.</li>
+        <li><strong>Right to Data Portability:</strong> You may request your personal data in a portable and readily usable format.</li>
+      </ul>
+      <p style={{ marginTop: '0.75rem', marginBottom: '0.75rem' }}>
+        <strong>Global Privacy Control (GPC):</strong> We honor the Global Privacy Control (GPC) signal. If you send us a GPC signal via your browser or device, we will treat it as a universal opt-out request for sale or targeted advertising of your personal data.
+      </p>
+      <p style={{ marginTop: '0.75rem', marginBottom: '0.75rem' }}>
+        <strong>No Sale of Personal Data:</strong> We do not sell personal data to third parties, as that term is defined under MODPA.
+      </p>
+      <p style={{ marginTop: '0.75rem', marginBottom: '0.75rem' }}>
+        <strong>Response Timeline:</strong> We will respond to verifiable consumer rights requests within 45 days, as required by law.
+      </p>
+      <p>
+        To exercise any of your MODPA rights, please contact us at: privacy@publicboatramps.com
+      </p>
+
+      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
+        9. Third-Party Links
       </h2>
       <p>
         Our Site may contain links to third-party websites. We are not responsible for the privacy practices
@@ -115,7 +141,7 @@ export default function PrivacyPage() {
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        9. Security
+        10. Security
       </h2>
       <p>
         We implement reasonable security measures to protect your data. However, no method of transmission
@@ -123,7 +149,7 @@ export default function PrivacyPage() {
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        10. Changes to This Policy
+        11. Changes to This Policy
       </h2>
       <p>
         We may update this Privacy Policy periodically. Changes will be posted on this page with an updated
@@ -132,7 +158,7 @@ export default function PrivacyPage() {
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        11. Contact Us
+        12. Contact Us
       </h2>
       <p>
         If you have questions about this Privacy Policy or our privacy practices, please contact us at:
