@@ -63,6 +63,7 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
     title: `Public Boat Ramps in ${stateName}`,
     description: `Find free public boat ramps and launches in ${stateName}. Browse available facilities with amenities and GPS coordinates.`,
     alternates: { canonical: `https://publicboatramps.com/${state}` },
+    robots: { index: false, follow: true },
     openGraph: { title: `Public Boat Ramps in ${stateName}`, description: `Find free public boat ramps in ${stateName}.`, url: `https://publicboatramps.com/${state}` },
   };
 }

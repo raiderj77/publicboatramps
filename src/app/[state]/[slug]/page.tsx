@@ -55,6 +55,7 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
     title: `${location?.name ?? 'Boat Ramp'} — Public Boat Ramp in ${stateName}`,
     description: location?.description ?? `Public boat ramp in ${stateName}.`,
     alternates: { canonical: `https://publicboatramps.com/${state}/${slug}` },
+    robots: { index: false, follow: true },
     openGraph: { title: `${location?.name} | Public Boat Ramps`, description: location?.description, url: `https://publicboatramps.com/${state}/${slug}` },
   };
 }
