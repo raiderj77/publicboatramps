@@ -1,11 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { marked } from 'marked';
 import locations from '@/data/locations.json';
+import stateGuidesRaw from '@/data/state_guides.json';
 
 export const revalidate = 86400;
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? '';
+
+type StateGuide = {
+  state_name: string;
+  noun_plural: string;
+  guide_md: string;
+  faq_md: string;
+  faq_pairs: { question: string; answer: string }[];
+};
+
+const stateGuides = stateGuidesRaw as Record<string, StateGuide>;
 
 function getMapboxImage(lat: number, lng: number, width = 800, height = 500): string {
   return `https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/static/${lng},${lat},14,0/${width}x${height}?access_token=${MAPBOX_TOKEN}`;
@@ -63,7 +75,6 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
     title: `Public Boat Ramps in ${stateName}`,
     description: `Find free public boat ramps and launches in ${stateName}. Browse available facilities with amenities and GPS coordinates.`,
     alternates: { canonical: `https://publicboatramps.com/${state}` },
-    robots: { index: false, follow: true },
     openGraph: { title: `Public Boat Ramps in ${stateName}`, description: `Find free public boat ramps in ${stateName}.`, url: `https://publicboatramps.com/${state}` },
   };
 }
@@ -72,6 +83,20 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
   const { state } = await params;
   const stateName = getStateName(state);
   const ramps = locations.filter((l) => l.stateSlug === state);
+  const guide = stateGuides[stateName] as StateGuide | undefined;
+
+  const guideHtml = guide ? await marked.parse(guide.guide_md) : null;
+  const faqHtml = guide ? await marked.parse(guide.faq_md) : null;
+
+  const faqJsonLd = guide && guide.faq_pairs.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: guide.faq_pairs.map((p) => ({
+      '@type': 'Question',
+      name: p.question,
+      acceptedAnswer: { '@type': 'Answer', text: p.answer },
+    })),
+  } : null;
 
   return (
     <>
@@ -82,6 +107,9 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
           { '@type': 'ListItem', position: 2, name: stateName, item: `https://publicboatramps.com/${state}` },
         ],
       }) }} />
+      {faqJsonLd && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      )}
 
       {/* Hero */}
       <section style={{ background: 'linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%)', padding: '4rem 1.5rem 3rem', position: 'relative', overflow: 'hidden' }}>
@@ -101,12 +129,19 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
         </svg>
       </section>
 
+      {/* Guide content */}
+      {guideHtml && (
+        <section style={{ background: 'var(--cream)', padding: '3rem 1.5rem 2rem', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
+          <div className="container prose-guide" style={{ maxWidth: '760px' }} dangerouslySetInnerHTML={{ __html: guideHtml }} />
+        </section>
+      )}
+
       {/* Listings grid */}
       <section style={{ padding: '4rem 1.5rem' }}>
         <div className="container">
           {ramps.length > 0 ? (
             <div className="grid-3">
-              {ramps.map((ramp, i) => (
+              {ramps.map((ramp) => (
                 <Link key={ramp.slug} href={`/${state}/${ramp.slug}`} style={{ textDecoration: 'none' }}>
                   <article className="card">
                     <img
@@ -144,6 +179,13 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
           )}
         </div>
       </section>
+
+      {/* FAQ section */}
+      {faqHtml && (
+        <section style={{ background: 'var(--cream)', borderTop: '1px solid rgba(0,0,0,0.06)', padding: '4rem 1.5rem' }}>
+          <div className="container prose-guide" style={{ maxWidth: '760px' }} dangerouslySetInnerHTML={{ __html: faqHtml }} />
+        </section>
+      )}
     </>
   );
 }
