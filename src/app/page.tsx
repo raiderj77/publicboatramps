@@ -53,7 +53,7 @@ export default function Home() {
         '@context': 'https://schema.org', '@type': 'WebSite',
         url: 'https://publicboatramps.com',
         name: 'Public Boat Ramps Directory',
-        dateModified: '2026-04-07',
+        dateModified: new Date().toISOString().substring(0,10),
         potentialAction: { '@type': 'SearchAction', target: { '@type': 'EntryPoint', urlTemplate: 'https://publicboatramps.com/search?q={search_term_string}' }, 'query-input': 'required name=search_term_string' },
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -61,7 +61,7 @@ export default function Home() {
         name: 'Public Boat Ramps',
         url: 'https://publicboatramps.com',
         description: 'Directory of public boat ramps across the United States',
-        dateModified: '2026-04-07',
+        dateModified: new Date().toISOString().substring(0,10),
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org', '@type': 'LocalBusiness',
@@ -69,7 +69,7 @@ export default function Home() {
         url: 'https://publicboatramps.com',
         description: 'Find public boat ramps near you across the United States',
         areaServed: 'United States',
-        dateModified: '2026-04-07',
+        dateModified: new Date().toISOString().substring(0,10),
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org',
@@ -84,7 +84,7 @@ export default function Home() {
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org', '@type': 'FAQPage',
-        dateModified: '2026-04-07',
+        dateModified: new Date().toISOString().substring(0,10),
         mainEntity: [
           { '@type': 'Question', name: 'How do I find a public boat ramp near me?', acceptedAnswer: { '@type': 'Answer', text: 'Use the Public Boat Ramps directory to search by state, county, or city. Each listing includes the ramp address, number of lanes, parking availability, fees, and facility amenities like courtesy docks and fish cleaning stations.' } },
           { '@type': 'Question', name: 'Are public boat ramps free to use?', acceptedAnswer: { '@type': 'Answer', text: 'Many public boat ramps are free, but some charge a daily or annual launch fee ranging from $5 to $25 per day. Fee structures vary by state and managing agency — some ramps are managed by the Army Corps of Engineers, state fish and wildlife agencies, or local municipalities. Always check the individual listing for current fee information.' } },
