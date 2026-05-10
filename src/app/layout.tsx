@@ -65,14 +65,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Consent Mode v2 — must fire before any tracking or ad scripts */}
         <Script id="consent-mode" strategy="beforeInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'denied',personalization_storage:'denied',security_storage:'granted',wait_for_update:500});`}</Script>
-        {/* Cookiebot CMP */}
-        <Script
-          id="Cookiebot"
-          src="https://consent.cookiebot.com/uc.js"
-          data-cbid="a9a99ccb-4863-4e33-a895-a6d5642f408d"
-          data-blockingmode="auto"
-          strategy="beforeInteractive"
-        />
+        {/* CMP: Funding Choices auto-loads via AdSense for T1 sites */}
         {/* Google Analytics 4, AdSense, and Clarity — gated by GPC */}
         {!gpcHeader && (
           <>

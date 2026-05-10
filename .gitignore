@@ -4,3 +4,4 @@ node_modules/
 out/
 
 .vercel
+src/app/layout.tsx.bak.*
