@@ -225,10 +225,10 @@ export default function Home() {
               Search by state or county, then filter by amenities — concrete ramps, courtesy docks, trailer parking, and restrooms are the key features that separate a good ramp from a frustrating one.
             </p>
             <p style={{ lineHeight: 1.85, marginBottom: '1.25rem' }}>
-              When evaluating a ramp, match the facility to your boat type. A flat-bottomed jon boat can handle a gravel or dirt ramp, but a deep-V trailered boat needs a concrete surface that extends far enough into the water for a safe float-off. Courtesy docks are essential if you&apos;re launching solo. There are over 20,000 public boat ramps across the United States, managed by a mix of federal, state, and local agencies — the quality and amenities vary widely even within the same county.
+              When evaluating a ramp, match the facility to your boat type. A flat-bottomed jon boat can handle a gravel or dirt ramp, but a deep-V trailered boat needs a concrete surface that extends far enough into the water for a safe float-off. Courtesy docks are essential if you&apos;re launching solo. There are thousands of public boat ramps across the United States, managed by a mix of federal, state, and local agencies, and the quality and amenities vary widely even within the same county.
             </p>
             <p style={{ lineHeight: 1.85, marginBottom: '2.5rem' }}>
-              Trailer parking capacity is often the deciding factor on busy weekends. A ramp with only 10 trailer spaces fills before 8am on summer Saturdays at popular lakes. Use the listings to check parking notes before you make the drive. Recreational boating contributes over $230 billion to the U.S. economy annually, according to the National Marine Manufacturers Association — well-maintained public infrastructure is part of what sustains that activity.
+              Trailer parking capacity is often the deciding factor on busy weekends. A ramp with only 10 trailer spaces fills before 8am on summer Saturdays at popular lakes. Use the listings to check parking notes before you make the drive. Recreational boating is a significant contributor to the U.S. economy, and well-maintained public infrastructure is part of what sustains that activity.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--navy)', marginBottom: '0.75rem' }}>
@@ -241,7 +241,7 @@ export default function Home() {
               Seasonal patterns matter too. Spring and fall weekdays are typically the least crowded times to launch, with shorter ramp queues and more available trailer parking. Summer holiday weekends — Memorial Day, Fourth of July, and Labor Day — see the longest waits, often with ramp lines forming before sunrise at well-known fishing destinations.
             </p>
             <p style={{ lineHeight: 1.85, marginBottom: '2.5rem' }}>
-              Fishing tournaments create unpredictable congestion even on weekdays. A bass tournament drawing 200 boats can back up a ramp for 90 minutes starting at 5am. Over 100 million Americans participate in recreational boating and fishing each year, according to the U.S. Fish and Wildlife Service — the demand on public launches is significant and growing. Check local fishing club schedules and tournament calendars before planning a mid-week launch.
+              Fishing tournaments create unpredictable congestion even on weekdays. Fishing tournaments can back up a ramp for over an hour starting before sunrise. Recreational boating and fishing participation is significant and growing across the United States. Check local fishing club schedules and tournament calendars before planning a mid-week launch.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--navy)', marginBottom: '0.75rem' }}>
