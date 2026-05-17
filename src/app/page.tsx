@@ -1,15 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import locations from '@/data/locations.json';
 
 export const dynamic = 'force-static';
-
-const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? '';
-
-function getMapboxImage(lat: number, lng: number, width = 800, height = 500): string {
-  return `https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/static/${lng},${lat},14,0/${width}x${height}?access_token=${MAPBOX_TOKEN}`;
-}
 
 function getRampPreview(ramp: { name: string; state: string; city: string; amenities: string[]; description: string }): string {
   const amenityCount = ramp.amenities.length;
@@ -131,14 +124,26 @@ export default function Home() {
             {featuredRamps.map((ramp, i) => (
               <Link key={ramp.slug} href={`/${ramp.stateSlug}/${ramp.slug}`} style={{ textDecoration: 'none' }}>
                 <article className="card">
-                  <img
-                    src={getMapboxImage(ramp.lat, ramp.lng)}
-                    alt={ramp.name}
+                  <div
                     className="card-img"
-                    loading="lazy"
-                    width={800}
-                    height={500}
-                  />
+                    style={{
+                      width: '100%',
+                      height: '250px',
+                      background: 'linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, #2d7aa8 100%)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      position: 'relative',
+                      overflow: 'hidden',
+                    }}
+                    aria-label={`Map preview for ${ramp.name}`}
+                  >
+                    <svg aria-hidden viewBox="0 0 100 100" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.15 }}>
+                      <path d="M0,60 Q25,50 50,60 T100,60 L100,100 L0,100 Z" fill="white" />
+                      <path d="M0,70 Q25,60 50,70 T100,70 L100,100 L0,100 Z" fill="white" opacity="0.5" />
+                    </svg>
+                    <span style={{ position: 'relative', color: 'var(--gold)', fontSize: '2.5rem', zIndex: 1 }}>⚓</span>
+                  </div>
                   <div className="card-body">
                     <div className="card-meta">
                       <span>📍</span>
