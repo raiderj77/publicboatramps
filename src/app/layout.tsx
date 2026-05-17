@@ -159,15 +159,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                 <p style={{ color: '#677', fontSize: '0.85rem' }}>© 2026 Public Boat Ramps Directory. All rights reserved.</p>
                 <p style={{ color: '#677', fontSize: '0.75rem' }}>
-                  Location data ©{' '}
+                  Location data sourced from{' '}
                   <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" style={{ color: '#9ab', textDecoration: 'underline' }}>
                     OpenStreetMap contributors
                   </a>
-                  , available under{' '}
-                  <a href="https://opendatacommons.org/licenses/odbl/" target="_blank" rel="noopener noreferrer" style={{ color: '#9ab', textDecoration: 'underline' }}>
-                    ODbL
+                  {' '}(ODbL) and the{' '}
+                  <a href="https://myfwc.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#9ab', textDecoration: 'underline' }}>
+                    Florida Fish and Wildlife Conservation Commission
                   </a>
-                  .
+                  {' '}(public domain). Per-record attribution shown on each ramp page.
                 </p>
               </div>
               <div style={{ display: 'flex', gap: '1.5rem' }}>

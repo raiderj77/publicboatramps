@@ -4,13 +4,17 @@ import locations from '@/data/locations.json';
 
 export const dynamic = 'force-static';
 
-function getRampPreview(ramp: { name: string; state: string; city: string; amenities: string[]; description: string }): string {
-  const amenityCount = ramp.amenities.length;
-  const location = ramp.city ? `${ramp.city}, ${ramp.state}` : ramp.state;
-  if (amenityCount >= 2) {
-    return `Public boat launch in ${location} with ${amenityCount} amenities including ${ramp.amenities.slice(0, 2).join(' and ').toLowerCase()}.`;
+function getRampPreview(ramp: { name: string; state: string; city: string; amenities: string[]; description?: string }): string {
+  if (ramp.description && ramp.description.length > 20) {
+    const firstSentence = ramp.description.split(/(?<=[.!?])\s/)[0];
+    return firstSentence.length <= 160 ? firstSentence : firstSentence.slice(0, 157) + '...';
   }
-  return `Public boat launch in ${location}. Free access to local waterways for boating and fishing.`;
+  const amenityCount = ramp.amenities.length;
+  const loc = ramp.city ? `${ramp.city}, ${ramp.state}` : ramp.state;
+  if (amenityCount >= 2) {
+    return `Public boat launch in ${loc} with ${amenityCount} amenities including ${ramp.amenities.slice(0, 2).join(' and ').toLowerCase()}.`;
+  }
+  return `Public boat launch in ${loc}. Free access to local waterways for boating and fishing.`;
 }
 
 export const metadata: Metadata = {
