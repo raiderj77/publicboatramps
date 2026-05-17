@@ -156,7 +156,20 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               </div>
             </div>
             <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-              <p style={{ color: '#677', fontSize: '0.85rem' }}>© 2026 Public Boat Ramps Directory. All rights reserved.</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <p style={{ color: '#677', fontSize: '0.85rem' }}>© 2026 Public Boat Ramps Directory. All rights reserved.</p>
+                <p style={{ color: '#677', fontSize: '0.75rem' }}>
+                  Location data ©{' '}
+                  <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" style={{ color: '#9ab', textDecoration: 'underline' }}>
+                    OpenStreetMap contributors
+                  </a>
+                  , available under{' '}
+                  <a href="https://opendatacommons.org/licenses/odbl/" target="_blank" rel="noopener noreferrer" style={{ color: '#9ab', textDecoration: 'underline' }}>
+                    ODbL
+                  </a>
+                  .
+                </p>
+              </div>
               <div style={{ display: 'flex', gap: '1.5rem' }}>
                 {[['About', '/about'], ['Privacy', '/privacy'], ['Terms', '/terms'], ['Contact', '/contact']].map(([label, href]) => (
                   <Link key={href} href={href} style={{ color: '#677', fontSize: '0.85rem', textDecoration: 'none' }}>{label}</Link>
