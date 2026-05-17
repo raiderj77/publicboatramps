@@ -53,7 +53,7 @@ export default function Home() {
         '@context': 'https://schema.org', '@type': 'WebSite',
         url: 'https://publicboatramps.com',
         name: 'Public Boat Ramps Directory',
-        dateModified: new Date().toISOString().substring(0,10),
+        dateModified: '2026-05-16',
         potentialAction: { '@type': 'SearchAction', target: { '@type': 'EntryPoint', urlTemplate: 'https://publicboatramps.com/search?q={search_term_string}' }, 'query-input': 'required name=search_term_string' },
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -61,19 +61,12 @@ export default function Home() {
         name: 'Public Boat Ramps',
         url: 'https://publicboatramps.com',
         description: 'Directory of public boat ramps across the United States',
-        dateModified: new Date().toISOString().substring(0,10),
+        dateModified: '2026-05-16',
       }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        '@context': 'https://schema.org', '@type': 'LocalBusiness',
-        name: 'Public Boat Ramps Directory',
-        url: 'https://publicboatramps.com',
-        description: 'Find public boat ramps near you across the United States',
-        areaServed: 'United States',
-        dateModified: new Date().toISOString().substring(0,10),
-      }) }} />
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org',
-        '@type': 'Person',
+        '@type': 'Organization',
         name: 'Public Boat Ramps Editorial Team',
         url: 'https://publicboatramps.com/editorial',
         worksFor: {
@@ -82,17 +75,7 @@ export default function Home() {
           url: 'https://publicboatramps.com',
         },
       }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        '@context': 'https://schema.org', '@type': 'FAQPage',
-        dateModified: new Date().toISOString().substring(0,10),
-        mainEntity: [
-          { '@type': 'Question', name: 'How do I find a public boat ramp near me?', acceptedAnswer: { '@type': 'Answer', text: 'Use the Public Boat Ramps directory to search by state, county, or city. Each listing includes the ramp address, number of lanes, parking availability, fees, and facility amenities like courtesy docks and fish cleaning stations.' } },
-          { '@type': 'Question', name: 'Are public boat ramps free to use?', acceptedAnswer: { '@type': 'Answer', text: 'Many public boat ramps are free, but some charge a daily or annual launch fee ranging from $5 to $25 per day. Fee structures vary by state and managing agency — some ramps are managed by the Army Corps of Engineers, state fish and wildlife agencies, or local municipalities. Always check the individual listing for current fee information.' } },
-          { '@type': 'Question', name: 'What should I bring to a public boat ramp?', acceptedAnswer: { '@type': 'Answer', text: 'Bring your boat registration, a valid fishing or boating license if required in your state, sufficient cash or card for launch fees, and safety equipment including life jackets and a throwable device. Check local regulations for required equipment specific to your state.' } },
-          { '@type': 'Question', name: 'Can I launch any type of boat at a public ramp?', acceptedAnswer: { '@type': 'Answer', text: 'Most public ramps accommodate trailered powerboats, jon boats, and fishing boats. Some smaller or steeper ramps may have length or weight restrictions. Check the ramp listing for maximum boat size, trailer length limits, and surface condition (concrete, gravel, or dirt).' } },
-          { '@type': 'Question', name: 'Do public boat ramps have parking for trailers?', acceptedAnswer: { '@type': 'Answer', text: 'Most public boat ramps include trailer parking, though capacity varies significantly. Popular ramps at peak times like summer weekends can fill quickly — arriving early is recommended. Some locations charge separate trailer parking fees. Check individual listings for parking details.' } },
-        ],
-      }) }} />
+
 
       {/* ── Hero ── */}
       <section style={{ position: 'relative', background: 'linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 100%)', overflow: 'hidden', padding: '6rem 1.5rem 7rem' }}>
