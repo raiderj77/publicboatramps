@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import locations from '@/data/locations.json';
+import { isIndexable } from '@/lib/quality-gate';
 
 export const revalidate = 86400;
 
@@ -49,7 +50,9 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
     title: `${location?.name ?? 'Boat Ramp'} — Public Boat Ramp in ${stateName}`,
     description: location?.description ?? `Public boat ramp in ${stateName}.`,
     alternates: { canonical: `https://publicboatramps.com/${state}/${slug}` },
-    robots: { index: false, follow: true },
+    robots: location && isIndexable(location as Record<string, any>)
+      ? { index: true, follow: true }
+      : { index: false, follow: true },
     openGraph: { title: `${location?.name} | Public Boat Ramps`, description: location?.description, url: `https://publicboatramps.com/${state}/${slug}` },
   };
 }
