@@ -18,6 +18,10 @@ export function GET() {
     <loc>${BASE}/sitemap-ramps.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
+  <sitemap>
+    <loc>${BASE}/sitemap-water-bodies.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
 </sitemapindex>`;
 
   return new NextResponse(xml, {

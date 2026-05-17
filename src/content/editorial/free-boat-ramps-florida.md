@@ -6,6 +6,7 @@ author: Marcus Whitfield, Florida Boating Editor
 datePublished: 2026-05-17
 tags: [Florida, Free Ramps, Guide, FWC]
 primaryKeyword: free boat ramps florida
+state: florida
 ---
 
 Florida has more public boat ramps than any other state. That claim gets repeated often, but the FWC Florida Boat Ramp Inventory backs it up: the state maintains 2,415 documented public ramp facilities, of which **1,585 have no launch fee**. That means more than six in ten of Florida's public launch points will put you on the water for nothing.

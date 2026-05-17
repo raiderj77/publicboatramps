@@ -24,6 +24,8 @@ export interface ArticleMeta {
   datePublished: string;
   tags: string[];
   primaryKeyword: string;
+  state: string;
+  waterBody: string;
 }
 
 export interface Article extends ArticleMeta {
@@ -64,6 +66,8 @@ function toMeta(meta: Record<string, unknown>, slug: string): ArticleMeta {
     datePublished: String(meta.datePublished ?? ''),
     tags: Array.isArray(meta.tags) ? meta.tags.map(String) : [],
     primaryKeyword: String(meta.primaryKeyword ?? ''),
+    state: String(meta.state ?? ''),
+    waterBody: String(meta.waterBody ?? ''),
   };
 }
 
