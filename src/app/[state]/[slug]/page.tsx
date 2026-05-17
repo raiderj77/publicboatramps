@@ -1,15 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import locations from '@/data/locations.json';
 
 export const revalidate = 86400;
-
-const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? '';
-
-function getMapboxImage(lat: number, lng: number, width = 800, height = 500): string {
-  return `https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/${lng},${lat},13,0/${width}x${height}?access_token=${MAPBOX_TOKEN}`;
-}
 
 const stateList = [
   { name: 'Alabama', slug: 'alabama' }, { name: 'Alaska', slug: 'alaska' },
@@ -109,25 +102,34 @@ export default async function LocationPage({ params }: { params: Promise<{ state
         amenityFeature: location.amenities.map((a) => ({ '@type': 'LocationFeatureSpecification', name: a, value: true })),
       }) }} />
 
-      {/* Hero image */}
-      <div style={{ position: 'relative', height: '420px', overflow: 'hidden', background: 'linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 100%)' }}>
-        <img
-          src={getMapboxImage(location.lat, location.lng, 1400, 600)}
-          alt={`${location.name} boat ramp`}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: 0.85 }}
-          width={1600}
-          height={800}
-        />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,22,40,0.85) 0%, rgba(10,22,40,0.2) 60%, transparent 100%)' }} />
-        <div className="container" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '2rem 1.5rem' }}>
-          <Link href={`/${state}`} style={{ color: 'var(--gold)', fontSize: '0.875rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '1rem', fontWeight: 600 }}>
-            ← {stateName} Ramps
-          </Link>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', color: 'white', marginBottom: '0.5rem' }}>{location.name}</h1>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-            <span style={{ color: 'var(--gold-light)', fontSize: '0.9rem' }}>📍 {location.city ? `${location.city}, ` : ''}{location.state}</span>
-            <span className="chip chip-navy">Free Access</span>
-          </div>
+      {/* Hero */}
+      <div
+        style={{
+          width: '100%',
+          height: '400px',
+          background: 'linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, #2d7aa8 100%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          overflow: 'hidden',
+          borderRadius: '8px',
+        }}
+        aria-label={`Location preview for ${location.name}`}
+      >
+        <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="none" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.15 }}>
+          <path d="M0,55 Q25,45 50,55 T100,55 L100,100 L0,100 Z" fill="white" />
+          <path d="M0,65 Q25,55 50,65 T100,65 L100,100 L0,100 Z" fill="white" opacity="0.5" />
+          <path d="M0,75 Q25,65 50,75 T100,75 L100,100 L0,100 Z" fill="white" opacity="0.3" />
+        </svg>
+        <div style={{ position: 'relative', textAlign: 'center', zIndex: 1, padding: '2rem' }}>
+          <div style={{ color: 'var(--gold)', fontSize: '4rem', marginBottom: '0.5rem' }}>⚓</div>
+          <h1 style={{ color: 'white', fontSize: '2rem', fontFamily: 'var(--font-display)', marginBottom: '0.5rem' }}>
+            {location.name}
+          </h1>
+          <p style={{ color: 'var(--cream)', fontSize: '1.1rem' }}>
+            {location.city ? `${location.city}, ` : ''}{location.state}
+          </p>
         </div>
       </div>
 
@@ -217,7 +219,26 @@ export default async function LocationPage({ params }: { params: Promise<{ state
               {related.map((ramp, i) => (
                 <Link key={ramp.slug} href={`/${state}/${ramp.slug}`} style={{ textDecoration: 'none' }}>
                   <article className="card">
-                    <img src={getMapboxImage(ramp.lat, ramp.lng)} alt={ramp.name} className="card-img" loading="lazy" width={800} height={400} />
+                    <div
+                      className="card-img"
+                      style={{
+                        width: '100%',
+                        height: '250px',
+                        background: 'linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, #2d7aa8 100%)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        position: 'relative',
+                        overflow: 'hidden',
+                      }}
+                      aria-label={`Map preview for ${ramp.name}`}
+                    >
+                      <svg aria-hidden viewBox="0 0 100 100" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.15 }}>
+                        <path d="M0,60 Q25,50 50,60 T100,60 L100,100 L0,100 Z" fill="white" />
+                        <path d="M0,70 Q25,60 50,70 T100,70 L100,100 L0,100 Z" fill="white" opacity="0.5" />
+                      </svg>
+                      <span style={{ position: 'relative', color: 'var(--gold)', fontSize: '2.5rem', zIndex: 1 }}>⚓</span>
+                    </div>
                     <div className="card-body">
                       <div className="card-meta"><span>📍</span><span>{ramp.city ? `${ramp.city}, ` : ''}{ramp.state}</span></div>
                       <h3 className="card-title">{ramp.name}</h3>
