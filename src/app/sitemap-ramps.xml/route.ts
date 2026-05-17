@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import locations from '@/data/locations.json';
+import locations from '@/data/locations';
 import { isIndexable } from '@/lib/quality-gate';
 
 const BASE = 'https://publicboatramps.com';

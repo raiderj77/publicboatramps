@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import locations from '@/data/locations.json';
+import locations from '@/data/locations';
 
 const BASE = 'https://publicboatramps.com';
 

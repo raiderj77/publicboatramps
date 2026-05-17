@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { marked } from 'marked';
-import locations from '@/data/locations.json';
+import locations from '@/data/locations';
 import stateGuidesRaw from '@/data/state_guides.json';
 
 export const revalidate = 86400;

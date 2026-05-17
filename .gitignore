@@ -5,3 +5,4 @@ out/
 
 .vercel
 src/app/layout.tsx.bak.*
+src/data/locations.json.backup-*

@@ -1,7 +1,8 @@
 import type { CSSProperties } from 'react';
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import locations from '@/data/locations.json';
+import locations from '@/data/locations';
 import { isIndexable } from '@/lib/quality-gate';
 
 export const revalidate = 86400;
@@ -39,21 +40,24 @@ function getStateName(slug: string) {
 }
 
 export async function generateStaticParams() {
-  return locations.map((l) => ({ state: l.stateSlug, slug: l.slug }));
+  return (locations as any[])
+    .filter(isIndexable)
+    .map((l) => ({ state: l.stateSlug, slug: l.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ state: string; slug: string }> }): Promise<Metadata> {
   const { state, slug } = await params;
   const location = locations.find((l) => l.slug === slug);
+  if (!location || !isIndexable(location as Record<string, any>)) {
+    return { robots: { index: false, follow: false } };
+  }
   const stateName = getStateName(state);
   return {
-    title: `${location?.name ?? 'Boat Ramp'} — Public Boat Ramp in ${stateName}`,
-    description: location?.description ?? `Public boat ramp in ${stateName}.`,
+    title: `${location.name} — Public Boat Ramp in ${stateName}`,
+    description: location.description ?? `Public boat ramp in ${stateName}.`,
     alternates: { canonical: `https://publicboatramps.com/${state}/${slug}` },
-    robots: location && isIndexable(location as Record<string, any>)
-      ? { index: true, follow: true }
-      : { index: false, follow: true },
-    openGraph: { title: `${location?.name} | Public Boat Ramps`, description: location?.description, url: `https://publicboatramps.com/${state}/${slug}` },
+    robots: { index: true, follow: true },
+    openGraph: { title: `${location.name} | Public Boat Ramps`, description: location.description, url: `https://publicboatramps.com/${state}/${slug}` },
   };
 }
 
@@ -149,14 +153,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
   const location = locations.find((l) => l.slug === slug);
   const stateName = getStateName(state);
 
-  if (!location) {
-    return (
-      <div style={{ textAlign: 'center', padding: '5rem 2rem' }}>
-        <h1 style={{ fontFamily: 'var(--font-display)' }}>Ramp Not Found</h1>
-        <Link href="/" className="btn btn-gold" style={{ display: 'inline-flex', marginTop: '1.5rem' }}>← Back to Home</Link>
-      </div>
-    );
-  }
+  if (!location || !isIndexable(location)) notFound();
 
   const related = locations.filter((l) => l.stateSlug === state && l.slug !== slug).slice(0, 3);
   const loc = location as Loc;
