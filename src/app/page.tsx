@@ -154,7 +154,7 @@ export default function Home() {
                       {getRampPreview(ramp)}
                     </p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-                      {ramp.amenities.slice(0, 3).map((a) => <span key={a} className="chip">{a}</span>)}
+                      {ramp.amenities.slice(0, 3).map((a: string) => <span key={a} className="chip">{a}</span>)}
                     </div>
                   </div>
                 </article>

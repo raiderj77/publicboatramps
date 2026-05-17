@@ -99,7 +99,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
         name: location.name, description: location.description,
         geo: { '@type': 'GeoCoordinates', latitude: location.lat, longitude: location.lng },
         address: { '@type': 'PostalAddress', addressLocality: location.city, addressRegion: location.state, addressCountry: 'US' },
-        amenityFeature: location.amenities.map((a) => ({ '@type': 'LocationFeatureSpecification', name: a, value: true })),
+        amenityFeature: location.amenities.map((a: string) => ({ '@type': 'LocationFeatureSpecification', name: a, value: true })),
       }) }} />
 
       {/* Hero */}
@@ -150,7 +150,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
               <>
                 <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', color: 'var(--navy)', marginBottom: '1.25rem' }}>Available Amenities</h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '0.75rem', marginBottom: '2.5rem' }}>
-                  {location.amenities.map((amenity) => (
+                  {location.amenities.map((amenity: string) => (
                     <div key={amenity} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', background: 'var(--white)', padding: '0.75rem 1rem', borderRadius: 'var(--radius-sm)', boxShadow: '0 1px 6px rgba(10,22,40,0.07)', border: '1px solid rgba(201,168,76,0.2)' }}>
                       <span>{AMENITY_ICONS[amenity] ?? '✓'}</span>
                       <span style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--navy)' }}>{amenity}</span>
