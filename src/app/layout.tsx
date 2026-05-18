@@ -120,24 +120,28 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <nav style={{ display: 'flex', gap: '2rem', alignItems: 'center', flexWrap: 'wrap' }}>
               <Link href="/" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em', transition: 'color 0.2s' }}>Home</Link>
               <Link href="/editorial" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>Editorial</Link>
-              <details className="nav-dropdown">
-                <summary>States <span className="nav-caret" aria-hidden="true">&#9660;</span></summary>
-                <div className="nav-dropdown-panel" role="list">
+              <div className="nav-dropdown">
+                <button type="button" className="nav-dropdown-summary" aria-expanded="false" aria-haspopup="true" data-nav-toggle>
+                  States <span className="nav-caret" aria-hidden="true">&#9660;</span>
+                </button>
+                <div className="nav-dropdown-panel" role="menu">
                   {activeStates.map(s => (
-                    <a key={s.stateSlug} href={`/${s.stateSlug}`} role="listitem">{s.state}</a>
+                    <a key={s.stateSlug} href={`/${s.stateSlug}`} role="menuitem">{s.state}</a>
                   ))}
                 </div>
-              </details>
-              <details className="nav-dropdown">
-                <summary>Popular Water Bodies <span className="nav-caret" aria-hidden="true">&#9660;</span></summary>
-                <div className="nav-dropdown-panel" role="list">
+              </div>
+              <div className="nav-dropdown">
+                <button type="button" className="nav-dropdown-summary" aria-expanded="false" aria-haspopup="true" data-nav-toggle>
+                  Popular Water Bodies <span className="nav-caret" aria-hidden="true">&#9660;</span>
+                </button>
+                <div className="nav-dropdown-panel" role="menu">
                   {popularWaterBodies.map(w => (
-                    <a key={`${w.stateSlug}::${w.waterBodySlug}`} href={`/${w.stateSlug}/water-body/${w.waterBodySlug}`} role="listitem">
+                    <a key={`${w.stateSlug}::${w.waterBodySlug}`} href={`/${w.stateSlug}/water-body/${w.waterBodySlug}`} role="menuitem">
                       {w.waterBodyName}<span className="nav-state-abbr">({w.stateAbbr})</span>
                     </a>
                   ))}
                 </div>
-              </details>
+              </div>
               <Link href="/about" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>About</Link>
               <Link href="/contact" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>Contact</Link>
             </nav>
@@ -198,6 +202,36 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </div>
           </div>
         </footer>
+        <Script id="nav-dropdown-toggle" strategy="afterInteractive">{`
+          document.addEventListener('click', (e) => {
+            const btn = e.target.closest('[data-nav-toggle]');
+            const dropdown = btn ? btn.closest('.nav-dropdown') : null;
+            document.querySelectorAll('.nav-dropdown[data-open="true"]').forEach(d => {
+              if (d !== dropdown) {
+                d.removeAttribute('data-open');
+                d.querySelector('[data-nav-toggle]')?.setAttribute('aria-expanded', 'false');
+              }
+            });
+            if (btn && dropdown) {
+              const isOpen = dropdown.getAttribute('data-open') === 'true';
+              if (isOpen) {
+                dropdown.removeAttribute('data-open');
+                btn.setAttribute('aria-expanded', 'false');
+              } else {
+                dropdown.setAttribute('data-open', 'true');
+                btn.setAttribute('aria-expanded', 'true');
+              }
+            }
+          });
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+              document.querySelectorAll('.nav-dropdown[data-open="true"]').forEach(d => {
+                d.removeAttribute('data-open');
+                d.querySelector('[data-nav-toggle]')?.setAttribute('aria-expanded', 'false');
+              });
+            }
+          });
+        `}</Script>
       </body>
     </html>
   );
