@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import locations from '@/data/locations';
+import { activeStates } from '@/lib/nav-data';
 
 const BASE = 'https://publicboatramps.com';
 
 export function GET() {
-  const today = '2026-05-16';
-  const stateSlugs = Array.from(new Set((locations as any[]).map(l => l.stateSlug))).sort() as string[];
+  const today = '2026-05-17';
+  const stateSlugs = activeStates.map(s => s.stateSlug);
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

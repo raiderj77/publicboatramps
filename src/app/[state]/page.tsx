@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { marked } from 'marked';
 import locations from '@/data/locations';
 import { isIndexable } from '@/lib/quality-gate';
 import { getAllArticles } from '@/lib/editorial';
+import { activeStates } from '@/lib/nav-data';
 import StateRampListing, { type RampRow } from '@/components/StateRampListing';
 import stateGuidesRaw from '@/data/state_guides.json';
 
@@ -187,7 +189,7 @@ function computeSignals(stateSlug: string): StateSignals {
 }
 
 export async function generateStaticParams() {
-  return stateList.map(s => ({ state: s.slug }));
+  return activeStates.map(s => ({ state: s.stateSlug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ state: string }> }): Promise<Metadata> {
@@ -212,6 +214,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
   const { state } = await params;
   const stateName  = getStateName(state);
   const sig        = computeSignals(state);
+  if (sig.indexableCount === 0) notFound();
   const guide      = stateGuides[stateName] as StateGuide | undefined;
 
   // FAQ only (guide_md replaced by editorial callout for data-rich states)

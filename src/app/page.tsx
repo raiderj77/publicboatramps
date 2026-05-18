@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import locations from '@/data/locations';
+import { activeStates } from '@/lib/nav-data';
 
 export const dynamic = 'force-static';
 
@@ -27,21 +28,8 @@ export const metadata: Metadata = {
   },
 };
 
-const ALL_STATES = [
-  'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut',
-  'Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa',
-  'Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan',
-  'Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada',
-  'New Hampshire','New Jersey','New Mexico','New York','North Carolina',
-  'North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island',
-  'South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont',
-  'Virginia','Washington','West Virginia','Wisconsin','Wyoming',
-];
-
 export default function Home() {
   const featuredRamps = locations.slice(0, 6);
-  const statesWithData = Array.from(new Set(locations.map((l) => l.state))).sort();
-  const totalStates = statesWithData.length;
 
   return (
     <>
@@ -87,11 +75,11 @@ export default function Home() {
             <span style={{ color: 'var(--gold)' }}>Near You</span>
           </h1>
           <p className="anim-fade-up anim-delay-2" style={{ fontSize: '1.15rem', color: '#9ab8cf', marginBottom: '2.5rem', maxWidth: '520px', margin: '0 auto 2.5rem' }}>
-            Discover free public boat launches and water access points across all 50 states.
+            Discover free public boat launches and water access points across the United States.
           </p>
           <div className="anim-fade-up anim-delay-3" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
             <a href="#states" className="btn btn-gold">Browse by State →</a>
-            <a href="/pennsylvania" className="btn btn-outline">View Sample Ramps</a>
+            <a href="/florida" className="btn btn-outline">View Sample Ramps</a>
           </div>
         </div>
 
@@ -106,7 +94,7 @@ export default function Home() {
         <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
           {[
             { n: `${locations.length}+`, l: 'Listed Ramps' },
-            { n: `${totalStates}`, l: 'States Covered' },
+            { n: `${activeStates.length}`, l: 'States Covered' },
             { n: '100%', l: 'Free to Access' },
             { n: '24/7', l: 'Always Online' },
           ].map(({ n, l }) => (
@@ -327,18 +315,18 @@ export default function Home() {
       <section id="states" style={{ padding: '5rem 1.5rem' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <p className="section-label">All States</p>
+            <p className="section-label">Available States</p>
             <h2 className="section-title">Browse by State</h2>
             <p className="section-sub" style={{ margin: '0 auto' }}>Select your state to see all public boat ramps and launches in that region.</p>
           </div>
-          <div className="grid-states">
-            {ALL_STATES.map((state) => (
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.6rem' }}>
+            {activeStates.map((s) => (
               <Link
-                key={state}
-                href={`/${state.toLowerCase().replace(/\s+/g, '-')}`}
+                key={s.stateSlug}
+                href={`/${s.stateSlug}`}
                 className="state-link"
               >
-                {state}
+                {s.state}
               </Link>
             ))}
           </div>
@@ -353,7 +341,7 @@ export default function Home() {
           <p style={{ color: '#8a9bb0', marginBottom: '2rem', lineHeight: 1.7 }}>
             Free access to over {locations.length} public boat launches across the United States.
           </p>
-          <Link href="/pennsylvania" className="btn btn-gold">Explore Ramps →</Link>
+          <Link href="/florida" className="btn btn-gold">Explore Ramps →</Link>
         </div>
       </section>
     </>
