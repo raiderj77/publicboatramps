@@ -47,7 +47,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ state: string; slug: string }> }): Promise<Metadata> {
   const { state, slug } = await params;
-  const location = locations.find((l) => l.slug === slug);
+  const location = locations.find((l) => l.slug === slug && l.stateSlug === state);
   if (!location || !isIndexable(location as Record<string, any>)) {
     return { robots: { index: false, follow: false } };
   }
@@ -150,7 +150,7 @@ const ddStyle: CSSProperties = {
 
 export default async function LocationPage({ params }: { params: Promise<{ state: string; slug: string }> }) {
   const { state, slug } = await params;
-  const location = locations.find((l) => l.slug === slug);
+  const location = locations.find((l) => l.slug === slug && l.stateSlug === state);
   const stateName = getStateName(state);
 
   if (!location || !isIndexable(location)) notFound();
