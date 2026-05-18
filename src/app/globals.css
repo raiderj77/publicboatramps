@@ -365,10 +365,22 @@ img { max-width: 100%; height: auto; }
   z-index: 200;
   padding: 0.4rem 0;
 }
-.nav-dropdown[open] .nav-dropdown-panel,
-.nav-dropdown:hover .nav-dropdown-panel,
-.nav-dropdown:focus-within .nav-dropdown-panel {
+details.nav-dropdown[open] > .nav-dropdown-panel,
+details.nav-dropdown:focus-within > .nav-dropdown-panel {
   display: block;
+}
+@media (hover: hover) {
+  details.nav-dropdown:hover > .nav-dropdown-panel {
+    display: block;
+  }
+}
+.nav-dropdown-panel::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
 }
 .nav-dropdown-panel a {
   display: block;

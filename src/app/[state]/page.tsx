@@ -118,10 +118,10 @@ function computeSignals(stateSlug: string): StateSignals {
   const all = (locations as Record<string, unknown>[]).filter(l => l.stateSlug === stateSlug);
   const indexable = all.filter(l => isIndexable(l));
 
-  const freeCount   = all.filter(l => l.isFeeRequired === 'No').length;
-  const adaCount    = all.filter(isAdaRecord).length;
+  const freeCount   = indexable.filter(l => l.isFeeRequired === 'No').length;
+  const adaCount    = indexable.filter(isAdaRecord).length;
   const hasFwcData  = all.some(l => l.dataSource === 'FWC_FL');
-  const normalizedCounties = new Set(all.map(l => normalizeCounty(l.county)).filter(Boolean) as string[]);
+  const normalizedCounties = new Set(indexable.map(l => normalizeCounty(l.county)).filter(Boolean) as string[]);
   const allowlist = STATE_COUNTY_SETS[stateSlug];
   const counties  = allowlist
     ? new Set([...normalizedCounties].filter(c => allowlist.has(c)))
@@ -174,7 +174,7 @@ function computeSignals(stateSlug: string): StateSignals {
   }));
 
   return {
-    totalRamps: all.length,
+    totalRamps: indexable.length,
     indexableCount: indexable.length,
     freeCount,
     adaCount,
@@ -266,7 +266,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
           </h1>
           <p style={{ color: 'rgba(205,216,232,0.85)', fontSize: '1.05rem', marginBottom: '2rem', maxWidth: '560px' }}>
             {sig.indexableCount > 0
-              ? `${sig.totalRamps.toLocaleString()} public launch facilities across ${sig.countyCount} counties`
+              ? `${sig.totalRamps.toLocaleString()} public launch facilities${sig.countyCount >= 2 ? ` across ${sig.countyCount} counties` : ''}`
               : `Public boat launch facilities in ${stateName}`}
           </p>
 
@@ -303,7 +303,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
                   </div>
                 </div>
               )}
-              {sig.countyCount > 0 && (
+              {sig.countyCount >= 2 && (
                 <div style={{ textAlign: 'left' }}>
                   <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 700, color: 'white', lineHeight: 1 }}>
                     {sig.countyCount}
