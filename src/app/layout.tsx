@@ -3,6 +3,7 @@ import { headers } from 'next/headers';
 import Script from 'next/script';
 import Link from 'next/link';
 import { Playfair_Display, Lora } from 'next/font/google';
+import { activeStates, popularWaterBodies } from '@/lib/nav-data';
 import './globals.css';
 
 const playfair = Playfair_Display({
@@ -116,9 +117,27 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 Public Boat Ramps
               </span>
             </Link>
-            <nav style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+            <nav style={{ display: 'flex', gap: '2rem', alignItems: 'center', flexWrap: 'wrap' }}>
               <Link href="/" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em', transition: 'color 0.2s' }}>Home</Link>
               <Link href="/editorial" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>Editorial</Link>
+              <details className="nav-dropdown">
+                <summary>States <span className="nav-caret" aria-hidden="true">&#9660;</span></summary>
+                <div className="nav-dropdown-panel" role="list">
+                  {activeStates.map(s => (
+                    <a key={s.stateSlug} href={`/${s.stateSlug}`} role="listitem">{s.state}</a>
+                  ))}
+                </div>
+              </details>
+              <details className="nav-dropdown">
+                <summary>Popular Water Bodies <span className="nav-caret" aria-hidden="true">&#9660;</span></summary>
+                <div className="nav-dropdown-panel" role="list">
+                  {popularWaterBodies.map(w => (
+                    <a key={`${w.stateSlug}::${w.waterBodySlug}`} href={`/${w.stateSlug}/water-body/${w.waterBodySlug}`} role="listitem">
+                      {w.waterBodyName}<span className="nav-state-abbr">({w.stateAbbr})</span>
+                    </a>
+                  ))}
+                </div>
+              </details>
               <Link href="/about" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>About</Link>
               <Link href="/contact" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>Contact</Link>
             </nav>
