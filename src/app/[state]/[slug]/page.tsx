@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import locations from '@/data/locations';
 import { isIndexable } from '@/lib/quality-gate';
+import { getCountyFaq, countyLabel } from '@/lib/county-faq';
 
 export const revalidate = 86400;
 
@@ -303,6 +304,10 @@ export default async function LocationPage({ params }: { params: Promise<{ state
   if (isValidHttpsUrl(loc.externalUrl)) adminRows.push({ label: 'Official information', value: 'Official website →', href: loc.externalUrl, rel: 'nofollow' });
   adminRows.push({ label: 'Data source', value: sourceLabel });
 
+  // ── County FAQ ───────────────────────────────────────────────────────────
+  const countyFaqResult = getCountyFaq(state, String(loc.county ?? ''));
+  const countyFaq = countyFaqResult?.faqs ?? [];
+
   // ── JSON-LD ───────────────────────────────────────────────────────────────
   const addressObj: Record<string, string> = { '@type': 'PostalAddress', addressRegion: location.state, addressCountry: 'US' };
   if (val(loc.street)) addressObj.streetAddress = String(loc.street);
@@ -336,6 +341,17 @@ export default async function LocationPage({ params }: { params: Promise<{ state
         ],
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(placeSchema) }} />
+      {countyFaq.length >= 2 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: countyFaq.map(({ question, answer }) => ({
+            '@type': 'Question',
+            name: question,
+            acceptedAnswer: { '@type': 'Answer', text: answer },
+          })),
+        }) }} />
+      )}
 
       {/* ── SECTION 1: Hero ─────────────────────────────────────────────────── */}
       <div
@@ -478,6 +494,21 @@ export default async function LocationPage({ params }: { params: Promise<{ state
               </div>
             </div>
           </div>
+
+          {/* SECTION FAQ: County-level frequently asked questions */}
+          {countyFaq.length >= 2 && (
+            <div style={dividerSection}>
+              <h2 style={sectionH2}>Frequently Asked Questions — {countyLabel(String(loc.county ?? stateName))}</h2>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+                {countyFaq.map(({ question, answer }) => (
+                  <div key={question}>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--navy)', marginBottom: '0.4rem', lineHeight: 1.5, margin: '0 0 0.4rem' }}>{question}</h3>
+                    <p style={{ fontSize: '0.925rem', color: 'var(--text)', lineHeight: 1.85, margin: 0 }}>{answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* SECTION 7: Administrative */}
           <div style={{ ...dividerSection, marginBottom: 0 }}>
