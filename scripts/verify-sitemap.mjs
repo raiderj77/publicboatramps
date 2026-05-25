@@ -27,5 +27,5 @@ async function text(url) {
     console.log(`${r.status} ${String(count).padStart(5)} URLs  ${url}`);
   }
   console.log(`\nTOTAL URLs: ${total}`);
-  console.log(`Expected:    2582`);
+  console.log(`Expected:    2535`);
 })();
