@@ -85,6 +85,72 @@ function val(v: unknown): boolean {
   return v !== null && v !== undefined && v !== '' && v !== 'Unknown' && v !== 'N/A' && v !== 'None';
 }
 
+const ACCESS_TYPE_LABELS: Record<string, string> = {
+  'Public': 'Public Access',
+  'Government Owned for General Public Use': 'Government — Open to Public',
+  'Commercially Owned for General Public Use': 'Commercial — Open to Public',
+};
+
+function formatAccessType(raw: string): string {
+  return ACCESS_TYPE_LABELS[raw] ?? raw;
+}
+
+// Strips bare HUC numeric codes; extracts name from "DIGITS-Name" hybrids.
+function formatWatershed(raw: unknown): string | null {
+  if (!val(raw)) return null;
+  const s = String(raw).trim();
+  if (/^\d{6,12}$/.test(s)) return null;
+  const m = s.match(/^\d{6,12}-(.+)$/);
+  if (m) return m[1].trim();
+  return s;
+}
+
+const PARKING_CONDITION_MAP: Record<string, string> = {
+  'good': 'Good',
+  'excellent': 'Excellent',
+  'ok': 'Fair',
+  'poor': 'Poor',
+  'rough': 'Rough',
+  'good to excellent': 'Good to Excellent',
+  'good to excellent condition': 'Good to Excellent',
+  'good  ': 'Good',
+  'good limited': 'Good – Limited',
+  'good-limited': 'Good – Limited',
+  'good limted': 'Good – Limited',
+  'good to fair': 'Good to Fair',
+  'rough limited': 'Rough – Limited',
+  'rough - 4x4 recommended': 'Rough (4×4 Recommended)',
+  'average': 'Average',
+  'average to good': 'Average to Good',
+  'average to poor': 'Average to Poor',
+  'limited': 'Limited',
+  'no parking': 'No On-Site Parking',
+  'no parking on-site': 'No On-Site Parking',
+  'no parking at boat ramp': 'No On-Site Parking',
+  'na': '',
+  'not available': '',
+};
+
+function normalizeParking(raw: unknown): string | null {
+  if (!val(raw)) return null;
+  const trimmed = String(raw).trim();
+  const lower = trimmed.toLowerCase();
+  if (lower in PARKING_CONDITION_MAP) {
+    const mapped = PARKING_CONDITION_MAP[lower];
+    return mapped || null;
+  }
+  return trimmed;
+}
+
+function isValidHttpsUrl(url: unknown): url is string {
+  if (!url || typeof url !== 'string') return false;
+  try {
+    return new URL(url).protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
+
 function formatDate(dateStr: unknown): string | null {
   if (!val(dateStr)) return null;
   try {
@@ -183,6 +249,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
 
   // ── Section 4: Ramp Details ───────────────────────────────────────────────
   const leftRows: [string, string][] = [];
+  if (val(loc.accessType)) leftRows.push(['Access', formatAccessType(String(loc.accessType))]);
   if (val(loc.rampType)) leftRows.push(['Ramp Type', String(loc.rampType)]);
   if (val(loc.rampSurface)) leftRows.push(['Surface', String(loc.rampSurface)]);
   if (val(loc.rampCondition)) leftRows.push(['Condition', String(loc.rampCondition)]);
@@ -200,6 +267,8 @@ export default async function LocationPage({ params }: { params: Promise<{ state
   if (val(loc.vehicleSpaces) && Number(loc.vehicleSpaces) > 0)
     rightRows.push(['Vehicle Spaces', String(loc.vehicleSpaces)]);
   if (val(loc.parkingSurface)) rightRows.push(['Parking Surface', String(loc.parkingSurface)]);
+  const parkingCond = normalizeParking(loc.parkingCondition);
+  if (parkingCond) rightRows.push(['Parking Condition', parkingCond]);
   if (val(loc.restroomType) && loc.restroomType !== 'No Toilet') {
     const accessible = loc.isRestroomAccessible === 'Yes' ? ' (ADA accessible)' : '';
     rightRows.push(['Restroom', `${String(loc.restroomType)}${accessible}`]);
@@ -225,10 +294,13 @@ export default async function LocationPage({ params }: { params: Promise<{ state
     : 'Sourced from OpenStreetMap contributors, licensed under ODbL.';
   const formattedDate = formatDate(loc.lastEditedDate);
 
-  const adminRows: { label: string; value: string; href?: string }[] = [];
+  const formattedWatershed = formatWatershed(loc.watershed);
+
+  const adminRows: { label: string; value: string; href?: string; rel?: string }[] = [];
   if (val(loc.adminEntity)) adminRows.push({ label: 'Managed by', value: String(loc.adminEntity) });
   if (val(loc.contactPhone)) adminRows.push({ label: 'Contact', value: String(loc.contactPhone), href: `tel:${String(loc.contactPhone)}` });
   if (formattedDate) adminRows.push({ label: 'Last verified', value: formattedDate });
+  if (isValidHttpsUrl(loc.externalUrl)) adminRows.push({ label: 'Official information', value: 'Official website →', href: loc.externalUrl, rel: 'nofollow' });
   adminRows.push({ label: 'Data source', value: sourceLabel });
 
   // ── JSON-LD ───────────────────────────────────────────────────────────────
@@ -374,6 +446,9 @@ export default async function LocationPage({ params }: { params: Promise<{ state
                 {val(loc.hydrologicalType) && (
                   <div style={dlRow}><dt style={dtStyle}>Hydrological Type</dt><dd style={ddStyle}>{String(loc.hydrologicalType)}</dd></div>
                 )}
+                {formattedWatershed && (
+                  <div style={dlRow}><dt style={dtStyle}>Watershed</dt><dd style={ddStyle}>{formattedWatershed}</dd></div>
+                )}
                 {val(loc.county) && (
                   <div style={dlRow}><dt style={dtStyle}>County</dt><dd style={ddStyle}>{String(loc.county)}</dd></div>
                 )}
@@ -408,12 +483,12 @@ export default async function LocationPage({ params }: { params: Promise<{ state
           <div style={{ ...dividerSection, marginBottom: 0 }}>
             <h2 style={{ ...sectionH2, fontSize: '1rem', color: 'var(--gray)' }}>About This Data</h2>
             <dl style={{ margin: '0 0 1rem' }}>
-              {adminRows.map(({ label, value, href }) => (
+              {adminRows.map(({ label, value, href, rel }) => (
                 <div key={label} style={dlRow}>
                   <dt style={dtStyle}>{label}</dt>
                   <dd style={{ ...ddStyle, fontWeight: 400 }}>
                     {href
-                      ? <a href={href} style={{ color: 'var(--navy)', textDecoration: 'underline' }}>{value}</a>
+                      ? <a href={href} rel={rel} style={{ color: 'var(--navy)', textDecoration: 'underline' }}>{value}</a>
                       : value
                     }
                   </dd>
