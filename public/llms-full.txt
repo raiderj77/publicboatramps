@@ -1,10 +1,10 @@
-# Public Boat Ramps Directory — Full LLM Content Index
+# Public Boat Ramps Directory ,  Full LLM Content Index
 
 > A free directory of public boat ramps, launches, and water access points across the United States.
 
 ## About
 - Domain: publicboatramps.com
-- Type: Location directory — 102+ public boat ramp locations
+- Type: Location directory ,  102+ public boat ramp locations
 - Coverage: All 50 US states
 
 ## Navigation

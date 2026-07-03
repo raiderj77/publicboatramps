@@ -61,7 +61,7 @@ export default function PrivacyPage() {
         <a href="https://optout.aboutads.info" rel="nofollow noopener noreferrer" target="_blank">
           optout.aboutads.info
         </a>
-        . Opting out does not remove all ads — it means ads shown to you will not be personalized based on
+        . Opting out does not remove all ads ,  it means ads shown to you will not be personalized based on
         your browsing history.
       </p>
 

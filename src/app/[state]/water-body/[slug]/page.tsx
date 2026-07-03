@@ -315,7 +315,7 @@ export default async function WaterBodyPage(
         </svg>
       </section>
 
-      {/* Editorial callout — renders only when a matching article exists */}
+      {/* Editorial callout ,  renders only when a matching article exists */}
       {relatedArticles.length > 0 && (
         <section style={{ background: 'var(--gold-pale)', borderTop: '3px solid var(--gold)', borderBottom: '1px solid rgba(201,168,76,0.25)', padding: '2.5rem 1.5rem' }}>
           <div className="container">

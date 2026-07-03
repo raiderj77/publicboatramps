@@ -73,7 +73,7 @@ function normalizeCounty(c: unknown): string | null {
   return c.replace(/\s+County$/i, '').trim();
 }
 
-// Per-state county allowlists (normalized — no "County" suffix).
+// Per-state county allowlists (normalized ,  no "County" suffix).
 // Used to exclude border-area records mislabeled with a neighboring state's county.
 const STATE_COUNTY_SETS: Partial<Record<string, Set<string>>> = {
   florida: new Set([

@@ -57,7 +57,7 @@ interface CountyAgg {
   surfaceCounts: Map<string, number>;
 }
 
-// Build aggregation at module load — runs once at build time (SSG).
+// Build aggregation at module load ,  runs once at build time (SSG).
 const countyMap = new Map<string, CountyAgg>();
 
 for (const loc of locationsRaw as AnyRec[]) {
@@ -149,7 +149,7 @@ function buildFaqs(agg: CountyAgg): FaqItem[] {
   const waterTypes = Array.from(waterTypeSet);
   const faqs: FaqItem[] = [];
 
-  // Q1: Total ramp count — always emit
+  // Q1: Total ramp count ,  always emit
   let waterBodyPhrase = '';
   if (waterBodyCount > 1) {
     waterBodyPhrase = `, offering access to ${waterBodyCount} different water bodies`;
@@ -161,24 +161,24 @@ function buildFaqs(agg: CountyAgg): FaqItem[] {
     answer: `There ${rampCount === 1 ? 'is' : 'are'} ${rampCount} public boat ramp${rampCount !== 1 ? 's' : ''} in ${label}, ${state} listed in our directory${waterBodyPhrase}.`,
   });
 
-  // Q2: Free access — only if fee data exists and some ramps are free.
+  // Q2: Free access ,  only if fee data exists and some ramps are free.
   // Avoid "most" language for small samples (feeDataCount < 3).
   if (feeDataCount > 0 && freeCount > 0) {
     let answer: string;
     if (feeDataCount >= 3 && freeCount / feeDataCount >= 0.75) {
-      answer = `Yes — most ramps in ${label} with known fee status (${freeCount} of ${feeDataCount}) offer free public access. Fees can change seasonally, so confirm before visiting.`;
+      answer = `Yes ,  most ramps in ${label} with known fee status (${freeCount} of ${feeDataCount}) offer free public access. Fees can change seasonally, so confirm before visiting.`;
     } else if (feeDataCount <= 2 && freeCount === feeDataCount) {
       // All known ramps are free but sample is too small to say "most"
       answer = feeDataCount === 1
         ? `The one ramp in ${label} with known fee data is free to launch. Fees can change, so confirm before visiting.`
         : `Both ramps in ${label} with known fee data offer free public access. Confirm before visiting as fees can change.`;
     } else {
-      answer = `${freeCount} of the ${feeDataCount} ramps in ${label} with known fee information offer free access. The remainder charge a launch fee — contact the managing agency for current rates.`;
+      answer = `${freeCount} of the ${feeDataCount} ramps in ${label} with known fee information offer free access. The remainder charge a launch fee ,  contact the managing agency for current rates.`;
     }
     faqs.push({ question: `Are there free boat ramps in ${label}?`, answer });
   }
 
-  // Q3: ADA accessibility — only if any are accessible
+  // Q3: ADA accessibility ,  only if any are accessible
   if (adaCount > 0) {
     const plural = adaCount !== 1;
     faqs.push({
@@ -187,7 +187,7 @@ function buildFaqs(agg: CountyAgg): FaqItem[] {
     });
   }
 
-  // Q4: Water type — only if waterType data exists
+  // Q4: Water type ,  only if waterType data exists
   if (waterTypes.length > 0) {
     const hasFresh = waterTypes.some(t => t === 'Freshwater');
     const hasSalt = waterTypes.some(
@@ -213,7 +213,7 @@ function buildFaqs(agg: CountyAgg): FaqItem[] {
     });
   }
 
-  // Q5: Dominant surface — only if ≥2 ramps share a normalized surface
+  // Q5: Dominant surface ,  only if ≥2 ramps share a normalized surface
   if (surfaceCounts.size > 0) {
     let topSurface = '';
     let topCount = 0;
@@ -223,7 +223,7 @@ function buildFaqs(agg: CountyAgg): FaqItem[] {
     if (topCount >= 2) {
       faqs.push({
         question: `What is the most common boat ramp surface in ${label}?`,
-        answer: `${topSurface} is the most common ramp surface in ${label}, found at ${topCount} of the ${rampCount} boat ramp${rampCount !== 1 ? 's' : ''} in our directory. Surface type affects traction and trailer loading — particularly important in wet or winter conditions.`,
+        answer: `${topSurface} is the most common ramp surface in ${label}, found at ${topCount} of the ${rampCount} boat ramp${rampCount !== 1 ? 's' : ''} in our directory. Surface type affects traction and trailer loading ,  particularly important in wet or winter conditions.`,
       });
     }
   }

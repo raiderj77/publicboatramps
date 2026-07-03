@@ -1,4 +1,4 @@
-﻿# Public Boat Ramps — CLAUDE.md
+﻿# Public Boat Ramps ,  CLAUDE.md
 
 > Source of truth for Claude Code on this project. Last updated: 2026-04-30
 
@@ -23,7 +23,7 @@
 
 - SSR/SSG required
 - Each ramp page: name, location, ramp surface, trailer parking, fee (if any), hours, GPS coordinates
-- Seasonal content: many ramps close seasonally — reflect current status where possible
+- Seasonal content: many ramps close seasonally ,  reflect current status where possible
 
 ## 3. Core Web Vitals
 
@@ -31,7 +31,7 @@
 
 ## 4. E-E-A-T
 
-- Attribution: "Built by an experienced web developer" — no personal name
+- Attribution: "Built by an experienced web developer" ,  no personal name
 - "Verify access and fees directly with the managing agency before launching" disclaimer on each page
 
 ## 5. Structured Data
@@ -78,4 +78,4 @@ Vercel | main | `npm run build` | Env: INDEXNOW_API_KEY
 
 ## Warnings
 
-Standard Empire warnings. Never present ramp access as guaranteed — closures due to water levels, maintenance, or seasonal restrictions are common. Always include "verify before launching" guidance.
+Standard Empire warnings. Never present ramp access as guaranteed ,  closures due to water levels, maintenance, or seasonal restrictions are common. Always include "verify before launching" guidance.

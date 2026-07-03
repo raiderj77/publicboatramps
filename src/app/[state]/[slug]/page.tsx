@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   }
   const stateName = getStateName(state);
   return {
-    title: `${location.name} — Public Boat Ramp in ${stateName}`,
+    title: `${location.name} ,  Public Boat Ramp in ${stateName}`,
     description: location.description ?? `Public boat ramp in ${stateName}.`,
     alternates: { canonical: `https://publicboatramps.com/${state}/${slug}` },
     robots: { index: true, follow: true },
@@ -88,8 +88,8 @@ function val(v: unknown): boolean {
 
 const ACCESS_TYPE_LABELS: Record<string, string> = {
   'Public': 'Public Access',
-  'Government Owned for General Public Use': 'Government — Open to Public',
-  'Commercially Owned for General Public Use': 'Commercial — Open to Public',
+  'Government Owned for General Public Use': 'Government ,  Open to Public',
+  'Commercially Owned for General Public Use': 'Commercial ,  Open to Public',
 };
 
 function formatAccessType(raw: string): string {
@@ -498,7 +498,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
           {/* SECTION FAQ: County-level frequently asked questions */}
           {countyFaq.length >= 2 && (
             <div style={dividerSection}>
-              <h2 style={sectionH2}>Frequently Asked Questions — {countyLabel(String(loc.county ?? stateName))}</h2>
+              <h2 style={sectionH2}>Frequently Asked Questions ,  {countyLabel(String(loc.county ?? stateName))}</h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
                 {countyFaq.map(({ question, answer }) => (
                   <div key={question}>
