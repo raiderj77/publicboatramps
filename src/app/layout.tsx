@@ -169,7 +169,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 </ul>
               </div>
               <div>
-                <h4 style={{ color: 'var(--gold)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>Tools</h4>
+                <h4 style={{ color: 'var(--gold)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>More from our network</h4>
                 <ul style={{ listStyle: 'none' }}>
                   {toolSites.map((s) => (
                     <li key={s.href} style={{ marginBottom: '0.4rem' }}>
