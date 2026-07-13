@@ -41,9 +41,9 @@ export default async function ArticlePage({ params }: Props) {
     headline: article.title,
     description: article.description,
     author: {
-      '@type': 'Person',
+      '@type': 'Organization',
       name: article.author,
-      url: 'https://publicboatramps.com/editorial/contributors/marcus-whitfield',
+      url: 'https://publicboatramps.com/about',
     },
     publisher: {
       '@type': 'Organization',
@@ -99,15 +99,7 @@ export default async function ArticlePage({ params }: Props) {
             {article.description}
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '1.25rem', fontSize: '0.875rem', color: 'var(--gray)' }}>
-            <span>
-              By{' '}
-              <a
-                href="/editorial/contributors/marcus-whitfield"
-                style={{ color: 'var(--ocean)', fontWeight: 600 }}
-              >
-                {article.author}
-              </a>
-            </span>
+            <span>By {article.author}</span>
             <span>
               Published{' '}
               <time dateTime={article.datePublished}>{dateDisplay}</time>

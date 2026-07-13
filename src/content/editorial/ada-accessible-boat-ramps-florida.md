@@ -2,7 +2,7 @@
 title: ADA-Accessible Boat Ramps in Florida: Complete Guide to Barrier-Free Launches
 description: 161 Florida boat ramps combine no launch fee, high or moderate FWC accessibility, and accessible restrooms. Find barrier-free launches by water body type.
 slug: ada-accessible-boat-ramps-florida
-author: Marcus Whitfield, Florida Boating Editor
+author: Public Boat Ramps Data Team
 datePublished: 2026-05-17
 tags: [Florida, ADA, Accessibility, Barrier-Free, Guide, FWC]
 primaryKeyword: ADA accessible boat ramps Florida

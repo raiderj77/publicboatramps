@@ -2,7 +2,7 @@
 title: Saltwater Boat Ramps in Florida by Region: Complete Statewide Guide
 description: Florida has 938 saltwater and brackish water boat ramps. This guide covers all five coastal regions with FWC inventory data and direct links to every ramp.
 slug: saltwater-boat-ramps-florida-by-region
-author: Marcus Whitfield, Florida Boating Editor
+author: Public Boat Ramps Data Team
 datePublished: 2026-05-17
 tags: [saltwater, florida, regional, coastal, Guide]
 primaryKeyword: saltwater boat ramps Florida

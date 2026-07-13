@@ -2,7 +2,7 @@
 title: Free Boat Ramps in Florida: Complete Guide to Public Launches With No Launch Fee
 description: 1,585 free public boat ramps in Florida organized by waterway type -- coastal bays, major rivers, inland lakes, and spring-fed systems. Current FWC data.
 slug: free-boat-ramps-florida
-author: Marcus Whitfield, Florida Boating Editor
+author: Public Boat Ramps Data Team
 datePublished: 2026-05-17
 tags: [Florida, Free Ramps, Guide, FWC]
 primaryKeyword: free boat ramps florida

@@ -3,12 +3,13 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Terms of Service',
   description: 'Terms of service for Public Boat Ramps Directory',
+  alternates: { canonical: 'https://publicboatramps.com/terms' },
 };
 
 export default function TermsPage() {
   return (
-    <article style={{ maxWidth: '800px', margin: '0 auto', lineHeight: '1.8' }}>
-      <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#003d99' }}>
+    <article style={{ maxWidth: '800px', margin: '0 auto', padding: '3rem 1.5rem 5rem', lineHeight: '1.8' }}>
+      <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: 'var(--navy)' }}>
         Terms of Service
       </h1>
 

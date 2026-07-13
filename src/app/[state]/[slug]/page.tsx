@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import locations from '@/data/locations';
 import { isIndexable } from '@/lib/quality-gate';
-import { getCountyFaq, countyLabel } from '@/lib/county-faq';
 
 export const revalidate = 86400;
 
@@ -53,12 +52,13 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
     return { robots: { index: false, follow: false } };
   }
   const stateName = getStateName(state);
+  const preview = getRampPreview(location);
   return {
-    title: `${location.name} ,  Public Boat Ramp in ${stateName}`,
-    description: location.description ?? `Public boat ramp in ${stateName}.`,
+    title: `${location.name} | Public Boat Ramp in ${stateName}`,
+    description: preview,
     alternates: { canonical: `https://publicboatramps.com/${state}/${slug}` },
     robots: { index: true, follow: true },
-    openGraph: { title: `${location.name} | Public Boat Ramps`, description: location.description, url: `https://publicboatramps.com/${state}/${slug}` },
+    openGraph: { title: `${location.name} | Public Boat Ramps`, description: preview, url: `https://publicboatramps.com/${state}/${slug}` },
   };
 }
 
@@ -78,7 +78,7 @@ function getRampPreview(ramp: { name: string; state: string; city: string; ameni
   if (amenityCount >= 2) {
     return `Public boat launch in ${loc} with ${amenityCount} amenities including ${ramp.amenities.slice(0, 2).join(' and ').toLowerCase()}.`;
   }
-  return `Public boat launch in ${loc}. Free access to local waterways for boating and fishing.`;
+  return `Public boat launch in ${loc}. Check current access and facility details before your trip.`;
 }
 
 // Returns false for null / undefined / empty / common sentinel strings
@@ -88,8 +88,8 @@ function val(v: unknown): boolean {
 
 const ACCESS_TYPE_LABELS: Record<string, string> = {
   'Public': 'Public Access',
-  'Government Owned for General Public Use': 'Government ,  Open to Public',
-  'Commercially Owned for General Public Use': 'Commercial ,  Open to Public',
+  'Government Owned for General Public Use': 'Government — Open to Public',
+  'Commercially Owned for General Public Use': 'Commercial — Open to Public',
 };
 
 function formatAccessType(raw: string): string {
@@ -163,6 +163,18 @@ function formatDate(dateStr: unknown): string | null {
   }
 }
 
+function distanceMiles(a: { lat: number; lng: number }, b: { lat: number; lng: number }): number {
+  const toRadians = (degrees: number) => (degrees * Math.PI) / 180;
+  const latitudeDelta = toRadians(b.lat - a.lat);
+  const longitudeDelta = toRadians(b.lng - a.lng);
+  const startLatitude = toRadians(a.lat);
+  const endLatitude = toRadians(b.lat);
+  const haversine =
+    Math.sin(latitudeDelta / 2) ** 2 +
+    Math.cos(startLatitude) * Math.cos(endLatitude) * Math.sin(longitudeDelta / 2) ** 2;
+  return 3958.8 * 2 * Math.atan2(Math.sqrt(haversine), Math.sqrt(1 - haversine));
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Loc = Record<string, any>;
 
@@ -222,8 +234,17 @@ export default async function LocationPage({ params }: { params: Promise<{ state
 
   if (!location || !isIndexable(location)) notFound();
 
-  const related = locations.filter((l) => l.stateSlug === state && l.slug !== slug).slice(0, 3);
   const loc = location as Loc;
+  const related = locations
+    .filter((candidate) => candidate.stateSlug === state && candidate.slug !== slug && isIndexable(candidate))
+    .sort((a, b) => {
+      const relevance = (candidate: Loc) =>
+        (val(loc.waterBodyName) && candidate.waterBodyName === loc.waterBodyName ? 4 : 0) +
+        (val(location.city) && candidate.city === location.city ? 2 : 0) +
+        (val(loc.county) && candidate.county === loc.county ? 1 : 0);
+      return relevance(b as Loc) - relevance(a as Loc) || distanceMiles(location, a) - distanceMiles(location, b);
+    })
+    .slice(0, 3);
 
   // ── Section 2: Quick Facts ────────────────────────────────────────────────
   const isAda = val(loc.accessibilityLevel) &&
@@ -304,10 +325,6 @@ export default async function LocationPage({ params }: { params: Promise<{ state
   if (isValidHttpsUrl(loc.externalUrl)) adminRows.push({ label: 'Official information', value: 'Official website →', href: loc.externalUrl, rel: 'nofollow' });
   adminRows.push({ label: 'Data source', value: sourceLabel });
 
-  // ── County FAQ ───────────────────────────────────────────────────────────
-  const countyFaqResult = getCountyFaq(state, String(loc.county ?? ''));
-  const countyFaq = countyFaqResult?.faqs ?? [];
-
   // ── JSON-LD ───────────────────────────────────────────────────────────────
   const addressObj: Record<string, string> = { '@type': 'PostalAddress', addressRegion: location.state, addressCountry: 'US' };
   if (val(loc.street)) addressObj.streetAddress = String(loc.street);
@@ -319,7 +336,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
     '@type': 'Park',
     additionalType: 'https://www.wikidata.org/wiki/Q1361425',
     name: location.name,
-    description: location.description,
+    description: getRampPreview(location),
     geo: { '@type': 'GeoCoordinates', latitude: location.lat, longitude: location.lng },
     address: addressObj,
     amenityFeature: location.amenities.map((a: string) => ({ '@type': 'LocationFeatureSpecification', name: a, value: true })),
@@ -341,17 +358,6 @@ export default async function LocationPage({ params }: { params: Promise<{ state
         ],
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(placeSchema) }} />
-      {countyFaq.length >= 2 && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'FAQPage',
-          mainEntity: countyFaq.map(({ question, answer }) => ({
-            '@type': 'Question',
-            name: question,
-            acceptedAnswer: { '@type': 'Answer', text: answer },
-          })),
-        }) }} />
-      )}
 
       {/* ── SECTION 1: Hero ─────────────────────────────────────────────────── */}
       <div
@@ -481,7 +487,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
               </dl>
               <div style={{ background: 'var(--navy-mid)', borderRadius: 'var(--radius)', padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', minWidth: '170px', textAlign: 'center' }}>
                 <span style={{ fontSize: '2rem' }}>🗺️</span>
-                <p style={{ color: '#8a9bb0', fontSize: '0.8rem', lineHeight: 1.5, margin: 0 }}>Open in your mapping app for turn-by-turn directions</p>
+                <p style={{ color: '#c5d1df', fontSize: '0.8rem', lineHeight: 1.5, margin: 0 }}>Open in your mapping app for turn-by-turn directions</p>
                 <a
                   href={`https://maps.google.com/?q=${location.lat},${location.lng}`}
                   target="_blank"
@@ -494,21 +500,6 @@ export default async function LocationPage({ params }: { params: Promise<{ state
               </div>
             </div>
           </div>
-
-          {/* SECTION FAQ: County-level frequently asked questions */}
-          {countyFaq.length >= 2 && (
-            <div style={dividerSection}>
-              <h2 style={sectionH2}>Frequently Asked Questions ,  {countyLabel(String(loc.county ?? stateName))}</h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
-                {countyFaq.map(({ question, answer }) => (
-                  <div key={question}>
-                    <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--navy)', marginBottom: '0.4rem', lineHeight: 1.5, margin: '0 0 0.4rem' }}>{question}</h3>
-                    <p style={{ fontSize: '0.925rem', color: 'var(--text)', lineHeight: 1.85, margin: 0 }}>{answer}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
 
           {/* SECTION 7: Administrative */}
           <div style={{ ...dividerSection, marginBottom: 0 }}>
@@ -526,7 +517,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
                 </div>
               ))}
             </dl>
-            <p style={{ fontSize: '0.8rem', color: '#889', lineHeight: 1.7, marginBottom: '1.25rem' }}>{sourceNote}</p>
+            <p style={{ fontSize: '0.8rem', color: '#596474', lineHeight: 1.7, marginBottom: '1.25rem' }}>{sourceNote}</p>
             <div style={{ background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.25)', borderRadius: 'var(--radius-sm)', padding: '0.875rem 1.125rem' }}>
               <p style={{ fontSize: '0.825rem', color: '#556', lineHeight: 1.7, margin: 0 }}>
                 <strong style={{ color: 'var(--navy)' }}>Disclaimer:</strong> Information is provided for informational purposes only. Always verify facility hours, amenities, and any required permits before visiting. Contact your state&apos;s fish and wildlife agency for up-to-date information.
@@ -541,7 +532,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
       {related.length > 0 && (
         <section style={{ background: 'var(--cream)', borderTop: '1px solid rgba(10,22,40,0.06)', padding: '4rem 1.5rem' }}>
           <div className="container">
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.6rem', color: 'var(--navy)', marginBottom: '2rem' }}>More Ramps in {stateName}</h2>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.6rem', color: 'var(--navy)', marginBottom: '2rem' }}>Nearby Ramps in {stateName}</h2>
             <div className="grid-3">
               {related.map((ramp) => (
                 <Link key={ramp.slug} href={`/${state}/${ramp.slug}`} style={{ textDecoration: 'none' }}>

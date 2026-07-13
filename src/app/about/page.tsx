@@ -3,12 +3,13 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'About Us',
   description: 'Learn about Public Boat Ramps Directory and our mission to help people find free water access.',
+  alternates: { canonical: 'https://publicboatramps.com/about' },
 };
 
 export default function AboutPage() {
   return (
-    <article style={{ maxWidth: '800px', margin: '0 auto', lineHeight: '1.8' }}>
-      <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#003d99' }}>
+    <article style={{ maxWidth: '800px', margin: '0 auto', padding: '3rem 1.5rem 5rem', lineHeight: '1.8' }}>
+      <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: 'var(--navy)' }}>
         About Public Boat Ramps Directory
       </h1>
 
@@ -89,6 +90,24 @@ export default function AboutPage() {
         Information in this directory is compiled from publicly available sources, including state fish and
         wildlife agency websites, federal agency databases, and local government resources. We update our
         listings regularly, but recommend verifying critical details directly with facility operators.
+      </p>
+
+      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: 'var(--navy)' }}>
+        How We Review and Publish Data
+      </h2>
+      <p>
+        Public Boat Ramps Data Team is an organizational byline, not a claim about a fictional individual.
+        We import public records, normalize names and facility fields, and apply a quality gate before a
+        listing can be indexed. A record must have a name, coordinates, city, and state plus several useful
+        details such as an address, managing agency, official link, phone number, water body, hours, fee
+        status, amenities, or a substantive source description. Records that do not meet that standard are
+        excluded from search indexing until they can be improved.
+      </p>
+      <p>
+        Florida facility records are attributed to the Florida Fish and Wildlife Conservation Commission;
+        other location data is attributed per record, including OpenStreetMap contributors where applicable.
+        Editorial guides explain their source dates and limitations. We do not independently inspect every
+        ramp, so current conditions must be confirmed with the managing agency.
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>

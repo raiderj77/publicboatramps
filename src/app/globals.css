@@ -13,7 +13,7 @@
   --white:      #ffffff;
   --ocean:      #1a5c8a;
   --seafoam:    #2a8a78;
-  --gray:       #8a9bb0;
+  --gray:       #596b80;
   --text:       #2a3548;
   --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
   --font-body:    'Lora', Georgia, serif;
@@ -31,6 +31,21 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); line-height: 1.2; col
 a { color: var(--ocean); text-decoration: none; }
 a:hover { text-decoration: underline; }
 img { max-width: 100%; height: auto; }
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 2000;
+  padding: 0.75rem 1rem;
+  border-radius: 0.35rem;
+  background: var(--white);
+  color: var(--navy);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  transform: translateY(-180%);
+}
+.skip-link:focus { transform: translateY(0); }
 
 /* ---- Animations ---- */
 @keyframes fadeInUp {
@@ -208,7 +223,7 @@ img { max-width: 100%; height: auto; }
 /* ---- Section headings ---- */
 .section-label {
   display: inline-block;
-  color: var(--gold);
+  color: #735315;
   font-weight: 700;
   font-size: 0.8rem;
   text-transform: uppercase;
@@ -304,6 +319,18 @@ img { max-width: 100%; height: auto; }
   .article-body h3 { font-size: 1.1rem; }
   .article-body table { font-size: 0.8rem; }
   .article-body th, .article-body td { padding: 0.5rem 0.6rem; }
+}
+
+@media (max-width: 760px) {
+  .site-header-inner {
+    align-items: flex-start !important;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .site-nav {
+    gap: 0.75rem 1rem !important;
+    width: 100%;
+  }
 }
 
 /* ---- Responsive ---- */

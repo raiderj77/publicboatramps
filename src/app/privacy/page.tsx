@@ -2,168 +2,85 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Privacy policy for Public Boat Ramps Directory',
+  description: 'How Public Boat Ramps Directory handles visitor and contact information.',
+  alternates: { canonical: 'https://publicboatramps.com/privacy' },
 };
+
+const heading = { fontSize: '1.3rem', marginTop: '2rem', marginBottom: '0.5rem', color: 'var(--navy)' };
 
 export default function PrivacyPage() {
   return (
-    <article style={{ maxWidth: '800px', margin: '0 auto', lineHeight: '1.8' }}>
-      <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: '#003d99' }}>
-        Privacy Policy
-      </h1>
+    <article style={{ maxWidth: '800px', margin: '0 auto', padding: '3rem 1.5rem 5rem', lineHeight: 1.8 }}>
+      <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: 'var(--navy)' }}>Privacy Policy</h1>
+      <p><strong>Last updated: July 13, 2026</strong></p>
 
-      <p style={{ marginBottom: '1rem' }}>
-        <strong>Last Updated: April 2026</strong>
+      <p style={{ marginTop: '1rem' }}>
+        Public Boat Ramps Directory is a public reference website. You do not need an account to browse it,
+        and we do not ask for payment information or precise device location.
       </p>
 
+      <h2 style={heading}>Information you provide</h2>
       <p>
-        Public Boat Ramps Directory ("we," "us," "our," or "Company") operates the publicboatramps.com
-        website (the "Site"). This page informs you of our policies regarding the collection, use, and
-        disclosure of personal data when you use our Site and the choices you have associated with that
-        data.
+        If you email us, we receive the address, message, and other information you choose to include. Do not
+        send sensitive personal information. We use correspondence to answer the request, review a listing
+        correction, prevent abuse, and keep reasonable business records.
       </p>
 
-      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        1. Data Collection
-      </h2>
+      <h2 style={heading}>Hosting and technical records</h2>
       <p>
-        We collect minimal personal information directly from you. The information we collect may include:
-        IP addresses and browsing behavior through cookies and analytics tools; information about your
-        device (browser type, operating system, screen resolution); and any information you voluntarily
-        provide when contacting us via email.
+        The site is hosted by Vercel. Like most hosting providers, Vercel may process routine request data such
+        as IP address, browser information, requested URL, timestamps, and diagnostic or security logs to
+        deliver and protect the site. Retention and processing of those records are governed by Vercel&apos;s
+        systems and policies. We do not promise zero logging or immediate deletion of infrastructure records.
       </p>
 
-      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        2. Cookies and Tracking
-      </h2>
+      <h2 style={heading}>Cookies, analytics, and advertising</h2>
       <p>
-        We use cookies and similar tracking technologies to improve your experience on our Site. Cookies
-        help us understand how you use the Site so we can enhance functionality and performance. You can
-        control cookie settings through your browser, though some features may not function properly if you
-        disable cookies.
-      </p>
-
-      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        3. Advertising Cookies
-      </h2>
-      <p>
-        We work with third-party advertising partners, including Google, who may use cookies to serve ads
-        based on your prior visits to this website or other websites. Our Site uses Google AdSense to display
-        advertising. Google and its partners use cookies and similar technologies to personalize ads, measure
-        ad performance, and help us generate revenue to keep this directory free.
+        Public Boat Ramps Directory does not currently load Google Analytics, Microsoft Clarity, Google
+        AdSense advertising scripts, or another optional analytics or advertising tracker. We do not
+        intentionally set advertising or analytics cookies. The site&apos;s AdSense account identifier and
+        ads.txt file may remain published for ownership verification, but that does not mean ads are being
+        served or that advertising cookies are active.
       </p>
       <p style={{ marginTop: '0.75rem' }}>
-        You can opt out of personalized advertising by visiting{' '}
-        <a href="https://ads.google.com/settings" rel="nofollow noopener noreferrer" target="_blank">
-          Google Ads Settings
-        </a>
-        . You can also opt out of interest-based advertising from other participating companies by visiting{' '}
-        <a href="https://optout.aboutads.info" rel="nofollow noopener noreferrer" target="_blank">
-          optout.aboutads.info
-        </a>
-        . Opting out does not remove all ads ,  it means ads shown to you will not be personalized based on
-        your browsing history.
+        If optional analytics or advertising is added later, this policy and any required consent controls
+        will be updated before those tools are enabled.
       </p>
 
-      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        4. Analytics
-      </h2>
+      <h2 style={heading}>External links and directions</h2>
       <p>
-        We may use analytics services to track and analyze visitor behavior on our Site. This helps us
-        understand how people use our directory and improve the user experience. Information collected
-        includes page views, click behavior, and other engagement metrics. This data is aggregated and does
-        not identify individuals.
+        Ramp pages include links to agency websites, OpenStreetMap attribution, and Google Maps directions.
+        Those services receive information under their own policies only after you follow an external link;
+        this site does not embed a Google map or transmit your ramp selection to Google automatically.
       </p>
 
-      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        5. Data Retention
-      </h2>
+      <h2 style={heading}>How information is used and shared</h2>
       <p>
-        We retain personal data only for as long as necessary to provide our services and fulfill the
-        purposes outlined in this Privacy Policy. You may request deletion of your data by contacting us at
-        privacy@publicboatramps.com.
+        We use information to operate and secure the site, answer messages, correct directory records, and
+        meet legal obligations. We do not sell personal information or share it for targeted advertising. We
+        may disclose information to service providers that operate the site, when required by law, or when
+        reasonably necessary to protect users, the site, or others.
       </p>
 
-      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        6. GDPR Compliance
-      </h2>
+      <h2 style={heading}>Retention and your choices</h2>
       <p>
-        For users in the European Union, the General Data Protection Regulation (GDPR) provides you with
-        certain rights regarding your personal data. These include the right to access, rectify, erase, or
-        restrict processing of your data. You also have the right to data portability and the right to
-        object to processing. To exercise any of these rights, please contact us at privacy@publicboatramps.com.
+        Email and business records are kept only as long as reasonably needed for the purposes described
+        above, subject to legal, security, and backup requirements. You may request access, correction, or
+        deletion of information you submitted by emailing privacy@publicboatramps.com. Applicable law may
+        provide additional rights, and some records may be retained where legally permitted or required.
       </p>
 
-      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        7. CCPA Compliance
-      </h2>
+      <h2 style={heading}>Security and children</h2>
       <p>
-        For California residents, the California Consumer Privacy Act (CCPA) provides you the right to know
-        what personal information is collected, the right to delete personal information received from you,
-        and the right to opt-out of the sale or sharing of your personal information. While we do not sell
-        personal information, we do use third-party services that may use data for advertising purposes. To
-        exercise CCPA rights, please contact us at privacy@publicboatramps.com.
+        We use reasonable technical safeguards, but no internet service can guarantee absolute security. The
+        site is a general-audience directory and is not directed to children under 13. We do not knowingly
+        collect personal information from children.
       </p>
 
-      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        8. MODPA (Maryland Online Data Privacy Act) Compliance
-      </h2>
+      <h2 style={heading}>Policy changes and contact</h2>
       <p>
-        The Maryland Online Data Privacy Act (MODPA) became enforceable on April 1, 2026. This law provides Maryland residents with the following consumer rights:
-      </p>
-      <ul style={{ marginTop: '0.75rem', marginBottom: '0.75rem', paddingLeft: '2rem' }}>
-        <li><strong>Right to Access:</strong> You have the right to know what personal data we collect about you.</li>
-        <li><strong>Right to Correct:</strong> You may request correction of inaccurate personal data.</li>
-        <li><strong>Right to Delete:</strong> You may request deletion of your personal data, with limited exceptions.</li>
-        <li><strong>Right to Opt-Out of Sale or Targeted Advertising:</strong> You may opt out of the sale or sharing of your personal data for targeted advertising purposes.</li>
-        <li><strong>Right to Data Portability:</strong> You may request your personal data in a portable and readily usable format.</li>
-      </ul>
-      <p style={{ marginTop: '0.75rem', marginBottom: '0.75rem' }}>
-        <strong>Global Privacy Control (GPC):</strong> We honor the Global Privacy Control (GPC) signal. If you send us a GPC signal via your browser or device, we will treat it as a universal opt-out request for sale or targeted advertising of your personal data.
-      </p>
-      <p style={{ marginTop: '0.75rem', marginBottom: '0.75rem' }}>
-        <strong>No Sale of Personal Data:</strong> We do not sell personal data to third parties, as that term is defined under MODPA.
-      </p>
-      <p style={{ marginTop: '0.75rem', marginBottom: '0.75rem' }}>
-        <strong>Response Timeline:</strong> We will respond to verifiable consumer rights requests within 45 days, as required by law.
-      </p>
-      <p>
-        To exercise any of your MODPA rights, please contact us at: privacy@publicboatramps.com
-      </p>
-
-      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        9. Third-Party Links
-      </h2>
-      <p>
-        Our Site may contain links to third-party websites. We are not responsible for the privacy practices
-        of these external sites. We encourage you to review the privacy policies of any third-party sites
-        before providing personal information.
-      </p>
-
-      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        10. Security
-      </h2>
-      <p>
-        We implement reasonable security measures to protect your data. However, no method of transmission
-        over the internet is 100% secure. We cannot guarantee absolute security of your information.
-      </p>
-
-      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        11. Changes to This Policy
-      </h2>
-      <p>
-        We may update this Privacy Policy periodically. Changes will be posted on this page with an updated
-        "Last Updated" date. Continued use of the Site following changes constitutes acceptance of the
-        updated Policy.
-      </p>
-
-      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        12. Contact Us
-      </h2>
-      <p>
-        If you have questions about this Privacy Policy or our privacy practices, please contact us at:
-        <br />
-        Email: privacy@publicboatramps.com
+        We may update this policy when the site or its service providers change. The date above will show the
+        latest revision. Questions and privacy requests can be sent to privacy@publicboatramps.com.
       </p>
     </article>
   );
