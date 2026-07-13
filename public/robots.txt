@@ -3,7 +3,6 @@ Allow: /
 
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 10
 
 User-agent: OAI-SearchBot
 Allow: /

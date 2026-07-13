@@ -12,7 +12,7 @@ export default function EditorialIndexPage() {
   const articles = getAllArticles();
 
   return (
-    <main style={{ maxWidth: '780px', margin: '0 auto', padding: '3rem 1.5rem 5rem' }}>
+    <div style={{ maxWidth: '780px', margin: '0 auto', padding: '3rem 1.5rem 5rem' }}>
 
       <header style={{ marginBottom: '3rem', borderBottom: '2px solid var(--gold)', paddingBottom: '2rem' }}>
         <p className="section-label">Editorial</p>
@@ -91,6 +91,6 @@ export default function EditorialIndexPage() {
         </ul>
       )}
 
-    </main>
+    </div>
   );
 }

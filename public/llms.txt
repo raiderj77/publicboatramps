@@ -1,22 +1,33 @@
-# Public Boat Ramps Directory ,  LLM-Friendly Site Summary
+# Public Boat Ramps Directory
 
-> A free directory of public boat ramps, launches, and water access points across the United States.
+> A free-to-use reference directory for public boat launch records, facility details, fees, source attribution, and directions.
 
-## About
-- Domain: publicboatramps.com
-- Type: Location directory
-- Coverage: All 50 US states, 102+ public boat ramp locations
-- Data: GPS coordinates, amenities, access hours, fees, ramp type
+## Current indexed coverage
 
-## Key Pages
-- [Home](https://publicboatramps.com): Browse all public boat ramps by state
-- [Editorial](https://publicboatramps.com/editorial): Guides and expert content
-- [Privacy Policy](https://publicboatramps.com/privacy): MODPA/GDPR/CCPA compliant, honors GPC signals
-- [About](https://publicboatramps.com/about): Mission and editorial standards
-- [Contact](https://publicboatramps.com/contact): Get in touch
+- 2,334 data-rich ramp listings
+- Florida: 2,321 listings
+- Georgia: 8 listings
+- Alabama: 5 listings
+- 191 Florida water-body directory pages
 
-## Data Coverage
-Each boat ramp listing includes: name, state, county, GPS coordinates, address, amenities (parking, restrooms, courtesy dock, fishing pier), ramp type (concrete/gravel), fee information, and seasonal availability.
+The underlying source collection is larger, but records are excluded from indexing until they meet the directory quality gate. Coverage should not be described as nationwide or complete.
 
-## Sitemap
-https://publicboatramps.com/sitemap.xml
+## Key pages
+
+- [Home](https://publicboatramps.com/): Directory overview and methodology summary
+- [Florida](https://publicboatramps.com/florida): Florida ramp directory
+- [Georgia](https://publicboatramps.com/georgia): Georgia ramp directory
+- [Alabama](https://publicboatramps.com/alabama): Alabama ramp directory
+- [Editorial guides](https://publicboatramps.com/editorial): Source-based Florida reference guides
+- [About and methodology](https://publicboatramps.com/about): Sources, quality gate, limitations, and organizational byline
+- [Accessibility](https://publicboatramps.com/accessibility): Website and ramp-data accessibility limitations
+- [Privacy](https://publicboatramps.com/privacy): Current privacy and tracking practices
+
+## Data notes
+
+Listings show only fields supported by the source record. These may include coordinates, address, water body, amenities, access type, hours, fee status, managing agency, phone number, accessibility observations, and an official source link. Facility conditions and fees can change; users should confirm critical details with the managing agency.
+
+## Discovery
+
+- Sitemap index: https://publicboatramps.com/sitemap.xml
+- Contact: contact@publicboatramps.com
