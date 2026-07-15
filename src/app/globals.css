@@ -217,6 +217,7 @@ img { max-width: 100%; height: auto; }
 
 /* ---- Stats bar ---- */
 .stat-item { text-align: center; padding: 1.5rem 1rem; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .stat-number { font-family: var(--font-display); font-size: 2.5rem; font-weight: 700; color: var(--navy); line-height: 1; }
 .stat-label  { font-size: 0.85rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.4rem; }
 
@@ -315,6 +316,7 @@ img { max-width: 100%; height: auto; }
   color: #445;
 }
 @media (max-width: 640px) {
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .article-body h2 { font-size: 1.35rem; }
   .article-body h3 { font-size: 1.1rem; }
   .article-body table { font-size: 0.8rem; }

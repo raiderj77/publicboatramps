@@ -79,7 +79,7 @@ export default function Home() {
 
       {/* ── Stats bar ── */}
       <section style={{ background: 'var(--white)', borderBottom: '1px solid rgba(10,22,40,0.08)', boxShadow: '0 2px 12px rgba(10,22,40,0.06)' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+        <div className="container stats-grid">
           {[
             { n: `${verifiedRamps.length.toLocaleString()}+`, l: 'Verified Listings' },
             { n: `${activeStates.length}`, l: 'States Covered' },
