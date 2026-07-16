@@ -292,7 +292,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
                     {sig.freeCount.toLocaleString()}
                   </div>
                   <div style={{ fontSize: '0.78rem', color: 'rgba(205,216,232,0.7)', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: '0.25rem' }}>
-                    No Launch Fee
+                    No Fee Recorded
                   </div>
                 </div>
               )}
@@ -302,7 +302,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
                     {sig.adaCount.toLocaleString()}
                   </div>
                   <div style={{ fontSize: '0.78rem', color: 'rgba(205,216,232,0.7)', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: '0.25rem' }}>
-                    ADA Accessible
+                    Accessibility Recorded
                   </div>
                 </div>
               )}
@@ -411,7 +411,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
         <section style={{ padding: '3.5rem 1.5rem', background: sig.hasFwcData ? 'var(--white)' : 'var(--cream)' }}>
           <div className="container">
             <p className="section-label">Most Equipped</p>
-            <h2 className="section-title">Best-Equipped Free Ramps in {stateName}</h2>
+            <h2 className="section-title">Data-Rich Ramps With No Launch Fee Recorded in {stateName}</h2>
             <div className="grid-3" style={{ marginTop: '1.5rem' }}>
               {sig.topRamps.map(r => {
                 const ada = adaScore(r.accessibilityLevel as string | null) >= 2;
@@ -449,7 +449,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
                             <span className="chip" style={{ fontSize: '0.75rem' }}>{surface}</span>
                           )}
                           {fee === 'No' && (
-                            <span className="chip" style={{ fontSize: '0.75rem', background: 'rgba(42,138,120,0.12)', color: 'var(--seafoam)', borderColor: 'rgba(42,138,120,0.3)' }}>Free</span>
+                            <span className="chip" style={{ fontSize: '0.75rem', background: 'rgba(42,138,120,0.12)', color: 'var(--seafoam)', borderColor: 'rgba(42,138,120,0.3)' }}>No launch fee recorded</span>
                           )}
                           {ada && (
                             <span className="chip" style={{ fontSize: '0.75rem', background: 'rgba(26,92,138,0.1)', color: 'var(--ocean)', borderColor: 'rgba(26,92,138,0.25)' }}>ADA</span>

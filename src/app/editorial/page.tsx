@@ -3,7 +3,7 @@ import { getAllArticles } from '@/lib/editorial';
 
 export const metadata: Metadata = {
   title: 'Editorial Guides | Public Boat Ramps',
-  description: 'In-depth guides to Florida boat ramps, free public launches, ADA-accessible facilities, and waterway access points from the Public Boat Ramps editorial team.',
+  description: 'Source-based guides to Florida boat-ramp fee and accessibility fields, regions, and waterway access records.',
   alternates: { canonical: 'https://publicboatramps.com/editorial' },
   robots: { index: true, follow: true },
 };
@@ -26,7 +26,7 @@ export default function EditorialIndexPage() {
           Guides and Reference Articles
         </h1>
         <p style={{ color: 'var(--gray)', fontSize: '1.05rem', lineHeight: 1.65, maxWidth: '580px' }}>
-          In-depth guides to Florida boat ramps, free public launches, and waterway access,
+          Source-based guides to Florida boat-ramp fee fields, accessibility observations, and waterway access,
           sourced from the FWC Florida Boat Ramp Inventory.
         </p>
       </header>

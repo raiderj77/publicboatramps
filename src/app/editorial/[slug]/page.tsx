@@ -129,7 +129,7 @@ export default async function ArticlePage({ params }: Props) {
             Find a ramp near you
           </p>
           <p style={{ color: '#445', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1rem' }}>
-            Browse all 1,585 free Florida boat ramps in the full directory, searchable by county and water body.
+            Browse 1,585 Florida source records marked “No” for launch fee required. Confirm current launch, parking, permit, and pass charges with the operator.
           </p>
           <a href="/florida" className="btn btn-gold" style={{ padding: '0.7rem 1.5rem', fontSize: '0.9rem' }}>
             Browse Florida Ramps

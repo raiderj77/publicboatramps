@@ -255,7 +255,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
      loc.isRestroomAccessible === 'Yes');
 
   const feeChip = loc.isFeeRequired === 'No'
-    ? 'Free'
+    ? 'No launch fee recorded'
     : loc.isFeeRequired === 'Yes'
       ? (val(loc.feeAmount) && String(loc.feeAmount) !== '0' ? `$${loc.feeAmount} fee` : 'Fee required')
       : null;
@@ -265,9 +265,9 @@ export default async function LocationPage({ params }: { params: Promise<{ state
   if (val(loc.totalLanes) && Number(loc.totalLanes) > 0)
     quickFacts.push({ label: `${loc.totalLanes} lane${Number(loc.totalLanes) !== 1 ? 's' : ''}`, icon: '🛣️' });
   if (val(loc.rampSurface)) quickFacts.push({ label: String(loc.rampSurface), icon: '🪨' });
-  if (feeChip) quickFacts.push({ label: feeChip, icon: feeChip === 'Free' ? '🆓' : '💰' });
+  if (feeChip) quickFacts.push({ label: feeChip, icon: feeChip === 'No launch fee recorded' ? '🧾' : '💰' });
   if (val(loc.waterType)) quickFacts.push({ label: String(loc.waterType), icon: '💧' });
-  if (isAda) quickFacts.push({ label: 'ADA Accessible', icon: '♿' });
+  if (isAda) quickFacts.push({ label: 'Accessibility feature recorded', icon: '♿' });
 
   // ── Section 4: Ramp Details ───────────────────────────────────────────────
   const leftRows: [string, string][] = [];
@@ -292,7 +292,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
   const parkingCond = normalizeParking(loc.parkingCondition);
   if (parkingCond) rightRows.push(['Parking Condition', parkingCond]);
   if (val(loc.restroomType) && loc.restroomType !== 'No Toilet') {
-    const accessible = loc.isRestroomAccessible === 'Yes' ? ' (ADA accessible)' : '';
+    const accessible = loc.isRestroomAccessible === 'Yes' ? ' (source marks accessible)' : '';
     rightRows.push(['Restroom', `${String(loc.restroomType)}${accessible}`]);
   }
   if (val(loc.accessibilityLevel)) rightRows.push(['Accessibility', String(loc.accessibilityLevel)]);
@@ -321,7 +321,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
   const adminRows: { label: string; value: string; href?: string; rel?: string }[] = [];
   if (val(loc.adminEntity)) adminRows.push({ label: 'Managed by', value: String(loc.adminEntity) });
   if (val(loc.contactPhone)) adminRows.push({ label: 'Contact', value: String(loc.contactPhone), href: `tel:${String(loc.contactPhone)}` });
-  if (formattedDate) adminRows.push({ label: 'Last verified', value: formattedDate });
+  if (formattedDate) adminRows.push({ label: 'Source record date', value: formattedDate });
   if (isValidHttpsUrl(loc.externalUrl)) adminRows.push({ label: 'Official information', value: 'Official website →', href: loc.externalUrl, rel: 'nofollow' });
   adminRows.push({ label: 'Data source', value: sourceLabel });
 
@@ -341,8 +341,6 @@ export default async function LocationPage({ params }: { params: Promise<{ state
     address: addressObj,
     amenityFeature: location.amenities.map((a: string) => ({ '@type': 'LocationFeatureSpecification', name: a, value: true })),
   };
-  if (loc.isFeeRequired === 'No') placeSchema.isAccessibleForFree = true;
-  if (showFee && val(loc.feeAmount) && String(loc.feeAmount) !== '0') placeSchema.priceRange = `$${loc.feeAmount}`;
 
   // ─────────────────────────────────────────────────────────────────────────
 
