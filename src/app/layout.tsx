@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     default: 'Public Boat Ramps Directory',
   },
   description:
-    'Find public boat ramps, launches, and water access points near you. Browse verified facility details, fees, amenities, and sources.',
+    'Find public boat ramps, launches, and water access points. Browse source-attributed facility records, fee status, amenities, and sources.',
   keywords:
     'boat ramp, public boat launch, free boat ramp, boat ramp near me, public water access, boat launch, fishing access',
   alternates: { canonical: 'https://publicboatramps.com' },

@@ -179,7 +179,7 @@ export async function generateMetadata(
   const stateName = getStateName(state);
   const { waterBodyName, total, freeCount, adaCount } = data;
   const title = `${waterBodyName} Boat Ramps in ${stateName}`;
-  const description = `${total} public boat ramps and launches on ${waterBodyName} in ${stateName}. ${freeCount} free, ${adaCount} ADA-accessible.`;
+  const description = `${total} public boat-ramp source records on ${waterBodyName} in ${stateName}. ${freeCount} have no launch fee recorded; ${adaCount} include an accessibility observation.`;
 
   return {
     title,
@@ -291,13 +291,13 @@ export default async function WaterBodyPage(
             {freeCount > 0 && (
               <div style={{ textAlign: 'left' }}>
                 <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 700, color: 'var(--gold)', lineHeight: 1 }}>{freeCount}</div>
-                <div style={{ fontSize: '0.78rem', color: 'rgba(205,216,232,0.7)', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: '0.25rem' }}>No Launch Fee</div>
+                <div style={{ fontSize: '0.78rem', color: 'rgba(205,216,232,0.7)', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: '0.25rem' }}>No Fee Recorded</div>
               </div>
             )}
             {adaCount > 0 && (
               <div style={{ textAlign: 'left' }}>
                 <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', fontWeight: 700, color: 'white', lineHeight: 1 }}>{adaCount}</div>
-                <div style={{ fontSize: '0.78rem', color: 'rgba(205,216,232,0.7)', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: '0.25rem' }}>ADA Accessible</div>
+                <div style={{ fontSize: '0.78rem', color: 'rgba(205,216,232,0.7)', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: '0.25rem' }}>Accessibility Recorded</div>
               </div>
             )}
             {waterType && (

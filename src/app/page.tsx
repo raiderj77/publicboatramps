@@ -22,16 +22,16 @@ function getRampPreview(ramp: { name: string; state: string; city: string; ameni
 export const metadata: Metadata = {
   title: 'Find Public Boat Ramps Near You | Public Directory',
   description:
-    'Browse verified public boat ramp and launch records across the United States. Compare location, amenities, fees, and official source details.',
+    'Browse source-attributed public boat ramp and launch records. Compare recorded locations, amenities, fee status, and source details.',
   openGraph: {
     title: 'Find Public Boat Ramps Near You',
-    description: 'Browse verified public boat ramp and launch records across the United States.',
+    description: 'Browse source-attributed public boat ramp and launch records.',
   },
 };
 
 export default function Home() {
-  const verifiedRamps = locations.filter((location) => isIndexable(location));
-  const featuredRamps = verifiedRamps.slice(0, 6);
+  const dataRichRamps = locations.filter((location) => isIndexable(location));
+  const featuredRamps = dataRichRamps.slice(0, 6);
 
   return (
     <>
@@ -63,7 +63,7 @@ export default function Home() {
             <span style={{ color: 'var(--gold)' }}>Near You</span>
           </h1>
           <p className="anim-fade-up anim-delay-2" style={{ fontSize: '1.15rem', color: '#9ab8cf', marginBottom: '2.5rem', maxWidth: '520px', margin: '0 auto 2.5rem' }}>
-            Compare verified public launch records, facility details, fees, and directions.
+            Compare source-attributed launch records, recorded facility details, fee status, and directions.
           </p>
           <div className="anim-fade-up anim-delay-3" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
             <a href="#states" className="btn btn-gold">Browse by State →</a>
@@ -81,7 +81,7 @@ export default function Home() {
       <section style={{ background: 'var(--white)', borderBottom: '1px solid rgba(10,22,40,0.08)', boxShadow: '0 2px 12px rgba(10,22,40,0.06)' }}>
         <div className="container stats-grid">
           {[
-            { n: `${verifiedRamps.length.toLocaleString()}+`, l: 'Verified Listings' },
+            { n: `${dataRichRamps.length.toLocaleString()}+`, l: 'Data-Rich Records' },
             { n: `${activeStates.length}`, l: 'States Covered' },
             { n: '$0', l: 'Membership Cost' },
             { n: '24/7', l: 'Always Online' },
@@ -177,7 +177,7 @@ export default function Home() {
               Public boat ramps are essential infrastructure that provides free or paid access to America&apos;s waterways. These facilities allow boaters of many experience levels to launch and retrieve vessels, supporting recreational boating, fishing, water sports, and tourism. Whether you&apos;re planning a weekend fishing trip, launching a sailboat, or exploring a new lake, check the recorded fee status and verify current charges with the operator.
             </p>
             <p style={{ lineHeight: 1.85, marginBottom: '1.25rem' }}>
-              Most public boat ramps are maintained by state fish and wildlife agencies, the U.S. Army Corps of Engineers, or local park departments. These organizations ensure that facilities are safe, well-maintained, and accessible to the public. Common amenities include paved launch ramps (which accommodate trailers and larger vessels), dedicated trailer parking, restroom facilities, picnic areas, and sometimes fishing piers or fish cleaning stations.
+              Facility operators vary. Source records may identify a public agency, local government, or commercial operator and may list ramp surfaces, trailer parking, restrooms, docks, or other amenities. A recorded feature is not a current inspection; confirm conditions with the operator before traveling.
             </p>
 
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.3rem', color: 'var(--navy)', marginTop: '2rem', marginBottom: '0.75rem' }}>How to Use the Directory</h3>
@@ -192,7 +192,7 @@ export default function Home() {
 
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.3rem', color: 'var(--navy)', marginTop: '2rem', marginBottom: '0.75rem' }}>Required Permits and Registration</h3>
             <p style={{ lineHeight: 1.85 }}>
-              Most U.S. states require boat registration for recreational vessels. Registration fees are typically modest and help fund water safety programs and facility maintenance. Some states also offer launch permits or day-use passes for specific facilities, though many public ramps are completely free to use. Contact your state's fish and wildlife agency or check their website to confirm current requirements for your vessel and the specific ramp you plan to visit.
+              Registration, launch permits, parking passes, and facility charges depend on the vessel, jurisdiction, and launch. Check the responsible state boating authority and the facility operator for current requirements. A record marked “No” for fee required means only that no launch fee was recorded in that source; parking or permit charges may still apply or may have changed.
             </p>
           </article>
         </div>
@@ -210,23 +210,23 @@ export default function Home() {
               Search by state or county, then compare amenities. Concrete ramps, courtesy docks, trailer parking, and restrooms are the key features that separate a good ramp from a frustrating one.
             </p>
             <p style={{ lineHeight: 1.85, marginBottom: '1.25rem' }}>
-              When evaluating a ramp, match the facility to your boat type. A flat-bottomed jon boat can handle a gravel or dirt ramp, but a deep-V trailered boat needs a concrete surface that extends far enough into the water for a safe float-off. Courtesy docks are essential if you&apos;re launching solo. There are thousands of public boat ramps across the United States, managed by a mix of federal, state, and local agencies, and the quality and amenities vary widely even within the same county.
+              Match the source-record fields to your needs, then confirm current ramp surface, water depth, dock condition, parking, closures, and vessel restrictions with the operator. This directory cannot determine whether a launch is suitable or safe for a particular boat.
             </p>
             <p style={{ lineHeight: 1.85, marginBottom: '2.5rem' }}>
-              Trailer parking capacity is often the deciding factor on busy weekends. A ramp with only 10 trailer spaces fills before 8am on summer Saturdays at popular lakes. Use the listings to check parking notes before you make the drive. Recreational boating is a significant contributor to the U.S. economy, and well-maintained public infrastructure is part of what sustains that activity.
+              Parking values and amenity notes are reproduced from source records and may be incomplete or stale. Use them for initial planning, not as a reservation or availability guarantee.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--navy)', marginBottom: '0.75rem' }}>
-              What are the busiest times at public boat ramps?
+              When should I check current conditions?
             </h2>
             <p style={{ fontStyle: 'italic', color: 'var(--navy)', fontWeight: 600, marginBottom: '1rem', lineHeight: 1.7 }}>
-              Summer weekends between 6am and 10am are the busiest times at most public boat ramps. Arriving before 8am on Saturday and Sunday significantly reduces wait times at popular launches.
+              Check immediately before departure whenever water level, weather, seasonal operations, construction, tournaments, or local events could affect the launch.
             </p>
             <p style={{ lineHeight: 1.85, marginBottom: '1.25rem' }}>
-              Seasonal patterns matter too. Spring and fall weekdays are typically the least crowded times to launch, with shorter ramp queues and more available trailer parking. Summer holiday weekends—including Memorial Day, Fourth of July, and Labor Day—see the longest waits, often with ramp lines forming before sunrise at well-known fishing destinations.
+              Use the managing agency or facility operator for closures and operating notices. Where a listing has an official source link or phone number, use it to confirm the details that matter to your trip.
             </p>
             <p style={{ lineHeight: 1.85, marginBottom: '2.5rem' }}>
-              Fishing tournaments create unpredictable congestion even on weekdays. Fishing tournaments can back up a ramp for over an hour starting before sunrise. Recreational boating and fishing participation is significant and growing across the United States. Check local fishing club schedules and tournament calendars before planning a mid-week launch.
+              This directory does not publish live crowd levels, wait times, water depths, or parking availability.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--navy)', marginBottom: '0.75rem' }}>
@@ -246,10 +246,10 @@ export default function Home() {
               Are public boat ramps open year-round?
             </h2>
             <p style={{ fontStyle: 'italic', color: 'var(--navy)', fontWeight: 600, marginBottom: '1rem', lineHeight: 1.7 }}>
-              Many public boat ramps are open year-round, but seasonal closures are common in northern states where ice or flooding makes launching unsafe. Some ramps close October through April.
+              Operating seasons vary by facility. Ice, flooding, low water, storms, maintenance, construction, and local rules can change access.
             </p>
             <p style={{ lineHeight: 1.85, marginBottom: '2.5rem' }}>
-              Water levels after heavy rainfall can temporarily close ramps even during open seasons; a ramp that&apos;s submerged under 3 feet of flood water is unusable regardless of its posted hours. Always check with the local managing agency. Army Corps of Engineers project offices, state DNR websites, and county park departments typically post current closure notices online before you make the trip.
+              Check the managing agency or operator before traveling. A source-record date is not proof that the facility is currently open.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', color: 'var(--navy)', marginBottom: '1rem' }}>
@@ -327,7 +327,7 @@ export default function Home() {
           <p className="section-label" style={{ color: 'var(--gold-light)' }}>Ready to Launch?</p>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', color: 'var(--white)', marginBottom: '1rem' }}>Find Your Perfect Ramp Today</h2>
           <p style={{ color: '#8a9bb0', marginBottom: '2rem', lineHeight: 1.7 }}>
-            Free-to-use access to {verifiedRamps.length.toLocaleString()} verified public boat launch records.
+            Free-to-browse access to {dataRichRamps.length.toLocaleString()} source-attributed, data-rich launch records.
           </p>
           <Link href="/florida" className="btn btn-gold">Explore Ramps →</Link>
         </div>

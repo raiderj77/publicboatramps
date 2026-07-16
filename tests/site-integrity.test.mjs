@@ -32,6 +32,30 @@ test('unverified free-access and contributor claims are absent', () => {
   assert.match(files, /Public Boat Ramps Data Team/);
 });
 
+test('source records are not presented as live verification, free access, or ADA certification', () => {
+  const files = [
+    'src/app/page.tsx',
+    'src/app/layout.tsx',
+    'src/app/opengraph-image.tsx',
+    'src/app/[state]/page.tsx',
+    'src/app/[state]/[slug]/page.tsx',
+    'src/app/[state]/water-body/[slug]/page.tsx',
+    'src/components/StateRampListing.tsx',
+  ].map(read).join('\n');
+
+  assert.doesNotMatch(files, /Verified Listings|Compare verified|verified public boat|>Free<|ADA Accessible|Last verified/i);
+  assert.match(files, /Data-Rich Records/);
+  assert.match(files, /No launch fee recorded/);
+  assert.match(files, /Source record date/);
+  assert.doesNotMatch(files, /isAccessibleForFree|priceRange/);
+});
+
+test('homepage avoids unsupported nationwide crowd and availability claims', () => {
+  const home = read('src/app/page.tsx');
+  assert.doesNotMatch(home, /busiest times at public boat ramps|fills before 8am|between 6am and 10am|back up a ramp for over an hour|close October through April/i);
+  assert.match(home, /does not publish live crowd levels, wait times, water depths, or parking availability/i);
+});
+
 test('privacy copy matches the deployed tracking configuration', () => {
   const privacy = read('src/app/privacy/page.tsx');
   assert.match(privacy, /does not currently load Google Analytics/);

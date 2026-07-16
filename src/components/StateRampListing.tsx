@@ -69,12 +69,12 @@ export default function StateRampListing({ ramps, stateSlug }: { ramps: RampRow[
         <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 600, color: 'var(--navy)', fontFamily: 'var(--font-display)' }}>
           <input type="checkbox" checked={freeOnly} onChange={e => setFreeOnly(e.target.checked)}
             style={{ width: '16px', height: '16px', cursor: 'pointer', accentColor: 'var(--gold)' }} />
-          Free only
+          No launch fee recorded
         </label>
         <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 600, color: 'var(--navy)', fontFamily: 'var(--font-display)' }}>
           <input type="checkbox" checked={adaOnly} onChange={e => setAdaOnly(e.target.checked)}
             style={{ width: '16px', height: '16px', cursor: 'pointer', accentColor: 'var(--gold)' }} />
-          ADA accessible
+          Accessibility recorded
         </label>
         <span style={{ fontSize: '0.82rem', color: 'var(--gray)', marginLeft: 'auto' }}>
           {filtered.length.toLocaleString()} ramp{filtered.length !== 1 ? 's' : ''}
@@ -121,7 +121,7 @@ export default function StateRampListing({ ramps, stateSlug }: { ramps: RampRow[
                 )}
                 {r.isFeeRequired === 'No' && (
                   <span className="chip" style={{ fontSize: '0.72rem', padding: '0.15rem 0.5rem', background: 'rgba(42,138,120,0.12)', color: 'var(--seafoam)', borderColor: 'rgba(42,138,120,0.3)' }}>
-                    Free
+                    No launch fee recorded
                   </span>
                 )}
                 {isAda(r) && (

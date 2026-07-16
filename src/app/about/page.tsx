@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'About Us',
-  description: 'Learn about Public Boat Ramps Directory and our mission to help people find free water access.',
+  description: 'Learn about Public Boat Ramps Directory, its source records, quality gate, and limitations.',
   alternates: { canonical: 'https://publicboatramps.com/about' },
 };
 
@@ -18,7 +18,7 @@ export default function AboutPage() {
       </h2>
       <p>
         Public Boat Ramps Directory is dedicated to helping boaters, fishers, and water enthusiasts discover
-        free and affordable public access to America's waterways. We believe that everyone should have the
+        public boat-launch records and source details. We believe that people should be able to compare
         opportunity to enjoy our nation's lakes, rivers, and coastal waters, regardless of their financial
         situation. Our mission is to compile a comprehensive, easy-to-use directory of public boat ramps
         across the United States.
