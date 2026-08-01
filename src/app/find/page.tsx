@@ -40,6 +40,7 @@ function first(value: string | string[] | undefined): string {
 }
 
 function validNumber(value: string, minimum: number, maximum: number): number | null {
+  if (!value.trim()) return null;
   const number = Number(value);
   return Number.isFinite(number) && number >= minimum && number <= maximum ? number : null;
 }
