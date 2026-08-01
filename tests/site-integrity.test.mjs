@@ -114,6 +114,7 @@ test('public trust and discovery files are present', () => {
 test('finder protects result indexation and limits location precision', () => {
   const finder = read('src/app/find/page.tsx');
   const locationButton = read('src/app/find/UseMyLocation.tsx');
+  assert.match(finder, /if \(!value\.trim\(\)\) return null/);
   assert.match(finder, /robots: hasSearch \? \{ index: false, follow: true \}/);
   assert.match(finder, /results\.slice\(0, 100\)/);
   assert.match(finder, /ALLOWED_RADII/);
