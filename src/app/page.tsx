@@ -40,7 +40,7 @@ export default function Home() {
         '@context': 'https://schema.org', '@type': 'WebSite',
         url: 'https://publicboatramps.com',
         name: 'Public Boat Ramps Directory',
-        dateModified: '2026-07-13',
+        dateModified: '2026-07-30',
       }) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         '@context': 'https://schema.org', '@type': 'Organization',
@@ -65,9 +65,23 @@ export default function Home() {
           <p className="anim-fade-up anim-delay-2" style={{ fontSize: '1.15rem', color: '#9ab8cf', marginBottom: '2.5rem', maxWidth: '520px', margin: '0 auto 2.5rem' }}>
             Compare source-attributed launch records, recorded facility details, fee status, and directions.
           </p>
-          <div className="anim-fade-up anim-delay-3" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
-            <a href="#states" className="btn btn-gold">Browse by State →</a>
-            <a href="/florida" className="btn btn-outline">View Sample Ramps</a>
+          <form action="/find" method="get" className="anim-fade-up anim-delay-3" style={{ maxWidth: '720px', margin: '0 auto', display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <label htmlFor="home-ramp-search" style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}>
+              Search by city, county, ZIP code, water body, or ramp name
+            </label>
+            <input
+              id="home-ramp-search"
+              type="search"
+              name="q"
+              placeholder="City, county, ZIP, lake, or ramp"
+              autoComplete="off"
+              style={{ flex: '1 1 360px', minHeight: '52px', border: '1px solid rgba(255,255,255,0.35)', borderRadius: '6px', padding: '0.75rem 1rem', font: 'inherit' }}
+            />
+            <button type="submit" className="btn btn-gold" style={{ minHeight: '52px', border: 0, cursor: 'pointer' }}>Search Ramps</button>
+          </form>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center', marginTop: '1.25rem' }}>
+            <Link href="/find" className="btn btn-outline">Use My Location</Link>
+            <a href="#states" className="btn btn-outline">Browse by State</a>
           </div>
         </div>
 
@@ -154,9 +168,9 @@ export default function Home() {
           </div>
           <div className="grid-3">
             {[
-              { num: '1', title: 'Browse by State', desc: 'Select your state from the directory to see all public boat ramps in that region.' },
-              { num: '2', title: 'Review Details', desc: 'Check amenities, GPS coordinates, and facility information for each ramp.' },
-              { num: '3', title: 'Verify and Go', desc: 'Confirm current conditions with the managing agency, then navigate to the launch.' },
+              { num: '1', title: 'Search or Browse', desc: 'Search by place, water body, ramp name, or optional rounded location.' },
+              { num: '2', title: 'Review the Source Record', desc: 'Compare recorded amenities, fee status, GPS coordinates, and managing-agency information.' },
+              { num: '3', title: 'Confirm and Go', desc: 'Confirm current conditions with the managing agency, then navigate to the launch.' },
             ].map(({ num, title, desc }) => (
               <div key={num} style={{ textAlign: 'center', padding: '1.5rem' }}>
                 <div className="step-num">{num}</div>
@@ -289,7 +303,7 @@ export default function Home() {
             { q: 'Are there fees to use public boat ramps?', a: 'Fee policies vary by facility. Some ramps have no recorded launch fee, while others charge for launching, parking, permits, or passes. Check the listing and confirm current rates with the managing agency.' },
             { q: 'What amenities are available at public boat ramps?', a: 'Common amenities include paved launch ramps, trailer parking, restrooms, picnic areas, and fishing piers. Availability varies by location and managing agency.' },
             { q: 'Do I need a permit to launch a boat at public ramps?', a: 'Requirements vary by state and facility. Vessel registration, launch permits, parking passes, or local access permits may apply. Check the managing agency before visiting.' },
-            { q: 'How can I find boat ramps near me?', a: 'Browse our directory by state using the links below, or use the search bar at the top of this page. Each listing includes GPS coordinates, amenities, and location details.' },
+            { q: 'How can I find boat ramps near me?', a: 'Use the ramp finder to search by city, county, ZIP code, water body, ramp name, or an optional rounded browser location. Each qualifying listing includes GPS coordinates and the source fields available for that ramp.' },
           ].map(({ q, a }) => (
             <details key={q} className="faq-item">
               <summary>{q}</summary>
@@ -321,15 +335,29 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Local business pilot ── */}
+      <section style={{ background: 'var(--cream)', borderTop: '1px solid rgba(10,22,40,0.06)', padding: '4rem 1.5rem' }}>
+        <div className="container" style={{ maxWidth: '860px', textAlign: 'center' }}>
+          <p className="section-label">For Marine Businesses</p>
+          <h2 className="section-title">Reach boaters while they plan a launch</h2>
+          <p className="section-sub" style={{ margin: '0 auto 1.5rem' }}>
+            A Florida founding-partner pilot is open to boat repair shops, marinas, storage facilities, bait stores,
+            guides, charters, rentals, fuel providers, towing services, and waterfront lodging. Paid placements are
+            labeled Paid Advertisement and never change ramp records or rankings.
+          </p>
+          <Link href="/advertise" className="btn btn-gold">View Partner Options</Link>
+        </div>
+      </section>
+
       {/* ── CTA ── */}
       <section style={{ background: 'var(--navy)', padding: '4rem 1.5rem', textAlign: 'center' }}>
         <div className="container" style={{ maxWidth: '600px' }}>
           <p className="section-label" style={{ color: 'var(--gold-light)' }}>Ready to Launch?</p>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', color: 'var(--white)', marginBottom: '1rem' }}>Find Your Perfect Ramp Today</h2>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', color: 'var(--white)', marginBottom: '1rem' }}>Find a Ramp for Your Next Trip</h2>
           <p style={{ color: '#8a9bb0', marginBottom: '2rem', lineHeight: 1.7 }}>
             Free-to-browse access to {dataRichRamps.length.toLocaleString()} source-attributed, data-rich launch records.
           </p>
-          <Link href="/florida" className="btn btn-gold">Explore Ramps →</Link>
+          <Link href="/find" className="btn btn-gold">Find Ramps →</Link>
         </div>
       </section>
     </>

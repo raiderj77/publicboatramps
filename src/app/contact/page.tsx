@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Contact Us',
-  description: 'Get in touch with Public Boat Ramps Directory with questions or suggestions.',
+  description: 'Contact Public Boat Ramps about source-record corrections, ramp suggestions, or local marine business placements.',
   alternates: { canonical: 'https://publicboatramps.com/contact' },
 };
 
@@ -32,6 +32,7 @@ export default function ContactPage() {
         <li>Corrections or updates to existing listings</li>
         <li>New public boat ramps for inclusion in our directory</li>
         <li>Questions or feedback about the directory</li>
+        <li>Free business-profile and paid placement requests</li>
         <li>Suggestions for improvement</li>
         <li>Reports of closed or inaccessible facilities</li>
         <li>Information about amenities or changes at known ramps</li>
@@ -53,6 +54,16 @@ export default function ContactPage() {
         <li>Description of the facility</li>
         <li>Source of the information</li>
       </ul>
+
+      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
+        Marine Business Profiles
+      </h2>
+      <p>
+        Boat repair shops, marinas, storage facilities, bait stores, guides, charters, rentals, fuel providers,
+        towing services, and waterfront lodging may apply for a manually reviewed profile. Review the
+        <a href="/advertise" style={{ marginLeft: '0.3rem' }}>founding partner options</a>, then email your business
+        name, website, phone number, service category, and service area.
+      </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
         Response Time

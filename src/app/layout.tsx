@@ -92,6 +92,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Link>
             <nav aria-label="Primary navigation" className="site-nav" style={{ display: 'flex', gap: '2rem', alignItems: 'center', flexWrap: 'wrap' }}>
               <Link href="/" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em', transition: 'color 0.2s' }}>Home</Link>
+              <Link href="/find" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>Find Ramps</Link>
               <Link href="/editorial" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>Editorial</Link>
               <div className="nav-dropdown">
                 <button type="button" className="nav-dropdown-summary" aria-expanded="false" aria-haspopup="true" data-nav-toggle>
@@ -116,6 +117,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
               </div>
               <Link href="/about" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>About</Link>
+              <Link href="/advertise" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>Advertise</Link>
               <Link href="/contact" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>Contact</Link>
             </nav>
           </div>
@@ -129,7 +131,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', marginBottom: '2.5rem' }}>
               <div>
                 <p style={{ fontFamily: 'var(--font-display)', color: 'var(--gold)', fontWeight: 700, fontSize: '1.1rem', marginBottom: '1rem' }}>⚓ Public Boat Ramps</p>
-                <p style={{ color: '#b8c5d6', fontSize: '0.875rem', lineHeight: 1.7 }}>Free-to-use directory of public boat ramps and water access points across the United States.</p>
+                <p style={{ color: '#b8c5d6', fontSize: '0.875rem', lineHeight: 1.7 }}>Free-to-browse directory with source-attributed boat-ramp records and its strongest coverage in Florida.</p>
               </div>
               <div>
                 <h2 style={{ color: 'var(--gold-light)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>Directory Sites</h2>
@@ -168,7 +170,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </p>
               </div>
               <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap' }}>
-                {[['About', '/about'], ['Accessibility', '/accessibility'], ['Privacy', '/privacy'], ['Terms', '/terms'], ['Contact', '/contact']].map(([label, href]) => (
+                {[['Find Ramps', '/find'], ['Advertise', '/advertise'], ['About', '/about'], ['Accessibility', '/accessibility'], ['Privacy', '/privacy'], ['Terms', '/terms'], ['Contact', '/contact']].map(([label, href]) => (
                   <Link key={href} href={href} style={{ color: '#b8c5d6', fontSize: '0.85rem', textDecoration: 'none' }}>{label}</Link>
                 ))}
               </div>
