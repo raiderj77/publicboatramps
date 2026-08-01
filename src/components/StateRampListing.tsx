@@ -126,7 +126,7 @@ export default function StateRampListing({ ramps, stateSlug }: { ramps: RampRow[
                 )}
                 {isAda(r) && (
                   <span className="chip" style={{ fontSize: '0.72rem', padding: '0.15rem 0.5rem', background: 'rgba(26,92,138,0.1)', color: 'var(--ocean)', borderColor: 'rgba(26,92,138,0.25)' }}>
-                    ADA
+                    Accessibility feature recorded
                   </span>
                 )}
               </span>

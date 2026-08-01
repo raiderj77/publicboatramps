@@ -14,7 +14,7 @@ export default function TermsPage() {
       </h1>
 
       <p style={{ marginBottom: '1rem' }}>
-        <strong>Last Updated: April 4, 2026</strong>
+        <strong>Last Updated: July 30, 2026</strong>
       </p>
 
       <p>
@@ -114,7 +114,20 @@ export default function TermsPage() {
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        10. Severability
+        10. Business Profiles and Paid Advertisements
+      </h2>
+      <p>
+        Business profiles and paid placements are separate from public ramp source records. Paid placements are
+        identified as Paid Advertisement. Payment does not change ramp facts, ramp rankings, or editorial content,
+        and a listing does not constitute an endorsement or guarantee of a business, service, price, availability,
+        traffic, calls, bookings, or revenue. Advertisers are responsible for the accuracy and legality of their
+        claims. Pilot pricing, billing, cancellation, and placement details are confirmed in writing before payment.
+        We may reject, pause, correct, or remove a profile or advertisement that is inaccurate, misleading, unsafe,
+        unlawful, outside the directory's scope, or inconsistent with these Terms.
+      </p>
+
+      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
+        11. Severability
       </h2>
       <p>
         If any provision of these Terms is found to be invalid or unenforceable, that provision shall be
@@ -122,7 +135,7 @@ export default function TermsPage() {
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        11. Contact Us
+        12. Contact Us
       </h2>
       <p>
         If you have questions about these Terms, please contact us at contact@publicboatramps.com.

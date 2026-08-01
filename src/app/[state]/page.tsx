@@ -1,25 +1,13 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { marked } from 'marked';
 import locations from '@/data/locations';
 import { isIndexable } from '@/lib/quality-gate';
 import { getAllArticles } from '@/lib/editorial';
 import { activeStates } from '@/lib/nav-data';
 import StateRampListing, { type RampRow } from '@/components/StateRampListing';
-import stateGuidesRaw from '@/data/state_guides.json';
 
 export const revalidate = 86400;
-
-type StateGuide = {
-  state_name: string;
-  noun_plural: string;
-  guide_md: string;
-  faq_md: string;
-  faq_pairs: { question: string; answer: string }[];
-};
-
-const stateGuides = stateGuidesRaw as Record<string, StateGuide>;
 
 const stateList = [
   { name: 'Alabama', slug: 'alabama' }, { name: 'Alaska', slug: 'alaska' },
@@ -196,8 +184,8 @@ export async function generateMetadata({ params }: { params: Promise<{ state: st
   const { state } = await params;
   const stateName = getStateName(state);
   const sig = computeSignals(state);
-  const descParts = [`Find ${sig.totalRamps.toLocaleString()} public boat ramps in ${stateName}.`];
-  if (sig.freeCount > 0) descParts.push(`${sig.freeCount.toLocaleString()} with no launch fee.`);
+  const descParts = [`Find ${sig.totalRamps.toLocaleString()} source-attributed public boat-ramp records in ${stateName}.`];
+  if (sig.freeCount > 0) descParts.push(`${sig.freeCount.toLocaleString()} with no launch fee recorded in source data.`);
   return {
     title: `Public Boat Ramps in ${stateName}`,
     description: descParts.join(' '),
@@ -215,24 +203,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
   const stateName  = getStateName(state);
   const sig        = computeSignals(state);
   if (sig.indexableCount === 0) notFound();
-  const guide      = stateGuides[stateName] as StateGuide | undefined;
-
-  // FAQ only (guide_md replaced by editorial callout for data-rich states)
-  const faqHtml = guide?.faq_md ? (await marked.parse(guide.faq_md)) : null;
-  // Keep guide prose only for states without indexable ramps (gives non-FL pages content depth)
-  const guideHtml = (!sig.hasFwcData && guide?.guide_md) ? (await marked.parse(guide.guide_md)) : null;
-
   const editorialArticles = getAllArticles().filter(a => a.state === state);
-
-  const faqJsonLd = guide && guide.faq_pairs.length > 0 ? {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: guide.faq_pairs.map(p => ({
-      '@type': 'Question',
-      name: p.question,
-      acceptedAnswer: { '@type': 'Answer', text: p.answer },
-    })),
-  } : null;
 
   const showWaterBodies = sig.waterBodyDistribution.length >= 8;
   const showTopRamps    = sig.topRamps.length >= 3;
@@ -246,9 +217,6 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
           { '@type': 'ListItem', position: 2, name: stateName, item: `https://publicboatramps.com/${state}` },
         ],
       }) }} />
-      {faqJsonLd && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-      )}
 
       {/* ── Hero ── */}
       <section style={{
@@ -269,7 +237,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
           </h1>
           <p style={{ color: 'rgba(205,216,232,0.85)', fontSize: '1.05rem', marginBottom: '2rem', maxWidth: '560px' }}>
             {sig.indexableCount > 0
-              ? `${sig.totalRamps.toLocaleString()} public launch facilities${sig.countyCount >= 2 ? ` across ${sig.countyCount} counties` : ''}`
+              ? `${sig.totalRamps.toLocaleString()} source-attributed public boat-ramp records${sig.countyCount >= 2 ? ` across ${sig.countyCount} counties` : ''}`
               : `Public boat launch facilities in ${stateName}`}
           </p>
 
@@ -282,7 +250,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
                     {sig.totalRamps.toLocaleString()}
                   </div>
                   <div style={{ fontSize: '0.78rem', color: 'rgba(205,216,232,0.7)', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: '0.25rem' }}>
-                    Total Ramps
+                    Ramp Records
                   </div>
                 </div>
               )}
@@ -325,14 +293,6 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
           <path d="M0,20 C360,40 1080,0 1440,20 L1440,40 L0,40 Z" fill="var(--cream)" />
         </svg>
       </section>
-
-      {/* ── Guide prose (non-FWC states only) ── */}
-      {guideHtml && (
-        <section style={{ background: 'var(--cream)', padding: '3rem 1.5rem 2rem', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
-          <div className="container prose-guide" style={{ maxWidth: '760px' }}
-            dangerouslySetInnerHTML={{ __html: guideHtml }} />
-        </section>
-      )}
 
       {/* ── Editorial callout ── */}
       {editorialArticles.length > 0 && (
@@ -410,8 +370,8 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
       {showTopRamps && (
         <section style={{ padding: '3.5rem 1.5rem', background: sig.hasFwcData ? 'var(--white)' : 'var(--cream)' }}>
           <div className="container">
-            <p className="section-label">Most Equipped</p>
-            <h2 className="section-title">Data-Rich Ramps With No Launch Fee Recorded in {stateName}</h2>
+            <p className="section-label">Featured Records</p>
+            <h2 className="section-title">Selected Ramp Records in {stateName}</h2>
             <div className="grid-3" style={{ marginTop: '1.5rem' }}>
               {sig.topRamps.map(r => {
                 const ada = adaScore(r.accessibilityLevel as string | null) >= 2;
@@ -452,7 +412,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
                             <span className="chip" style={{ fontSize: '0.75rem', background: 'rgba(42,138,120,0.12)', color: 'var(--seafoam)', borderColor: 'rgba(42,138,120,0.3)' }}>No launch fee recorded</span>
                           )}
                           {ada && (
-                            <span className="chip" style={{ fontSize: '0.75rem', background: 'rgba(26,92,138,0.1)', color: 'var(--ocean)', borderColor: 'rgba(26,92,138,0.25)' }}>ADA</span>
+                            <span className="chip" style={{ fontSize: '0.75rem', background: 'rgba(26,92,138,0.1)', color: 'var(--ocean)', borderColor: 'rgba(26,92,138,0.25)' }}>Accessibility feature recorded</span>
                           )}
                         </div>
                       </div>
@@ -471,7 +431,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
           <p className="section-label">Full Directory</p>
           <h2 className="section-title">
             {sig.indexableCount > 0
-              ? `All ${sig.indexableCount.toLocaleString()} Ramps in ${stateName}`
+              ? `All ${sig.indexableCount.toLocaleString()} Ramp Records in ${stateName}`
               : `Ramps in ${stateName}`}
           </h2>
           <div style={{ marginTop: '1.5rem' }}>
@@ -488,14 +448,6 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
           </div>
         </div>
       </section>
-
-      {/* ── FAQ ── */}
-      {faqHtml && (
-        <section style={{ background: 'var(--cream)', borderTop: '1px solid rgba(0,0,0,0.06)', padding: '4rem 1.5rem' }}>
-          <div className="container prose-guide" style={{ maxWidth: '760px' }}
-            dangerouslySetInnerHTML={{ __html: faqHtml }} />
-        </section>
-      )}
 
       {/* ── Data attribution ── */}
       {sig.hasFwcData && (

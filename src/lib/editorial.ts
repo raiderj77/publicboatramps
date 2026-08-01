@@ -34,6 +34,16 @@ export interface Article extends ArticleMeta {
 
 const CONTENT_DIR = join(process.cwd(), 'src/content/editorial');
 
+const ARCHIVED_SLUGS = new Set([
+  'ada-accessible-boat-ramps-florida',
+  'free-boat-ramps-florida',
+  'saltwater-boat-ramps-florida-by-region',
+]);
+
+function isArchivedFile(file: string): boolean {
+  return ARCHIVED_SLUGS.has(file.replace(/\.md$/, ''));
+}
+
 function parseFrontmatter(source: string): { meta: Record<string, unknown>; body: string } {
   const match = source.match(/^---\r?\n([\s\S]+?)\r?\n---\r?\n([\s\S]*)$/);
   if (!match) return { meta: {}, body: source };
@@ -74,7 +84,7 @@ function toMeta(meta: Record<string, unknown>, slug: string): ArticleMeta {
 export function getAllArticles(): ArticleMeta[] {
   let files: string[];
   try {
-    files = readdirSync(CONTENT_DIR).filter(f => f.endsWith('.md'));
+    files = readdirSync(CONTENT_DIR).filter(f => f.endsWith('.md') && !isArchivedFile(f));
   } catch {
     return [];
   }
@@ -91,6 +101,7 @@ export function getAllSlugs(): string[] {
   try {
     return readdirSync(CONTENT_DIR)
       .filter(f => f.endsWith('.md'))
+      .filter(f => !isArchivedFile(f))
       .map(f => f.replace('.md', ''));
   } catch {
     return [];
@@ -98,6 +109,7 @@ export function getAllSlugs(): string[] {
 }
 
 export function getArticle(slug: string): Article | null {
+  if (ARCHIVED_SLUGS.has(slug)) return null;
   const filePath = join(CONTENT_DIR, `${slug}.md`);
   let source: string;
   try {

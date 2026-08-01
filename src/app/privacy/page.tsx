@@ -12,11 +12,12 @@ export default function PrivacyPage() {
   return (
     <article style={{ maxWidth: '800px', margin: '0 auto', padding: '3rem 1.5rem 5rem', lineHeight: 1.8 }}>
       <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: 'var(--navy)' }}>Privacy Policy</h1>
-      <p><strong>Last updated: July 13, 2026</strong></p>
+      <p><strong>Last updated: July 30, 2026</strong></p>
 
       <p style={{ marginTop: '1rem' }}>
         Public Boat Ramps Directory is a public reference website. You do not need an account to browse it,
-        and we do not ask for payment information or precise device location.
+        and we do not ask for payment information. The optional nearby-ramp finder requests browser location only
+        after you press the location button and approve the browser prompt.
       </p>
 
       <h2 style={heading}>Information you provide</h2>
@@ -45,6 +46,15 @@ export default function PrivacyPage() {
       <p style={{ marginTop: '0.75rem' }}>
         If optional analytics or advertising is added later, this policy and any required consent controls
         will be updated before those tools are enabled.
+      </p>
+
+      <h2 style={heading}>Optional location search</h2>
+      <p>
+        The nearby-ramp finder uses the browser Geolocation API only after permission is granted. Before opening
+        search results, the browser rounds latitude and longitude to two decimal places and adds the rounded values
+        to the search URL. Search terms, rounded coordinates, and the selected radius may therefore appear in browser
+        history, copied links, and routine Vercel request logs. We do not create a separate location-history profile
+        or store finder coordinates in an application database.
       </p>
 
       <h2 style={heading}>External links and directions</h2>

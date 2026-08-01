@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import NearbyServices from '@/components/NearbyServices';
 import locations from '@/data/locations';
 import { isIndexable } from '@/lib/quality-gate';
 
@@ -333,7 +334,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
 
   const placeSchema: Record<string, unknown> = {
     '@context': 'https://schema.org',
-    '@type': 'Park',
+    '@type': 'Place',
     additionalType: 'https://www.wikidata.org/wiki/Q1361425',
     name: location.name,
     description: getRampPreview(location),
@@ -525,6 +526,12 @@ export default async function LocationPage({ params }: { params: Promise<{ state
 
         </div>
       </section>
+
+      <NearbyServices
+        state={location.state}
+        county={val(loc.county) ? String(loc.county) : null}
+        city={val(location.city) ? String(location.city) : null}
+      />
 
       {/* ── More Ramps in [State] ────────────────────────────────────────────── */}
       {related.length > 0 && (
