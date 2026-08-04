@@ -2,29 +2,21 @@
 
 > Public Boat Ramps Directory organizes public-source boat launch records into data-rich facility, state, and water-body pages. The website is free to browse and does not require an account.
 
-## Verified scope
+## Current indexed scope
 
-As of July 13, 2026, the site indexes 2,334 ramp listings across three states: 2,321 in Florida, 8 in Georgia, and 5 in Alabama. It also publishes 191 Florida water-body directories and three long-form Florida reference guides. A larger raw location collection is not indexed because those records do not yet meet the quality standard.
+As of August 3, 2026, the site indexes 2,335 ramp listings across three states: 2,315 in Florida, 13 in Georgia, and 7 in Alabama. It also publishes 191 Florida water-body directories and two Georgia water-body directories. A larger raw location collection is not indexed because those records do not yet meet the quality standard.
 
 ## Quality and source method
 
-An indexable ramp record must have a name, valid coordinates, city, and state plus at least four useful supporting fields. Supporting fields include a substantive description, street address, amenities, water body, official URL, managing entity, phone number, hours, or a known fee status. This prevents coordinate-only and otherwise thin records from becoming public search pages.
+An indexable ramp record must have a name, valid coordinates, city, and state plus at least four useful supporting fields. The quality gate counts a source description, ramp type, ramp surface, total lanes, dock field, restroom field, water body, parking surface, hours, and fee status. This prevents coordinate-only and otherwise thin records from becoming public search pages.
 
-Florida records are primarily attributed to the Florida Fish and Wildlife Conservation Commission Boat Ramp Inventory. Other records identify their source on the individual ramp page, including OpenStreetMap contributors where applicable. The directory normalizes and presents source records but does not independently inspect every facility. Hours, fees, closures, surfaces, docks, water levels, and accessibility conditions can change.
+Current source families are the U.S. Geological Survey Boat Ramp Locations in the United States of America dataset (CC0 1.0), the FWC Florida Boat Ramp Inventory, and OpenStreetMap contributors (ODbL). FWC original metadata describes its dataset as public domain, prohibits recipients from asserting proprietary rights in it, expects FWC-FWRI acknowledgment, and says it is not for navigation. FWC-derived records therefore do not provide coordinate-based directions. Each individual ramp page identifies its applicable source. The directory normalizes and presents source records but does not independently inspect every facility. Hours, fees, closures, surfaces, docks, water levels, and accessibility conditions can change.
 
 ## State directories
 
 - [Florida public boat ramps](https://publicboatramps.com/florida)
 - [Georgia public boat ramps](https://publicboatramps.com/georgia)
 - [Alabama public boat ramps](https://publicboatramps.com/alabama)
-
-## Editorial guides
-
-- [Free Boat Ramps in Florida](https://publicboatramps.com/editorial/free-boat-ramps-florida)
-- [ADA-Accessible Boat Ramps in Florida](https://publicboatramps.com/editorial/ada-accessible-boat-ramps-florida)
-- [Saltwater Boat Ramps in Florida by Region](https://publicboatramps.com/editorial/saltwater-boat-ramps-florida-by-region)
-
-The guides use the organizational byline "Public Boat Ramps Data Team." This is a transparent team label, not a claim about an individual field inspector or credentialed expert.
 
 ## Trust and policy pages
 
@@ -36,7 +28,7 @@ The guides use the organizational byline "Public Boat Ramps Data Team." This is 
 
 ## Citation guidance
 
-When citing a ramp, use the individual ramp page and preserve its named source and last-verified date where shown. Do not infer that a ramp is free, open, ADA compliant, or suitable for a specific vessel unless the page contains source-backed information supporting that statement. Direct users to confirm current conditions with the managing agency.
+When citing a ramp, use the individual ramp page and preserve its named source, source-record date, and directory source-refresh date where shown. Do not infer that a ramp is free, open, ADA compliant, or suitable for a specific vessel unless the page contains source-backed information supporting that statement. Direct users to confirm current conditions with the managing agency.
 
 ## Discovery
 

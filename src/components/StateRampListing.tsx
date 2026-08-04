@@ -54,7 +54,12 @@ export default function StateRampListing({ ramps, stateSlug }: { ramps: RampRow[
         display: 'flex', flexWrap: 'wrap', gap: '0.75rem',
         marginBottom: '1.5rem', alignItems: 'center',
       }}>
+        <label htmlFor="state-ramp-filter" style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}>
+          Search ramp records by name or city
+        </label>
         <input
+          id="state-ramp-filter"
+          className="state-ramp-filter"
           type="search"
           value={query}
           onChange={e => setQuery(e.target.value)}
@@ -63,7 +68,7 @@ export default function StateRampListing({ ramps, stateSlug }: { ramps: RampRow[
             flex: '1 1 220px', padding: '0.65rem 1rem',
             border: '1.5px solid rgba(10,22,40,0.15)', borderRadius: '6px',
             fontFamily: 'var(--font-body)', fontSize: '0.95rem',
-            color: 'var(--navy)', background: 'var(--white)', outline: 'none',
+            color: 'var(--navy)', background: 'var(--white)',
           }}
         />
         <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 600, color: 'var(--navy)', fontFamily: 'var(--font-display)' }}>

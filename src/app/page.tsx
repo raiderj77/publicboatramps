@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import locations from '@/data/locations';
+import { serializeJsonLd } from '@/lib/json-ld';
 import { activeStates } from '@/lib/nav-data';
 import { isIndexable } from '@/lib/quality-gate';
 
@@ -36,18 +37,18 @@ export default function Home() {
   return (
     <>
       {/* ── JSON-LD ── */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd({
         '@context': 'https://schema.org', '@type': 'WebSite',
         url: 'https://publicboatramps.com',
         name: 'Public Boat Ramps Directory',
-        dateModified: '2026-07-30',
+        dateModified: '2026-08-03',
       }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd({
         '@context': 'https://schema.org', '@type': 'Organization',
         name: 'Public Boat Ramps',
         url: 'https://publicboatramps.com',
-        description: 'Directory of public boat ramps across the United States',
-        dateModified: '2026-05-16',
+        description: 'Directory of source-attributed public boat-ramp records in current indexed coverage areas',
+        dateModified: '2026-08-03',
       }) }} />
 
       {/* ── Hero ── */}
@@ -63,7 +64,7 @@ export default function Home() {
             <span style={{ color: 'var(--gold)' }}>Near You</span>
           </h1>
           <p className="anim-fade-up anim-delay-2" style={{ fontSize: '1.15rem', color: '#9ab8cf', marginBottom: '2.5rem', maxWidth: '520px', margin: '0 auto 2.5rem' }}>
-            Compare source-attributed launch records, recorded facility details, fee status, and directions.
+            Compare source-attributed launch records, recorded facility details, fee status, and source limitations.
           </p>
           <form action="/find" method="get" className="anim-fade-up anim-delay-3" style={{ maxWidth: '720px', margin: '0 auto', display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <label htmlFor="home-ramp-search" style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', whiteSpace: 'nowrap', border: 0 }}>
@@ -98,7 +99,7 @@ export default function Home() {
             { n: `${dataRichRamps.length.toLocaleString()}+`, l: 'Data-Rich Records' },
             { n: `${activeStates.length}`, l: 'States Covered' },
             { n: '$0', l: 'Membership Cost' },
-            { n: '24/7', l: 'Always Online' },
+            { n: 'Per Record', l: 'Source Attribution' },
           ].map(({ n, l }) => (
             <div key={l} className="stat-item">
               <div className="stat-number">{n}</div>
@@ -170,7 +171,7 @@ export default function Home() {
             {[
               { num: '1', title: 'Search or Browse', desc: 'Search by place, water body, ramp name, or optional rounded location.' },
               { num: '2', title: 'Review the Source Record', desc: 'Compare recorded amenities, fee status, GPS coordinates, and managing-agency information.' },
-              { num: '3', title: 'Confirm and Go', desc: 'Confirm current conditions with the managing agency, then navigate to the launch.' },
+              { num: '3', title: 'Confirm and Go', desc: 'Confirm current conditions and safe routing with the managing agency before traveling.' },
             ].map(({ num, title, desc }) => (
               <div key={num} style={{ textAlign: 'center', padding: '1.5rem' }}>
                 <div className="step-num">{num}</div>
@@ -196,12 +197,15 @@ export default function Home() {
 
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.3rem', color: 'var(--navy)', marginTop: '2rem', marginBottom: '0.75rem' }}>How to Use the Directory</h3>
             <p style={{ lineHeight: 1.85, marginBottom: '1.25rem' }}>
-              Browse by state using the links below, then compare individual records. Listings may include an address, coordinates for GPS navigation, amenities, fee status, managing agency, official source link, and a description. Fields are shown only when the source record provides them.
+              Browse by state using the links below, then compare individual records. Listings may include an address, source-reference coordinates, amenities, fee status, managing agency, official source link, and a description. A mapping link appears only where the source terms allow it. Fields are shown only when the source record provides them.
             </p>
 
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.3rem', color: 'var(--navy)', marginTop: '2rem', marginBottom: '0.75rem' }}>Best Practices for Visiting Public Boat Ramps</h3>
             <p style={{ lineHeight: 1.85, marginBottom: '1.25rem' }}>
-              When using public boat ramps, remember these etiquette guidelines: Always move your vehicle and trailer away from the ramp once your boat is in the water, allowing other boaters to launch. Respect posted rules and hours of operation. Check if your state requires boat registration or launch permits before heading out. Trailer parking can be limited at popular ramps, so arrive early on busy weekends. Leave the launch area clean and take out what you bring in.
+              Follow posted rules, hours, queueing instructions, and any directions from facility staff. Use a
+              designated staging area when one is provided, keep active launch lanes clear, and move the vehicle
+              and trailer to authorized parking after launching. Confirm vessel registration, launch permits,
+              parking rules, and current operating conditions with the responsible agencies before traveling.
             </p>
 
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.3rem', color: 'var(--navy)', marginTop: '2rem', marginBottom: '0.75rem' }}>Required Permits and Registration</h3>
@@ -221,7 +225,8 @@ export default function Home() {
               How to find the best public boat ramp for your trip
             </h2>
             <p style={{ fontStyle: 'italic', color: 'var(--navy)', fontWeight: 600, marginBottom: '1rem', lineHeight: 1.7 }}>
-              Search by state or county, then compare amenities. Concrete ramps, courtesy docks, trailer parking, and restrooms are the key features that separate a good ramp from a frustrating one.
+              There is no universal best ramp. Search by place, then compare only the source-record fields that
+              matter for your vessel, trailer, passengers, and planned water access.
             </p>
             <p style={{ lineHeight: 1.85, marginBottom: '1.25rem' }}>
               Match the source-record fields to your needs, then confirm current ramp surface, water depth, dock condition, parking, closures, and vessel restrictions with the operator. This directory cannot determine whether a launch is suitable or safe for a particular boat.
@@ -247,13 +252,17 @@ export default function Home() {
               What boat ramp etiquette should I follow?
             </h2>
             <p style={{ fontStyle: 'italic', color: 'var(--navy)', fontWeight: 600, marginBottom: '1rem', lineHeight: 1.7 }}>
-              Prepare your boat fully in the staging area before pulling onto the ramp. Move quickly during the launch, then immediately pull your vehicle and trailer out of the ramp lane to allow the next boater access.
+              Follow posted site procedures. When a staging area is provided, prepare and secure equipment there
+              instead of occupying an active launch lane.
             </p>
             <p style={{ lineHeight: 1.85, marginBottom: '1.25rem' }}>
-              Loading and unloading etiquette follows the same principle: retrieve your boat from the water, pull to the staging area, then take your time securing the vessel and gear without blocking the ramp. When retrieving, have your trailer backed and ready before your boat reaches the dock; don&apos;t back the trailer while other boaters wait on the water.
+              Keep docks, ramps, and traffic lanes available to other visitors; use only authorized parking and
+              loading areas; and comply with staff instructions, posted time limits, and local rules. Conditions
+              differ by facility, so a general directory cannot replace on-site instructions.
             </p>
             <p style={{ lineHeight: 1.85, marginBottom: '2.5rem' }}>
-              Most ramp conflicts arise from boats being rigged on the ramp itself rather than in designated staging areas. Attaching downriggers, loading gear, and adjusting straps while occupying the active launch lane delays everyone behind you. Courteous ramp use means arriving prepared and treating the ramp as a high-traffic shared resource, not a private marina slip.
+              Leave the area clean and report damaged infrastructure, unsafe conditions, or inaccurate directory
+              fields to the managing agency and, when useful, to this directory.
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', color: 'var(--navy)', marginBottom: '0.75rem' }}>
@@ -265,27 +274,6 @@ export default function Home() {
             <p style={{ lineHeight: 1.85, marginBottom: '2.5rem' }}>
               Check the managing agency or operator before traveling. A source-record date is not proof that the facility is currently open.
             </p>
-
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', color: 'var(--navy)', marginBottom: '1rem' }}>
-              Further Reading
-            </h2>
-            <ul style={{ lineHeight: 2, paddingLeft: '1.25rem' }}>
-              <li>
-                <a href="https://www.recreation.gov" rel="nofollow noopener noreferrer" target="_blank" style={{ color: 'var(--navy)' }}>
-                  U.S. Army Corps of Engineers — Recreation Area Finder
-                </a>{' '}(recreation.gov)
-              </li>
-              <li>
-                <a href="https://www.nmma.org" rel="nofollow noopener noreferrer" target="_blank" style={{ color: 'var(--navy)' }}>
-                  National Marine Manufacturers Association — Boating Resources
-                </a>{' '}(nmma.org)
-              </li>
-              <li>
-                <a href="https://www.fws.gov" rel="nofollow noopener noreferrer" target="_blank" style={{ color: 'var(--navy)' }}>
-                  U.S. Fish and Wildlife Service — Fishing and Boating
-                </a>{' '}(fws.gov)
-              </li>
-            </ul>
 
           </article>
         </div>
@@ -301,9 +289,9 @@ export default function Home() {
           {[
             { q: 'What are public boat ramps?', a: 'Public boat ramps are water access points where boaters can launch vessels. They may be operated by federal, state, county, municipal, or commercial entities for general public use.' },
             { q: 'Are there fees to use public boat ramps?', a: 'Fee policies vary by facility. Some ramps have no recorded launch fee, while others charge for launching, parking, permits, or passes. Check the listing and confirm current rates with the managing agency.' },
-            { q: 'What amenities are available at public boat ramps?', a: 'Common amenities include paved launch ramps, trailer parking, restrooms, picnic areas, and fishing piers. Availability varies by location and managing agency.' },
+            { q: 'What amenities are available at public boat ramps?', a: 'Source records may include ramp surface, lanes, docks, trailer parking, restrooms, or other fields. A recorded field is not a current inspection; confirm availability and condition with the managing agency.' },
             { q: 'Do I need a permit to launch a boat at public ramps?', a: 'Requirements vary by state and facility. Vessel registration, launch permits, parking passes, or local access permits may apply. Check the managing agency before visiting.' },
-            { q: 'How can I find boat ramps near me?', a: 'Use the ramp finder to search by city, county, ZIP code, water body, ramp name, or an optional rounded browser location. Each qualifying listing includes GPS coordinates and the source fields available for that ramp.' },
+            { q: 'How can I find boat ramps near me?', a: 'Use the ramp finder to search by city, county, ZIP code, water body, ramp name, or an optional rounded browser location. Each qualifying listing includes source-reference coordinates and the other source fields available for that ramp. FWC-derived coordinates are not provided for navigation.' },
           ].map(({ q, a }) => (
             <details key={q} className="faq-item">
               <summary>{q}</summary>

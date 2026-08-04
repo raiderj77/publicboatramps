@@ -22,6 +22,10 @@ export type Partner = {
   website: string;
   phone?: string;
   tier: PartnerTier;
+  approvalStatus: 'approved';
+  approvedOn: string;
+  billingStatus: 'not-required' | 'active';
+  paymentConfirmedOn?: string;
   startsOn: string;
   endsOn?: string;
 };

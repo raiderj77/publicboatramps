@@ -26,7 +26,7 @@ export default function OpenGraphImage() {
           Find a public boat ramp.
         </div>
         <div style={{ color: '#d2dbe7', fontSize: 34, marginTop: 30 }}>
-          Source-attributed facility records, fee status, and directions.
+          Source-attributed facility records, fee status, and source details.
         </div>
       </div>
     ),

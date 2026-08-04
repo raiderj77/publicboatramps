@@ -3,8 +3,10 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import locations from '@/data/locations';
 import { isIndexable } from '@/lib/quality-gate';
+import { serializeJsonLd } from '@/lib/json-ld';
 import { getAllArticles } from '@/lib/editorial';
 import { activeStates } from '@/lib/nav-data';
+import DataSourceAttribution from '@/components/DataSourceAttribution';
 import StateRampListing, { type RampRow } from '@/components/StateRampListing';
 
 export const revalidate = 86400;
@@ -98,6 +100,8 @@ interface StateSignals {
   freeCount: number;
   adaCount: number;
   hasFwcData: boolean;
+  hasUsgsData: boolean;
+  hasOsmData: boolean;
   countyCount: number;
   waterBodyDistribution: WaterBody[];
   topRamps: Record<string, unknown>[];
@@ -110,7 +114,9 @@ function computeSignals(stateSlug: string): StateSignals {
 
   const freeCount   = indexable.filter(l => l.isFeeRequired === 'No').length;
   const adaCount    = indexable.filter(isAdaRecord).length;
-  const hasFwcData  = all.some(l => l.dataSource === 'FWC_FL');
+  const hasFwcData  = indexable.some(l => l.dataSource === 'FWC_FL');
+  const hasUsgsData = indexable.some(l => l.dataSource === 'USGS');
+  const hasOsmData  = indexable.some(l => !l.dataSource || l.dataSource === 'OSM');
   const normalizedCounties = new Set(indexable.map(l => normalizeCounty(l.county)).filter(Boolean) as string[]);
   const allowlist = STATE_COUNTY_SETS[stateSlug];
   const counties  = allowlist
@@ -169,6 +175,8 @@ function computeSignals(stateSlug: string): StateSignals {
     freeCount,
     adaCount,
     hasFwcData,
+    hasUsgsData,
+    hasOsmData,
     countyCount: counties.size,
     waterBodyDistribution,
     topRamps,
@@ -210,7 +218,7 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd({
         '@context': 'https://schema.org', '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://publicboatramps.com' },
@@ -450,15 +458,15 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
       </section>
 
       {/* ── Data attribution ── */}
-      {sig.hasFwcData && (
+      {(sig.hasFwcData || sig.hasUsgsData || sig.hasOsmData) && (
         <div style={{ background: 'var(--navy)', padding: '1rem 1.5rem', textAlign: 'center' }}>
-          <p style={{ color: 'rgba(205,216,232,0.6)', fontSize: '0.78rem' }}>
-            Ramp data sourced from the{' '}
-            <a href="https://myfwc.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(205,216,232,0.8)', textDecoration: 'underline' }}>
-              FWC Florida Boat Ramp Inventory
-            </a>
-            {' '}(public domain). Verify access and fees directly with the managing agency before launching.
-          </p>
+          <div style={{ color: 'rgba(205,216,232,0.78)' }}>
+            <DataSourceAttribution
+              hasFwc={sig.hasFwcData}
+              hasUsgs={sig.hasUsgsData}
+              hasOsm={sig.hasOsmData}
+            />
+          </div>
         </div>
       )}
     </>

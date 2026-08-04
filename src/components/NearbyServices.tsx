@@ -37,6 +37,22 @@ function isSafeHttpsUrl(value: string): boolean {
   }
 }
 
+function hasValidScope(partner: Partner): boolean {
+  if (partner.statewide) return false;
+  const countyCount = new Set(partner.counties?.map(normalizeCounty).filter(Boolean) ?? []).size;
+  const cityCount = new Set(partner.cities?.map(normalize).filter(Boolean) ?? []).size;
+
+  if (partner.tier === 'county') return countyCount === 1 && cityCount === 0;
+  if (partner.tier === 'regional') return countyCount >= 2 && countyCount <= 5 && cityCount === 0;
+  return countyCount + cityCount >= 1 && countyCount + cityCount <= 5;
+}
+
+function hasValidApproval(partner: Partner): boolean {
+  if (partner.approvalStatus !== 'approved' || !isIsoDate(partner.approvedOn)) return false;
+  if (partner.tier === 'basic') return partner.billingStatus === 'not-required' && !partner.paymentConfirmedOn;
+  return partner.billingStatus === 'active' && Boolean(partner.paymentConfirmedOn && isIsoDate(partner.paymentConfirmedOn));
+}
+
 function isValidPartner(partner: Partner): boolean {
   return Boolean(
     partner.id.trim() &&
@@ -44,7 +60,11 @@ function isValidPartner(partner: Partner): boolean {
       partner.description.trim() &&
       partner.state.trim() &&
       typeof partner.statewide === 'boolean' &&
+      hasValidScope(partner) &&
+      hasValidApproval(partner) &&
       isIsoDate(partner.startsOn) &&
+      partner.approvedOn <= partner.startsOn &&
+      (!partner.paymentConfirmedOn || partner.paymentConfirmedOn <= partner.startsOn) &&
       (!partner.endsOn || (isIsoDate(partner.endsOn) && partner.endsOn >= partner.startsOn)) &&
       VALID_TIERS.has(partner.tier) &&
       isSafeHttpsUrl(partner.website),

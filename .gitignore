@@ -8,3 +8,5 @@ out/
 src/app/layout.tsx.bak.*
 src/data/locations.json.backup-*
 scripts/.indexnow-key
+.codex-runtime/
+src/data/locations.json.tmp-*

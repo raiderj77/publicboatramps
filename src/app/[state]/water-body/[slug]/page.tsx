@@ -3,7 +3,9 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import locations from '@/data/locations';
 import { isIndexable } from '@/lib/quality-gate';
+import { serializeJsonLd } from '@/lib/json-ld';
 import { getAllArticles } from '@/lib/editorial';
+import DataSourceAttribution from '@/components/DataSourceAttribution';
 import StateRampListing, { type RampRow } from '@/components/StateRampListing';
 
 export const revalidate = 86400;
@@ -75,6 +77,8 @@ interface WaterBodyData {
   adaCount: number;
   waterType: string | null;
   hasFwcData: boolean;
+  hasUsgsData: boolean;
+  hasOsmData: boolean;
   listingRamps: RampRow[];
   crossLinks: CrossLink[];
   lastmod: string;
@@ -94,6 +98,8 @@ function computeWaterBodyData(stateSlug: string, wbSlug: string): WaterBodyData 
   const freeCount = wbRamps.filter(r => r.isFeeRequired === 'No').length;
   const adaCount  = wbRamps.filter(r => isAdaRecord(r)).length;
   const hasFwcData = wbRamps.some(r => r.dataSource === 'FWC_FL');
+  const hasUsgsData = wbRamps.some(r => r.dataSource === 'USGS');
+  const hasOsmData = wbRamps.some(r => !r.dataSource || r.dataSource === 'OSM');
 
   const waterTypes = wbRamps.map(r => r.waterType as string | null).filter(Boolean) as string[];
   const waterType = waterTypeLabel(modalValue(waterTypes));
@@ -136,7 +142,7 @@ function computeWaterBodyData(stateSlug: string, wbSlug: string): WaterBodyData 
   const dates = wbRamps.map(r => r.lastEditedDate as string | null).filter(Boolean) as string[];
   const lastmod = dates.length ? [...dates].sort().reverse()[0] : '2026-05-17';
 
-  return { waterBodyName, total: wbRamps.length, freeCount, adaCount, waterType, hasFwcData, listingRamps, crossLinks, lastmod };
+  return { waterBodyName, total: wbRamps.length, freeCount, adaCount, waterType, hasFwcData, hasUsgsData, hasOsmData, listingRamps, crossLinks, lastmod };
 }
 
 // Build the set of valid (state::slug) combos once for notFound checks
@@ -206,7 +212,7 @@ export default async function WaterBodyPage(
   const data = computeWaterBodyData(state, slug);
   if (!data) notFound();
 
-  const { waterBodyName, total, freeCount, adaCount, waterType, hasFwcData, listingRamps, crossLinks, lastmod } = data;
+  const { waterBodyName, total, freeCount, adaCount, waterType, hasFwcData, hasUsgsData, hasOsmData, listingRamps, crossLinks, lastmod } = data;
   const stateName = getStateName(state);
   const BASE = 'https://publicboatramps.com';
 
@@ -247,7 +253,7 @@ export default async function WaterBodyPage(
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
 
       {/* Hero */}
@@ -382,18 +388,18 @@ export default async function WaterBodyPage(
         </section>
       )}
 
-      {/* FWC data attribution */}
-      {hasFwcData && (
+      {/* Data attribution */}
+      {(hasFwcData || hasUsgsData || hasOsmData) && (
         <section style={{ padding: '1.5rem', background: 'rgba(26,92,138,0.06)', borderTop: '1px solid rgba(26,92,138,0.15)' }}>
           <div className="container">
-            <p style={{ fontSize: '0.8rem', color: 'var(--gray)', textAlign: 'center', lineHeight: 1.6 }}>
-              Ramp data sourced from the{' '}
-              <a href="https://myfwc.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--ocean)', textDecoration: 'underline' }}>
-                Florida Fish and Wildlife Conservation Commission
-              </a>
-              {' '}(public domain) and OpenStreetMap contributors (ODbL).
-              Last updated {lastmod}. Verify access, fees, and seasonal closures directly with the managing agency before launching.
-            </p>
+            <div style={{ color: 'var(--gray)' }}>
+              <DataSourceAttribution
+                hasFwc={hasFwcData}
+                hasUsgs={hasUsgsData}
+                hasOsm={hasOsmData}
+                latestSourceDate={lastmod}
+              />
+            </div>
           </div>
         </section>
       )}
