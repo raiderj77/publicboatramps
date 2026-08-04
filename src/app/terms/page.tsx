@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { FWC_INVENTORY_URL, FWC_METADATA_URL, OSM_COPYRIGHT_URL, USGS_BOAT_RAMPS_URL } from '@/lib/data-sources';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
@@ -14,7 +15,7 @@ export default function TermsPage() {
       </h1>
 
       <p style={{ marginBottom: '1rem' }}>
-        <strong>Last Updated: July 30, 2026</strong>
+        <strong>Last Updated: August 3, 2026</strong>
       </p>
 
       <p>
@@ -28,10 +29,10 @@ export default function TermsPage() {
         1. License and Use
       </h2>
       <p>
-        The Site and its content are provided on an "as-is" basis for informational purposes only. You are
-        granted a non-exclusive, non-transferable, limited license to view and use the Site for personal,
-        non-commercial purposes. You may not reproduce, distribute, modify, or create derivative works based
-        on the Site or its content without our prior written permission.
+        The Site and its content are provided on an "as-is" basis for informational purposes only. Rights in
+        the Site&apos;s original design, software, branding, and editorial presentation are separate from rights
+        in third-party and public-source records. Nothing in these Terms limits permissions granted directly
+        by a source license or applicable law.
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
@@ -76,17 +77,34 @@ export default function TermsPage() {
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        6. Intellectual Property
+        6. Source Data and Licenses
       </h2>
       <p>
-        All content on this Site, including text, graphics, logos, images, and software, is the property of
-        Public Boat Ramps Directory or its content suppliers and is protected by international copyright and
-        intellectual property laws. You may not use, copy, or modify any content without our express written
-        permission.
+        Source records retain their own terms and attribution. The{' '}
+        <a href={USGS_BOAT_RAMPS_URL}>U.S. Geological Survey Boat Ramp Locations dataset</a> is released under
+        CC0 1.0. OpenStreetMap-derived records are attributed to{' '}
+        <a href={OSM_COPYRIGHT_URL}>OpenStreetMap contributors</a> and are subject to the Open Data Commons Open
+        Database License. The <a href={FWC_INVENTORY_URL}>FWC Florida Boat Ramp Inventory</a> is used under the
+        conditions stated in its <a href={FWC_METADATA_URL}>official original metadata</a>. That metadata describes
+        the dataset as public domain, prohibits recipients from claiming proprietary rights in it, expects acknowledgment of the Florida Fish and
+        Wildlife Conservation Commission, Fish and Wildlife Research Institute (FWC-FWRI), preservation of
+        original metadata when data is altered, a request to share modified information with FWC, and the instruction that the dataset is not for navigation.
+        We filter and normalize FWC fields for directory display; those transformations do not create ownership
+        in the underlying FWC data. Review the linked source terms before reusing source records.
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        7. Assumption of Risk
+        7. Intellectual Property
+      </h2>
+      <p>
+        The Site&apos;s original text, graphics, logos, design, and software may be protected by copyright,
+        trademark, and other laws. Third-party names, marks, and source records remain the property of their
+        respective owners or are available under their stated licenses. You may not imply that a source agency
+        endorses this Site.
+      </p>
+
+      <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
+        8. Assumption of Risk
       </h2>
       <p>
         Your use of boat ramps and water access points is entirely at your own risk. We do not guarantee the
@@ -96,7 +114,7 @@ export default function TermsPage() {
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        8. Governing Law
+        9. Governing Law
       </h2>
       <p>
         These Terms shall be governed by and construed in accordance with the laws of the United States,
@@ -105,7 +123,7 @@ export default function TermsPage() {
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        9. Changes to Terms
+        10. Changes to Terms
       </h2>
       <p>
         We reserve the right to modify these Terms at any time. Changes will be posted on this page with an
@@ -114,7 +132,7 @@ export default function TermsPage() {
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        10. Business Profiles and Paid Advertisements
+        11. Business Profiles and Paid Advertisements
       </h2>
       <p>
         Business profiles and paid placements are separate from public ramp source records. Paid placements are
@@ -127,7 +145,7 @@ export default function TermsPage() {
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        11. Severability
+        12. Severability
       </h2>
       <p>
         If any provision of these Terms is found to be invalid or unenforceable, that provision shall be
@@ -135,7 +153,7 @@ export default function TermsPage() {
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>
-        12. Contact Us
+        13. Contact Us
       </h2>
       <p>
         If you have questions about these Terms, please contact us at contact@publicboatramps.com.

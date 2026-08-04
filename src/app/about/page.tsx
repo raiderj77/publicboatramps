@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { FWC_INVENTORY_URL, FWC_METADATA_URL, OSM_COPYRIGHT_URL, USGS_BOAT_RAMPS_URL } from '@/lib/data-sources';
 
 export const metadata: Metadata = {
   title: 'About Us',
@@ -28,10 +29,10 @@ export default function AboutPage() {
         How the Directory Works
       </h2>
       <p>
-        Our directory consolidates information about public boat ramps from federal, state, and local
-        government agencies. Each listing includes essential details such as location, address, amenities,
-        GPS coordinates, and facility descriptions. We organize information by state to make it easy for you
-        to find ramps near your destination.
+        Our directory consolidates public boat-ramp source records from federal and state datasets and
+        OpenStreetMap. Listings show only fields supplied by the source record, such as location, address,
+        amenities, coordinates, and facility descriptions. We organize qualifying records by state to make
+        them easier to compare.
       </p>
       <p>
         While we strive to maintain accurate and current information, conditions at boat ramps can change
@@ -87,9 +88,22 @@ export default function AboutPage() {
         Data Sources
       </h2>
       <p>
-        Information in this directory is compiled from publicly available sources, including state fish and
-        wildlife agency websites, federal agency databases, and local government resources. We update our
-        listings regularly, but recommend verifying critical details directly with facility operators.
+        The current source collection includes the{' '}
+        <a href={USGS_BOAT_RAMPS_URL}>U.S. Geological Survey Boat Ramp Locations dataset</a> (CC0 1.0), the{' '}
+        <a href={FWC_INVENTORY_URL}>FWC Florida Boat Ramp Inventory</a>, and{' '}
+        <a href={OSM_COPYRIGHT_URL}>OpenStreetMap contributors</a> (ODbL). FWC&apos;s item metadata requests
+        acknowledgment of the Florida Fish and Wildlife Conservation Commission, Fish and Wildlife Research
+        Institute (FWC-FWRI), preservation of the <a href={FWC_METADATA_URL}>original metadata</a> when the data
+        is altered, asks that modified information be shared with FWC, and states that the dataset is not for navigation. The original metadata describes the
+        dataset as public domain and prohibits recipients from asserting proprietary rights in it. We preserve
+        per-record attribution and do not provide coordinate-based directions for FWC-derived records.
+      </p>
+      <p>
+        For directory display, we filter FWC records to facilities marked open for business and exclude records
+        marked for restricted public use. We normalize field names, text casing, slugs, source descriptions, and
+        amenity labels. These transformations are ours; the underlying source facts remain FWC-FWRI data and may
+        change after the displayed snapshot date. Questions about these transformations can be sent to
+        contact@publicboatramps.com.
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: 'var(--navy)' }}>
@@ -98,16 +112,15 @@ export default function AboutPage() {
       <p>
         Public Boat Ramps Data Team is an organizational byline, not a claim about a fictional individual.
         We import public records, normalize names and facility fields, and apply a quality gate before a
-        listing can be indexed. A record must have a name, coordinates, city, and state plus several useful
-        details such as an address, managing agency, official link, phone number, water body, hours, fee
-        status, amenities, or a substantive source description. Records that do not meet that standard are
-        excluded from search indexing until they can be improved.
+        listing can be indexed. A record must have a name, coordinates, city, and state plus at least four
+        supported fields from this list: source description, ramp type, ramp surface, total lanes, dock,
+        restroom, water body, parking surface, hours, and fee status. Records that do not meet that standard
+        are excluded from search indexing until their source record supplies enough useful detail.
       </p>
       <p>
-        Florida facility records are attributed to the Florida Fish and Wildlife Conservation Commission;
-        other location data is attributed per record, including OpenStreetMap contributors where applicable.
-        Editorial guides explain their source dates and limitations. We do not independently inspect every
-        ramp, so current conditions must be confirmed with the managing agency.
+        Florida inventory records are attributed to FWC-FWRI; USGS records and OpenStreetMap records retain
+        their respective source and license notices. We do not independently inspect every ramp, so current
+        conditions must be confirmed with the managing agency.
       </p>
 
       <h2 style={{ fontSize: '1.3rem', marginTop: '1.5rem', marginBottom: '0.5rem', color: '#003d99' }}>

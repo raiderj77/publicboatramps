@@ -1,0 +1,30 @@
+[
+  {
+    "source": "/florida/pollard-boat-ramp-alabama-brewton",
+    "destination": "/alabama/pollard-boat-ramp-alabama-brewton"
+  },
+  {
+    "source": "/florida/robert-k-fowler-park-geneva",
+    "destination": "/alabama/robert-k-fowler-park-geneva"
+  },
+  {
+    "source": "/florida/georgia-dnr-boat-ramp-withlacoochee-river-at-madison-highway-valdosta",
+    "destination": "/georgia/georgia-dnr-boat-ramp-withlacoochee-river-at-madison-highway-valdosta"
+  },
+  {
+    "source": "/florida/georgia-lake-seminole-recreation-area-chattahoochee-park-bainbridge",
+    "destination": "/georgia/georgia-lake-seminole-recreation-area-chattahoochee-park-bainbridge"
+  },
+  {
+    "source": "/florida/georgia-lake-seminole-recreation-area-river-junction-boat-ramp-bainbridge",
+    "destination": "/georgia/georgia-lake-seminole-recreation-area-river-junction-boat-ramp-bainbridge"
+  },
+  {
+    "source": "/florida/georgia-nankin-boat-ramp-valdosta",
+    "destination": "/georgia/georgia-nankin-boat-ramp-valdosta"
+  },
+  {
+    "source": "/florida/georgia-knights-ferry-boat-ramp-valdosta",
+    "destination": "/georgia/georgia-knights-ferry-boat-ramp-valdosta"
+  }
+]

@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "refresh:fwc": "node scripts/import-fl-fwc.mjs --live",
+    "check:fwc": "node scripts/import-fl-fwc.mjs --check-live",
     "typecheck": "tsc --noEmit",
     "test": "node --test tests/*.test.mjs",
     "check": "npm run typecheck && npm test && npm run build"

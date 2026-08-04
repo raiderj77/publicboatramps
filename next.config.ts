@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next';
+import routeRedirects from './src/data/route-redirects.json';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -9,6 +10,7 @@ const nextConfig: NextConfig = {
         destination: '/about',
         permanent: true,
       },
+      ...routeRedirects.map((redirect) => ({ ...redirect, permanent: true })),
     ];
   },
   async headers() {

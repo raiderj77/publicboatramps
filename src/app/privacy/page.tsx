@@ -12,7 +12,7 @@ export default function PrivacyPage() {
   return (
     <article style={{ maxWidth: '800px', margin: '0 auto', padding: '3rem 1.5rem 5rem', lineHeight: 1.8 }}>
       <h1 style={{ fontSize: '2rem', marginBottom: '1rem', color: 'var(--navy)' }}>Privacy Policy</h1>
-      <p><strong>Last updated: July 30, 2026</strong></p>
+      <p><strong>Last updated: August 3, 2026</strong></p>
 
       <p style={{ marginTop: '1rem' }}>
         Public Boat Ramps Directory is a public reference website. You do not need an account to browse it,
@@ -59,9 +59,11 @@ export default function PrivacyPage() {
 
       <h2 style={heading}>External links and directions</h2>
       <p>
-        Ramp pages include links to agency websites, OpenStreetMap attribution, and Google Maps directions.
-        Those services receive information under their own policies only after you follow an external link;
-        this site does not embed a Google map or transmit your ramp selection to Google automatically.
+        Ramp pages include links to source and agency websites. Records whose source terms allow it may also
+        include a user-activated Google Maps link for the source coordinates. FWC-derived records do not include
+        coordinate-based directions because FWC metadata states that the dataset is not for navigation. External
+        services receive information under their own policies only after you follow a link; this site does not
+        embed a Google map or transmit your ramp selection to Google automatically.
       </p>
 
       <h2 style={heading}>How information is used and shared</h2>

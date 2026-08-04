@@ -1,14 +1,15 @@
 # Public Boat Ramps Directory
 
-> A free-to-use reference directory for public boat launch records, facility details, fees, source attribution, and directions.
+> A free-to-use reference directory for public boat-launch records, facility details, fees, source attribution, and source limitations.
 
 ## Current indexed coverage
 
-- 2,334 data-rich ramp listings
-- Florida: 2,321 listings
-- Georgia: 8 listings
-- Alabama: 5 listings
+- 2,335 data-rich ramp listings
+- Florida: 2,315 listings
+- Georgia: 13 listings
+- Alabama: 7 listings
 - 191 Florida water-body directory pages
+- 2 Georgia water-body directory pages
 
 The underlying source collection is larger, but records are excluded from indexing until they meet the directory quality gate. Coverage should not be described as nationwide or complete.
 
@@ -18,7 +19,6 @@ The underlying source collection is larger, but records are excluded from indexi
 - [Florida](https://publicboatramps.com/florida): Florida ramp directory
 - [Georgia](https://publicboatramps.com/georgia): Georgia ramp directory
 - [Alabama](https://publicboatramps.com/alabama): Alabama ramp directory
-- [Editorial guides](https://publicboatramps.com/editorial): Source-based Florida reference guides
 - [About and methodology](https://publicboatramps.com/about): Sources, quality gate, limitations, and organizational byline
 - [Accessibility](https://publicboatramps.com/accessibility): Website and ramp-data accessibility limitations
 - [Privacy](https://publicboatramps.com/privacy): Current privacy and tracking practices
@@ -26,6 +26,8 @@ The underlying source collection is larger, but records are excluded from indexi
 ## Data notes
 
 Listings show only fields supported by the source record. These may include coordinates, address, water body, amenities, access type, hours, fee status, managing agency, phone number, accessibility observations, and an official source link. Facility conditions and fees can change; users should confirm critical details with the managing agency.
+
+Current source families include USGS Boat Ramp Locations (CC0 1.0), the FWC Florida Boat Ramp Inventory (FWC-FWRI acknowledgment; FWC metadata says the dataset is not for navigation), and OpenStreetMap contributors (ODbL). FWC-derived records do not provide coordinate-based directions.
 
 ## Discovery
 

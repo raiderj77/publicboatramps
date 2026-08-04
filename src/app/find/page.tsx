@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import locations from '@/data/locations';
+import { FWC_ACCESS_URL, getDataSourceAttribution } from '@/lib/data-sources';
 import { activeStates } from '@/lib/nav-data';
 import { isIndexable } from '@/lib/quality-gate';
 import UseMyLocation from './UseMyLocation';
@@ -25,6 +26,7 @@ type LocationRecord = Record<string, unknown> & {
   isRestroomAccessible?: string | null;
   rampType?: string | null;
   rampSurface?: string | null;
+  dataSource?: string | null;
 };
 
 type SearchResult = LocationRecord & {
@@ -296,7 +298,9 @@ export default async function FindPage({ searchParams }: { searchParams: SearchP
             </div>
           ) : (
             <div style={{ display: 'grid', gap: '1rem' }}>
-              {results.map((ramp) => (
+              {results.map((ramp) => {
+                const source = getDataSourceAttribution(ramp.dataSource);
+                return (
                 <article key={`${ramp.stateSlug}:${ramp.slug}`} className="card" style={{ padding: '1.25rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem', alignItems: 'start', flexWrap: 'wrap' }}>
                     <div style={{ minWidth: 0, flex: '1 1 520px' }}>
@@ -327,19 +331,32 @@ export default async function FindPage({ searchParams }: { searchParams: SearchP
                       <Link href={`/${ramp.stateSlug}/${ramp.slug}`} className="btn btn-gold" style={{ padding: '0.6rem 1rem', fontSize: '0.85rem' }}>
                         View Record
                       </Link>
-                      <a
-                        href={`https://maps.google.com/?q=${ramp.lat},${ramp.lng}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-outline"
-                        style={{ padding: '0.6rem 1rem', fontSize: '0.85rem', color: 'var(--navy)', borderColor: 'rgba(10,22,40,0.35)' }}
-                      >
-                        Directions
-                      </a>
+                      {source.allowsCoordinateDirections ? (
+                        <a
+                          href={`https://maps.google.com/?q=${ramp.lat},${ramp.lng}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-outline"
+                          style={{ padding: '0.6rem 1rem', fontSize: '0.85rem', color: 'var(--navy)', borderColor: 'rgba(10,22,40,0.35)' }}
+                        >
+                          Directions
+                        </a>
+                      ) : (
+                        <a
+                          href={FWC_ACCESS_URL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-outline"
+                          style={{ padding: '0.6rem 1rem', fontSize: '0.85rem', color: 'var(--navy)', borderColor: 'rgba(10,22,40,0.35)' }}
+                        >
+                          Official FWC Finder
+                        </a>
+                      )}
                     </div>
                   </div>
                 </article>
-              ))}
+                );
+              })}
             </div>
           )}
         </section>

@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 import { getAllArticles } from '@/lib/editorial';
 
 export const metadata: Metadata = {
-  title: 'Editorial Guides | Public Boat Ramps',
-  description: 'Source-based guides to Florida boat-ramp fee and accessibility fields, regions, and waterway access records.',
+  title: 'Editorial Archive | Public Boat Ramps',
+  description: 'Editorial guides are currently archived while their source claims and publication standards are reviewed.',
   alternates: { canonical: 'https://publicboatramps.com/editorial' },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true },
 };
 
 export default function EditorialIndexPage() {
@@ -23,16 +23,17 @@ export default function EditorialIndexPage() {
           lineHeight: 1.2,
           marginBottom: '0.75rem',
         }}>
-          Guides and Reference Articles
+          Editorial Archive
         </h1>
         <p style={{ color: 'var(--gray)', fontSize: '1.05rem', lineHeight: 1.65, maxWidth: '580px' }}>
-          Source-based guides to Florida boat-ramp fee fields, accessibility observations, and waterway access,
-          sourced from the FWC Florida Boat Ramp Inventory.
+          Guides are currently archived while their source claims, terminology, and publication standards are reviewed.
         </p>
       </header>
 
       {articles.length === 0 ? (
-        <p style={{ color: 'var(--gray)', fontSize: '1rem' }}>No articles published yet.</p>
+        <p style={{ color: 'var(--gray)', fontSize: '1rem', lineHeight: 1.7 }}>
+          No guides are currently published. Use the source-attributed state, water-body, and ramp pages for current directory records.
+        </p>
       ) : (
         <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
           {articles.map(article => {

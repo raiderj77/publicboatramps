@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import Link from 'next/link';
 import { Playfair_Display, Lora } from 'next/font/google';
+import { FWC_INVENTORY_URL, OSM_COPYRIGHT_URL, USGS_BOAT_RAMPS_URL } from '@/lib/data-sources';
 import { activeStates, popularWaterBodies } from '@/lib/nav-data';
 import './globals.css';
 
@@ -84,16 +85,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           boxShadow: '0 2px 20px rgba(10,22,40,0.4)',
         }}>
           <div className="container site-header-inner" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem 1.5rem' }}>
-            <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+            <Link href="/" className="site-brand" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
               <span style={{ fontSize: '1.75rem', lineHeight: 1 }}>⚓</span>
-              <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.25rem', color: 'var(--gold)', letterSpacing: '0.01em' }}>
+              <span className="site-brand-name" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.25rem', color: 'var(--gold)', letterSpacing: '0.01em' }}>
                 Public Boat Ramps
               </span>
             </Link>
             <nav aria-label="Primary navigation" className="site-nav" style={{ display: 'flex', gap: '2rem', alignItems: 'center', flexWrap: 'wrap' }}>
               <Link href="/" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em', transition: 'color 0.2s' }}>Home</Link>
               <Link href="/find" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>Find Ramps</Link>
-              <Link href="/editorial" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>Editorial</Link>
               <div className="nav-dropdown">
                 <button type="button" className="nav-dropdown-summary" aria-expanded="false" aria-haspopup="true" data-nav-toggle>
                   States <span className="nav-caret" aria-hidden="true">&#9660;</span>
@@ -120,6 +120,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/advertise" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>Advertise</Link>
               <Link href="/contact" style={{ color: '#cdd8e8', fontSize: '0.9rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.03em' }}>Contact</Link>
             </nav>
+            <details className="mobile-nav">
+              <summary>Menu</summary>
+              <nav aria-label="Mobile navigation" className="mobile-nav-panel">
+                <Link href="/">Home</Link>
+                <Link href="/find">Find Ramps</Link>
+                <details>
+                  <summary>States</summary>
+                  <div className="mobile-nav-submenu">
+                    {activeStates.map(s => <Link key={s.stateSlug} href={`/${s.stateSlug}`}>{s.state}</Link>)}
+                  </div>
+                </details>
+                <details>
+                  <summary>Popular Water Bodies</summary>
+                  <div className="mobile-nav-submenu">
+                    {popularWaterBodies.map(w => (
+                      <Link key={`${w.stateSlug}::${w.waterBodySlug}`} href={`/${w.stateSlug}/water-body/${w.waterBodySlug}`}>
+                        {w.waterBodyName} <span>({w.stateAbbr})</span>
+                      </Link>
+                    ))}
+                  </div>
+                </details>
+                <Link href="/about">About</Link>
+                <Link href="/advertise">Advertise</Link>
+                <Link href="/contact">Contact</Link>
+              </nav>
+            </details>
           </div>
         </header>
 
@@ -156,17 +182,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
             <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                <p style={{ color: '#b8c5d6', fontSize: '0.85rem' }}>© 2026 Public Boat Ramps Directory. All rights reserved.</p>
+                <p style={{ color: '#b8c5d6', fontSize: '0.85rem' }}>&copy; 2026 Public Boat Ramps Directory. Site presentation and original content rights reserved.</p>
                 <p style={{ color: '#b8c5d6', fontSize: '0.75rem' }}>
-                  Location data sourced from{' '}
-                  <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" style={{ color: '#d2dbe7', textDecoration: 'underline' }}>
-                    OpenStreetMap contributors
+                  Source records may include{' '}
+                  <a href={USGS_BOAT_RAMPS_URL} target="_blank" rel="noopener noreferrer" style={{ color: '#d2dbe7', textDecoration: 'underline' }}>
+                    USGS Boat Ramp Locations (CC0 1.0)
                   </a>
-                  {' '}(ODbL) and the{' '}
-                  <a href="https://myfwc.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#d2dbe7', textDecoration: 'underline' }}>
-                    Florida Fish and Wildlife Conservation Commission
+                  ,{' '}
+                  <a href={FWC_INVENTORY_URL} target="_blank" rel="noopener noreferrer" style={{ color: '#d2dbe7', textDecoration: 'underline' }}>
+                    FWC Florida Boat Ramp Inventory
                   </a>
-                  {' '}(public domain). Per-record attribution shown on each ramp page.
+                  {' '}(public-domain source data; no proprietary claim; FWC-FWRI acknowledgment; not for navigation), and{' '}
+                  <a href={OSM_COPYRIGHT_URL} target="_blank" rel="noopener noreferrer" style={{ color: '#d2dbe7', textDecoration: 'underline' }}>
+                    OpenStreetMap contributors (ODbL)
+                  </a>
+                  . Per-record attribution appears on each ramp page.
                 </p>
               </div>
               <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap' }}>

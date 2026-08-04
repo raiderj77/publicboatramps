@@ -4,7 +4,10 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import NearbyServices from '@/components/NearbyServices';
 import locations from '@/data/locations';
+import { FWC_ACCESS_URL, getDataSourceAttribution } from '@/lib/data-sources';
+import { serializeJsonLd } from '@/lib/json-ld';
 import { isIndexable } from '@/lib/quality-gate';
+import { getRetiredRamp, retiredRamps } from '@/lib/retired-ramps';
 
 export const revalidate = 86400;
 
@@ -41,16 +44,25 @@ function getStateName(slug: string) {
 }
 
 export async function generateStaticParams() {
-  return (locations as any[])
+  const activeParams = (locations as any[])
     .filter(isIndexable)
     .map((l) => ({ state: l.stateSlug, slug: l.slug }));
+  const retiredParams = retiredRamps.map((ramp) => ({ state: ramp.stateSlug, slug: ramp.slug }));
+  return [...activeParams, ...retiredParams];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ state: string; slug: string }> }): Promise<Metadata> {
   const { state, slug } = await params;
   const location = locations.find((l) => l.slug === slug && l.stateSlug === state);
   if (!location || !isIndexable(location as Record<string, any>)) {
-    return { robots: { index: false, follow: false } };
+    const retiredRamp = getRetiredRamp(state, slug);
+    if (!retiredRamp) return { robots: { index: false, follow: false } };
+    return {
+      title: `${retiredRamp.name} | Retired Source Record`,
+      description: 'This source-backed ramp URL is retained to explain a directory data change. Check the official FWC finder for current information.',
+      alternates: { canonical: `https://publicboatramps.com/${state}/${slug}` },
+      robots: { index: false, follow: true },
+    };
   }
   const stateName = getStateName(state);
   const preview = getRampPreview(location);
@@ -156,12 +168,25 @@ function isValidHttpsUrl(url: unknown): url is string {
 function formatDate(dateStr: unknown): string | null {
   if (!val(dateStr)) return null;
   try {
-    const d = new Date(String(dateStr));
+    const rawDate = String(dateStr);
+    const isCalendarDate = /^\d{4}-\d{2}-\d{2}$/.test(rawDate);
+    const d = new Date(isCalendarDate ? `${rawDate}T00:00:00Z` : rawDate);
     if (isNaN(d.getTime())) return null;
-    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    return d.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      ...(isCalendarDate ? { timeZone: 'UTC' } : {}),
+    });
   } catch {
     return null;
   }
+}
+
+function formatFeeCurrency(value: unknown): string | null {
+  if (!val(value)) return null;
+  const amount = Number(String(value).replace(/[$,]/g, ''));
+  return Number.isFinite(amount) ? `$${amount.toFixed(2)}` : null;
 }
 
 function distanceMiles(a: { lat: number; lng: number }, b: { lat: number; lng: number }): number {
@@ -233,7 +258,44 @@ export default async function LocationPage({ params }: { params: Promise<{ state
   const location = locations.find((l) => l.slug === slug && l.stateSlug === state);
   const stateName = getStateName(state);
 
-  if (!location || !isIndexable(location)) notFound();
+  if (!location || !isIndexable(location)) {
+    const retiredRamp = getRetiredRamp(state, slug);
+    if (!retiredRamp) notFound();
+    const explanation = retiredRamp.reason === 'removed-from-source'
+      ? 'The August 3, 2026 directory refresh no longer found this record in the official FWC inventory.'
+      : 'The official FWC record remains available, but its current fields no longer meet this directory’s publication threshold.';
+
+    return (
+      <section style={{ padding: '4rem 1.5rem 6rem' }}>
+        <div className="container" style={{ maxWidth: '760px' }}>
+          <p className="section-label">Source Record Update</p>
+          <h1 style={{ fontFamily: 'var(--font-display)', color: 'var(--navy)', fontSize: 'clamp(2rem, 5vw, 3rem)', lineHeight: 1.15, marginBottom: '1rem' }}>
+            {retiredRamp.name}
+          </h1>
+          <div className="card" style={{ padding: '2rem', borderLeft: '4px solid var(--gold)' }}>
+            <h2 style={{ fontFamily: 'var(--font-display)', color: 'var(--navy)', fontSize: '1.35rem', marginBottom: '0.75rem' }}>
+              This directory record has been retired
+            </h2>
+            <p style={{ lineHeight: 1.8, marginBottom: '1rem' }}>{explanation}</p>
+            <p style={{ lineHeight: 1.8, marginBottom: '1.5rem' }}>
+              This is a source-data and publishing-status notice, not a closure notice. Do not infer that the facility is closed or unavailable. Verify current access, routing, fees, and conditions with FWC or the managing agency.
+            </p>
+            <p style={{ color: 'var(--gray)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+              Directory retirement date: {formatDate(retiredRamp.retiredOn)}
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+              <a href={FWC_ACCESS_URL} target="_blank" rel="noopener noreferrer" className="btn btn-gold">
+                Check the Official FWC Finder
+              </a>
+              <Link href={`/${state}`} className="btn btn-outline" style={{ color: 'var(--navy)', borderColor: 'rgba(10,22,40,0.35)' }}>
+                Browse Current {stateName} Records
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const loc = location as Loc;
   const related = locations
@@ -258,7 +320,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
   const feeChip = loc.isFeeRequired === 'No'
     ? 'No launch fee recorded'
     : loc.isFeeRequired === 'Yes'
-      ? (val(loc.feeAmount) && String(loc.feeAmount) !== '0' ? `$${loc.feeAmount} fee` : 'Fee required')
+      ? (formatFeeCurrency(loc.feeAmount) && Number(loc.feeAmount) !== 0 ? `${formatFeeCurrency(loc.feeAmount)} launch fee recorded` : 'Launch fee recorded')
       : null;
 
   const quickFacts: { label: string; icon: string }[] = [];
@@ -280,7 +342,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
   if (val(loc.doubleLanes)) leftRows.push(['Double Lanes', String(loc.doubleLanes)]);
   if (val(loc.totalLanes)) leftRows.push(['Total Lanes', String(loc.totalLanes)]);
   if (val(loc.dockType)) leftRows.push(['Dock', String(loc.dockType)]);
-  if (val(loc.hours)) leftRows.push(['Hours', String(loc.hours)]);
+  if (val(loc.hours)) leftRows.push(['Source-record Hours', String(loc.hours)]);
 
   const rightRows: [string, string][] = [];
   if (val(loc.trailerSpaces) && Number(loc.trailerSpaces) > 0)
@@ -294,28 +356,24 @@ export default async function LocationPage({ params }: { params: Promise<{ state
   if (parkingCond) rightRows.push(['Parking Condition', parkingCond]);
   if (val(loc.restroomType) && loc.restroomType !== 'No Toilet') {
     const accessible = loc.isRestroomAccessible === 'Yes' ? ' (source marks accessible)' : '';
-    rightRows.push(['Restroom', `${String(loc.restroomType)}${accessible}`]);
+    rightRows.push(['Source restroom field', `${String(loc.restroomType)}${accessible}`]);
   }
-  if (val(loc.accessibilityLevel)) rightRows.push(['Accessibility', String(loc.accessibilityLevel)]);
+  if (val(loc.accessibilityLevel)) rightRows.push(['Source accessibility field', String(loc.accessibilityLevel)]);
 
   const showDetails = leftRows.length > 0 || rightRows.length > 0;
   const showBothColumns = leftRows.length > 0 && rightRows.length > 0;
 
   // ── Section 5: Fee ────────────────────────────────────────────────────────
   const showFee = loc.isFeeRequired === 'Yes';
-  const feeRows: [string, string][] = [['Fee Required', 'Yes']];
-  if (val(loc.feeAmount) && String(loc.feeAmount) !== '0') feeRows.push(['Amount', `$${loc.feeAmount}`]);
-  if (val(loc.feeCollectionType)) feeRows.push(['Collection', String(loc.feeCollectionType)]);
+  const feeRows: [string, string][] = [['Source marks fee required', 'Yes']];
+  const formattedFeeAmount = formatFeeCurrency(loc.feeAmount);
+  if (formattedFeeAmount && Number(loc.feeAmount) !== 0) feeRows.push(['Recorded amount', formattedFeeAmount]);
+  if (val(loc.feeCollectionType)) feeRows.push(['Recorded collection method', String(loc.feeCollectionType)]);
 
   // ── Section 7: Administrative ─────────────────────────────────────────────
-  const isFWC = String(loc.dataSource ?? '') === 'FWC_FL';
-  const sourceLabel = isFWC
-    ? 'Florida Fish and Wildlife Conservation Commission'
-    : 'OpenStreetMap contributors';
-  const sourceNote = isFWC
-    ? 'Sourced from the FWC Florida Boat Ramp Inventory, public domain.'
-    : 'Sourced from OpenStreetMap contributors, licensed under ODbL.';
+  const source = getDataSourceAttribution(loc.dataSource);
   const formattedDate = formatDate(loc.lastEditedDate);
+  const formattedSnapshotDate = formatDate(loc.sourceSnapshotDate);
 
   const formattedWatershed = formatWatershed(loc.watershed);
 
@@ -323,8 +381,12 @@ export default async function LocationPage({ params }: { params: Promise<{ state
   if (val(loc.adminEntity)) adminRows.push({ label: 'Managed by', value: String(loc.adminEntity) });
   if (val(loc.contactPhone)) adminRows.push({ label: 'Contact', value: String(loc.contactPhone), href: `tel:${String(loc.contactPhone)}` });
   if (formattedDate) adminRows.push({ label: 'Source record date', value: formattedDate });
+  if (formattedSnapshotDate) adminRows.push({ label: 'Directory source refresh', value: formattedSnapshotDate });
   if (isValidHttpsUrl(loc.externalUrl)) adminRows.push({ label: 'Official information', value: 'Official website →', href: loc.externalUrl, rel: 'nofollow' });
-  adminRows.push({ label: 'Data source', value: sourceLabel });
+  adminRows.push({ label: 'Data source', value: source.label, href: source.url });
+  if (isValidHttpsUrl(loc.sourceOriginalMetadataUrl)) {
+    adminRows.push({ label: 'Original source metadata', value: 'View FWC metadata →', href: loc.sourceOriginalMetadataUrl });
+  }
 
   // ── JSON-LD ───────────────────────────────────────────────────────────────
   const addressObj: Record<string, string> = { '@type': 'PostalAddress', addressRegion: location.state, addressCountry: 'US' };
@@ -338,17 +400,18 @@ export default async function LocationPage({ params }: { params: Promise<{ state
     additionalType: 'https://www.wikidata.org/wiki/Q1361425',
     name: location.name,
     description: getRampPreview(location),
-    geo: { '@type': 'GeoCoordinates', latitude: location.lat, longitude: location.lng },
     address: addressObj,
-    amenityFeature: location.amenities.map((a: string) => ({ '@type': 'LocationFeatureSpecification', name: a, value: true })),
   };
+  if (source.allowsCoordinateDirections) {
+    placeSchema.geo = { '@type': 'GeoCoordinates', latitude: location.lat, longitude: location.lng };
+  }
 
   // ─────────────────────────────────────────────────────────────────────────
 
   return (
     <>
       {/* JSON-LD */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd({
         '@context': 'https://schema.org', '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://publicboatramps.com' },
@@ -356,7 +419,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
           { '@type': 'ListItem', position: 3, name: location.name, item: `https://publicboatramps.com/${state}/${slug}` },
         ],
       }) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(placeSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(placeSchema) }} />
 
       {/* ── SECTION 1: Hero ─────────────────────────────────────────────────── */}
       <div
@@ -398,7 +461,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
             <p style={{ lineHeight: 1.9, color: 'var(--text)', fontSize: '1.05rem' }}>
               {val(location.description)
                 ? String(location.description)
-                : `${location.name} is a public boat launch located in ${location.city ? `${location.city}, ` : ''}${location.state}. GPS coordinates are available for navigation directly to the launch site.`
+                : `${location.name} is a public boat-launch record located in ${location.city ? `${location.city}, ` : ''}${location.state}. Review the source fields below and verify current access with the managing agency.`
               }
             </p>
           </div>
@@ -441,7 +504,7 @@ export default async function LocationPage({ params }: { params: Promise<{ state
           {/* SECTION 5: Fee Information */}
           {showFee && (
             <div style={dividerSection}>
-              <h2 style={sectionH2}>Fee Information</h2>
+              <h2 style={sectionH2}>Recorded Fee Information</h2>
               <dl style={{ margin: 0, maxWidth: '420px' }}>
                 {feeRows.map(([label, value]) => (
                   <div key={label} style={dlRow}>
@@ -480,23 +543,39 @@ export default async function LocationPage({ params }: { params: Promise<{ state
                   <div style={dlRow}><dt style={dtStyle}>ZIP Code</dt><dd style={ddStyle}>{String(loc.zipCode)}</dd></div>
                 )}
                 <div style={dlRow}>
-                  <dt style={dtStyle}>Coordinates</dt>
+                  <dt style={dtStyle}>{source.kind === 'fwc' ? 'Source coordinates (not for navigation)' : 'Coordinates'}</dt>
                   <dd style={ddStyle}>{location.lat.toFixed(5)}, {location.lng.toFixed(5)}</dd>
                 </div>
               </dl>
-              <div style={{ background: 'var(--navy-mid)', borderRadius: 'var(--radius)', padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', minWidth: '170px', textAlign: 'center' }}>
-                <span style={{ fontSize: '2rem' }}>🗺️</span>
-                <p style={{ color: '#c5d1df', fontSize: '0.8rem', lineHeight: 1.5, margin: 0 }}>Open in your mapping app for turn-by-turn directions</p>
-                <a
-                  href={`https://maps.google.com/?q=${location.lat},${location.lng}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-gold"
-                  style={{ padding: '0.6rem 1.25rem', fontSize: '0.825rem' }}
-                >
-                  Get Directions →
-                </a>
-              </div>
+              {source.allowsCoordinateDirections ? (
+                <div style={{ background: 'var(--navy-mid)', borderRadius: 'var(--radius)', padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', minWidth: '170px', textAlign: 'center' }}>
+                  <span aria-hidden style={{ fontSize: '2rem' }}>🗺️</span>
+                  <p style={{ color: '#c5d1df', fontSize: '0.8rem', lineHeight: 1.5, margin: 0 }}>Open the source coordinates in your mapping app</p>
+                  <a
+                    href={`https://maps.google.com/?q=${location.lat},${location.lng}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-gold"
+                    style={{ padding: '0.6rem 1.25rem', fontSize: '0.825rem' }}
+                  >
+                    Get Directions →
+                  </a>
+                </div>
+              ) : (
+                <div style={{ background: 'var(--navy-mid)', borderRadius: 'var(--radius)', padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', minWidth: '190px', maxWidth: '230px', textAlign: 'center' }}>
+                  <span aria-hidden style={{ fontSize: '2rem' }}>ℹ️</span>
+                  <p style={{ color: '#c5d1df', fontSize: '0.8rem', lineHeight: 1.5, margin: 0 }}>FWC inventory coordinates are source-reference fields and are not provided for navigation.</p>
+                  <a
+                    href={FWC_ACCESS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-gold"
+                    style={{ padding: '0.6rem 1.25rem', fontSize: '0.825rem' }}
+                  >
+                    Open Official FWC Finder →
+                  </a>
+                </div>
+              )}
             </div>
           </div>
 
@@ -516,10 +595,15 @@ export default async function LocationPage({ params }: { params: Promise<{ state
                 </div>
               ))}
             </dl>
-            <p style={{ fontSize: '0.8rem', color: '#596474', lineHeight: 1.7, marginBottom: '1.25rem' }}>{sourceNote}</p>
+            <p style={{ fontSize: '0.8rem', color: '#596474', lineHeight: 1.7, marginBottom: '1.25rem' }}>{source.note}</p>
+            {val(loc.sourceProcessingNote) && (
+              <p style={{ fontSize: '0.8rem', color: '#596474', lineHeight: 1.7, margin: '-0.5rem 0 1.25rem' }}>
+                <strong>Directory processing:</strong> {String(loc.sourceProcessingNote)}
+              </p>
+            )}
             <div style={{ background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.25)', borderRadius: 'var(--radius-sm)', padding: '0.875rem 1.125rem' }}>
               <p style={{ fontSize: '0.825rem', color: '#556', lineHeight: 1.7, margin: 0 }}>
-                <strong style={{ color: 'var(--navy)' }}>Disclaimer:</strong> Information is provided for informational purposes only. Always verify facility hours, amenities, and any required permits before visiting. Contact your state&apos;s fish and wildlife agency for up-to-date information.
+                <strong style={{ color: 'var(--navy)' }}>Disclaimer:</strong> Information is provided for informational purposes only. Source fields are snapshots, not current inspections. Always verify facility hours, fees, accessibility, amenities, routing, and required permits before visiting. Contact the managing agency for current information.
               </p>
             </div>
           </div>

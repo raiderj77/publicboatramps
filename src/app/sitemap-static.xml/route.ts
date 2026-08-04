@@ -3,13 +3,12 @@ import { NextResponse } from 'next/server';
 const BASE = 'https://publicboatramps.com';
 
 export function GET() {
-  const today = '2026-07-30';
+  const today = '2026-08-03';
   const staticUrls = [
     { loc: BASE, priority: '1.0', changefreq: 'weekly' },
     { loc: `${BASE}/find`, priority: '0.9', changefreq: 'weekly' },
     { loc: `${BASE}/advertise`, priority: '0.5', changefreq: 'monthly' },
     { loc: `${BASE}/about`, priority: '0.5', changefreq: 'monthly' },
-    { loc: `${BASE}/editorial`, priority: '0.5', changefreq: 'monthly' },
     { loc: `${BASE}/contact`, priority: '0.3', changefreq: 'yearly' },
     { loc: `${BASE}/accessibility`, priority: '0.3', changefreq: 'yearly' },
     { loc: `${BASE}/privacy`, priority: '0.2', changefreq: 'yearly' },
