@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import Link from 'next/link';
 import { Playfair_Display, Lora } from 'next/font/google';
+import CreatorRevenueLink from '@/components/CreatorRevenueLink';
 import { FWC_INVENTORY_URL, OSM_COPYRIGHT_URL, USGS_BOAT_RAMPS_URL } from '@/lib/data-sources';
+import { CREATOR_REVENUE_URL } from '@/lib/creator-link-rel.mjs';
 import { activeStates, popularWaterBodies } from '@/lib/nav-data';
 import './globals.css';
 
@@ -55,7 +57,7 @@ const toolSites = [
   { name: 'Fiber Tools', href: 'https://fibertools.app' },
   { name: 'Mind Check Tools', href: 'https://mindchecktools.com' },
   { name: 'Flip My Case', href: 'https://flipmycase.com' },
-  { name: 'Creator Revenue Calculator', href: 'https://creatorrevenuecalculator.com' },
+  { name: 'Creator Revenue Calculator', href: CREATOR_REVENUE_URL },
   { name: 'Contract Extract', href: 'https://contractextract.com' },
   { name: 'Medical Bill Reader', href: 'https://medicalbillreader.com' },
   { name: 'Tax Break Tools', href: 'https://taxbreaktools.com' },
@@ -174,7 +176,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <ul style={{ listStyle: 'none' }}>
                   {toolSites.map((s) => (
                     <li key={s.href} style={{ marginBottom: '0.4rem' }}>
-                      <a href={s.href} target="_blank" rel="noopener noreferrer" style={{ color: '#b8c5d6', fontSize: '0.875rem', textDecoration: 'none' }}>{s.name}</a>
+                      {s.href === CREATOR_REVENUE_URL ? (
+                        <CreatorRevenueLink target="_blank" style={{ color: '#b8c5d6', fontSize: '0.875rem', textDecoration: 'none' }}>{s.name}</CreatorRevenueLink>
+                      ) : (
+                        <a href={s.href} target="_blank" rel="noopener noreferrer" style={{ color: '#b8c5d6', fontSize: '0.875rem', textDecoration: 'none' }}>{s.name}</a>
+                      )}
                     </li>
                   ))}
                 </ul>
