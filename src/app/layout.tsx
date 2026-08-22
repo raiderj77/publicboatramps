@@ -52,7 +52,6 @@ export const metadata: Metadata = {
 };
 
 const toolSites = [
-  { name: 'Fiber Tools', href: 'https://fibertools.app' },
   { name: 'Mind Check Tools', href: 'https://mindchecktools.com' },
   { name: 'Flip My Case', href: 'https://flipmycase.com' },
   { name: 'Contract Extract', href: 'https://contractextract.com' },
