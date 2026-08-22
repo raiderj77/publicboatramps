@@ -1,21 +1,16 @@
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import test from 'node:test';
-import { creatorRevenueRel } from '../src/lib/creator-link-rel.mjs';
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
 
-test('Creator link is nofollow off the homepage without changing unrelated footer links', () => {
-  assert.equal(creatorRevenueRel('/'), 'noopener noreferrer');
-  assert.equal(creatorRevenueRel('/about'), 'nofollow noopener noreferrer');
-  assert.equal(creatorRevenueRel('/florida/example-ramp'), 'nofollow noopener noreferrer');
-
+test('Creator footer link is removed without changing unrelated network links', () => {
   const layout = read('src/app/layout.tsx');
+  assert.doesNotMatch(layout, /creatorrevenuecalculator|Creator Revenue Calculator/i);
   assert.match(layout, /\{ name: 'Fiber Tools', href: 'https:\/\/fibertools\.app' \}/);
-  assert.match(
-    layout,
-    /s\.href === CREATOR_REVENUE_URL \? \([\s\S]*?<CreatorRevenueLink[\s\S]*?\) : \(\s*<a href=\{s\.href\} target="_blank" rel="noopener noreferrer"/,
-  );
+  assert.match(layout, /\{ name: 'Flip My Case', href: 'https:\/\/flipmycase\.com' \}/);
+  assert.equal(existsSync(new URL('../src/components/CreatorRevenueLink.tsx', import.meta.url)), false);
+  assert.equal(existsSync(new URL('../src/lib/creator-link-rel.mjs', import.meta.url)), false);
 });
 
 function isIndexableRecord(record) {
