@@ -382,3 +382,8 @@ test('local runtime artifacts stay out of version control', () => {
   assert.match(read('.gitignore'), /^\.codex-runtime\/$/m);
   assert.match(read('.gitignore'), /^src\/data\/locations\.json\.tmp-\*$/m);
 });
+
+test('the public footer does not cross-link to MindCheck Tools', () => {
+  const layout = read('src/app/layout.tsx');
+  assert.doesNotMatch(layout, /mindchecktools\.com|Mind Check Tools/i);
+});
