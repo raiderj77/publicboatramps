@@ -51,20 +51,6 @@ export const metadata: Metadata = {
   },
 };
 
-const toolSites = [
-  { name: 'Mind Check Tools', href: 'https://mindchecktools.com' },
-  { name: 'Flip My Case', href: 'https://flipmycase.com' },
-  { name: 'Contract Extract', href: 'https://contractextract.com' },
-  { name: 'Medical Bill Reader', href: 'https://medicalbillreader.com' },
-  { name: 'Tax Break Tools', href: 'https://taxbreaktools.com' },
-  { name: '524 Tracker', href: 'https://524tracker.com' },
-  { name: 'AI Business Alternative', href: 'https://aibusinessalternative.com' },
-];
-
-const directorySites = [
-  { name: 'Soak USA', href: 'https://soakusa.net' },
-];
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${playfair.variable} ${lora.variable}`}>
@@ -156,26 +142,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div>
                 <p style={{ fontFamily: 'var(--font-display)', color: 'var(--gold)', fontWeight: 700, fontSize: '1.1rem', marginBottom: '1rem' }}>⚓ Public Boat Ramps</p>
                 <p style={{ color: '#b8c5d6', fontSize: '0.875rem', lineHeight: 1.7 }}>Free-to-browse directory with source-attributed boat-ramp records and its strongest coverage in Florida.</p>
-              </div>
-              <div>
-                <h2 style={{ color: 'var(--gold-light)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>Directory Sites</h2>
-                <ul style={{ listStyle: 'none' }}>
-                  {directorySites.map((s) => (
-                    <li key={s.href} style={{ marginBottom: '0.4rem' }}>
-                      <a href={s.href} target="_blank" rel="noopener noreferrer" style={{ color: '#b8c5d6', fontSize: '0.875rem', textDecoration: 'none' }}>{s.name}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h2 style={{ color: 'var(--gold-light)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>More from our network</h2>
-                <ul style={{ listStyle: 'none' }}>
-                  {toolSites.map((s) => (
-                    <li key={s.href} style={{ marginBottom: '0.4rem' }}>
-                      <a href={s.href} target="_blank" rel="noopener noreferrer" style={{ color: '#b8c5d6', fontSize: '0.875rem', textDecoration: 'none' }}>{s.name}</a>
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
             <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>

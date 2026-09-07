@@ -4,12 +4,12 @@ import test from 'node:test';
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
 
-test('Creator footer link is removed without changing unrelated network links', () => {
+test('portfolio footer links are removed', () => {
   const layout = read('src/app/layout.tsx');
   assert.doesNotMatch(layout, /creatorrevenuecalculator|Creator Revenue Calculator/i);
   assert.doesNotMatch(layout, /https:\/\/(?:www\.)?fibertools\.app/i);
-  assert.match(layout, /\{ name: 'Mind Check Tools', href: 'https:\/\/mindchecktools\.com' \}/);
-  assert.match(layout, /\{ name: 'Flip My Case', href: 'https:\/\/flipmycase\.com' \}/);
+  assert.doesNotMatch(layout, /\{ name: 'Mind Check Tools', href: 'https:\/\/mindchecktools\.com' \}/);
+  assert.doesNotMatch(layout, /\{ name: 'Flip My Case', href: 'https:\/\/flipmycase\.com' \}/);
   assert.equal(existsSync(new URL('../src/components/CreatorRevenueLink.tsx', import.meta.url)), false);
   assert.equal(existsSync(new URL('../src/lib/creator-link-rel.mjs', import.meta.url)), false);
 });
@@ -382,4 +382,9 @@ test('calendar-only source dates render without timezone drift', () => {
 test('local runtime artifacts stay out of version control', () => {
   assert.match(read('.gitignore'), /^\.codex-runtime\/$/m);
   assert.match(read('.gitignore'), /^src\/data\/locations\.json\.tmp-\*$/m);
+});
+
+test('the public footer does not cross-link to MindCheck Tools', () => {
+  const layout = read('src/app/layout.tsx');
+  assert.doesNotMatch(layout, /mindchecktools\.com|Mind Check Tools/i);
 });
