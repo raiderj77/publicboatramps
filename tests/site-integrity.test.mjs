@@ -4,11 +4,12 @@ import test from 'node:test';
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
 
-test('Creator footer link is removed without changing unrelated network links', () => {
+test('portfolio footer links are removed', () => {
   const layout = read('src/app/layout.tsx');
   assert.doesNotMatch(layout, /creatorrevenuecalculator|Creator Revenue Calculator/i);
-  assert.match(layout, /\{ name: 'Fiber Tools', href: 'https:\/\/fibertools\.app' \}/);
-  assert.match(layout, /\{ name: 'Flip My Case', href: 'https:\/\/flipmycase\.com' \}/);
+  assert.doesNotMatch(layout, /https:\/\/(?:www\.)?fibertools\.app/i);
+  assert.doesNotMatch(layout, /\{ name: 'Mind Check Tools', href: 'https:\/\/mindchecktools\.com' \}/);
+  assert.doesNotMatch(layout, /\{ name: 'Flip My Case', href: 'https:\/\/flipmycase\.com' \}/);
   assert.equal(existsSync(new URL('../src/components/CreatorRevenueLink.tsx', import.meta.url)), false);
   assert.equal(existsSync(new URL('../src/lib/creator-link-rel.mjs', import.meta.url)), false);
 });
