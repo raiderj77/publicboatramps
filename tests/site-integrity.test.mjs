@@ -197,11 +197,27 @@ test('public trust and discovery files are present', () => {
   assert.doesNotMatch(sitemap, /marcus-whitfield/);
   assert.doesNotMatch(sitemap, /\/editorial/);
 
-  const llms = `${read('public/llms.txt')}\n${read('public/llms-full.txt')}`;
-  assert.match(llms, /2,335/);
-  assert.match(llms, /2,315/);
-  assert.match(llms, /Georgia: 13|13 in Georgia/);
-  assert.match(llms, /Alabama: 7|7 in Alabama/);
+  const llmsFiles = [read('public/llms.txt'), read('public/llms-full.txt')];
+  const locations = JSON.parse(read('src/data/locations.json'));
+  const indexed = locations.filter(isIndexableRecord);
+  const indexedByState = Object.groupBy(indexed, (location) => location.state);
+  const expectedCounts = {
+    total: indexed.length.toLocaleString('en-US'),
+    Florida: indexedByState.Florida.length.toLocaleString('en-US'),
+    Georgia: indexedByState.Georgia.length.toLocaleString('en-US'),
+    Alabama: indexedByState.Alabama.length.toLocaleString('en-US'),
+  };
+  assert.ok(llmsFiles[0].includes(`- ${expectedCounts.total} data-rich ramp listings`));
+  assert.ok(llmsFiles[0].includes(`- Florida: ${expectedCounts.Florida} listings`));
+  assert.ok(llmsFiles[0].includes(`- Georgia: ${expectedCounts.Georgia} listings`));
+  assert.ok(llmsFiles[0].includes(`- Alabama: ${expectedCounts.Alabama} listings`));
+  assert.ok(
+    llmsFiles[1].includes(
+      `site indexes ${expectedCounts.total} ramp listings across three states: ${expectedCounts.Florida} in Florida, ${expectedCounts.Georgia} in Georgia, and ${expectedCounts.Alabama} in Alabama`,
+    ),
+  );
+  const llms = llmsFiles.join('\n');
+  assert.match(llmsFiles[1], /As of September 9, 2026/);
   assert.doesNotMatch(llms, /Coverage: All 50|102\+ public boat ramp/);
   assert.doesNotMatch(llms, /Editorial guides/);
   assert.match(llms, /FWC-FWRI/);
