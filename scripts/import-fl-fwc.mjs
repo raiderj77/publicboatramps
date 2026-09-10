@@ -12,6 +12,8 @@ const EXPLICIT_SNAPSHOT_DATE = process.env.FWC_SNAPSHOT_DATE;
 const SOURCE_SNAPSHOT_DATE = EXPLICIT_SNAPSHOT_DATE || new Date().toISOString().slice(0, 10);
 const MIN_SOURCE_FEATURES = 2000;
 const MIN_ELIGIBLE_RECORDS = 1800;
+const OPEN_STATUS = 'Open for Business';
+const TEMPORARILY_CLOSED_STATUS = 'Temporarily Closed';
 
 async function fetchJson(url) {
   const response = await fetch(url, { headers: { accept: 'application/json' } });
@@ -109,6 +111,14 @@ function fwcSourceKey(record) {
   const rampId = record.rampId ?? record.RampID ?? '';
   const waterBody = record.waterBodyName ?? record.WaterBodyName ?? '';
   return `${String(rampId).trim()}::${String(waterBody).trim()}`;
+}
+
+function materialComparable(record) {
+  const copy = { ...record };
+  delete copy.sourceSnapshotDate;
+  delete copy.sourceProcessingNote;
+  delete copy.lastEditedDate;
+  return JSON.stringify(copy);
 }
 
 function isDirectoryIndexable(record) {
@@ -359,15 +369,21 @@ const baseRecords = existing.filter((r) => r.dataSource !== 'FWC_FL');
 const priorRecordsBySourceKey = new Map(priorFwcRecords.map((r) => [fwcSourceKey(r), r]));
 console.log(`Prior FWC records removed before refresh: ${priorFwcRecords.length}`);
 
-// Filter FWC features
+// Keep currently open records. If an already-published route becomes temporarily
+// closed, retain that same source record so the route can show an explicit,
+// noindex closure notice. Newly discovered closed records remain unpublished,
+// and permanent/ambiguous removals still require an explicit lifecycle review.
 const eligible = features.filter((f) => {
   const p = f.properties;
+  const priorRecord = priorRecordsBySourceKey.get(fwcSourceKey(p));
+  const wasPreviouslyPublished = priorRecord && isDirectoryIndexable(priorRecord);
   return (
-    p.Status === 'Open for Business' &&
+    (p.Status === OPEN_STATUS || (p.Status === TEMPORARILY_CLOSED_STATUS && wasPreviouslyPublished)) &&
     p.AccessType !== 'Government Owned for Restricted Public Use'
   );
 }).sort((a, b) => String(a.properties.RampID).localeCompare(String(b.properties.RampID)));
 console.log(`FWC features after filter: ${eligible.length} (of ${features.length} total)`);
+console.log(`Previously published temporary closures retained: ${eligible.filter((f) => f.properties.Status === TEMPORARILY_CLOSED_STATUS).length}`);
 const minimumEligible = Math.max(MIN_ELIGIBLE_RECORDS, Math.floor(priorFwcRecords.length * 0.85));
 if (eligible.length < minimumEligible) {
   throw new Error(`FWC source safety check failed: ${eligible.length} eligible records is below the minimum ${minimumEligible}.`);
@@ -398,7 +414,7 @@ const flRecords = eligible.map((f) => {
     slug = makeSlug(p, existingSlugs);
   }
 
-  return {
+  const mappedRecord = {
     name: p.RampName,
     slug,
     state: stateName,
@@ -414,8 +430,14 @@ const flRecords = eligible.map((f) => {
     dataSourceDetail: 'Florida Boat Ramp Inventory, FWC-FWRI; normalized by Public Boat Ramps Directory',
     sourceSnapshotDate: SOURCE_SNAPSHOT_DATE,
     sourceOriginalMetadataUrl: FWC_METADATA_URL,
-    sourceProcessingNote: 'Filtered to source records marked Open for Business and excluding restricted public use; field names, text casing, slugs, descriptions, and amenity labels were normalized for directory display.',
+    sourceProcessingNote: 'Filtered to source records marked Open for Business and excluding restricted public use; previously published records marked Temporarily Closed are retained as noindex closure notices. Field names, text casing, slugs, descriptions, and amenity labels were normalized for directory display.',
     rampId: p.RampID,
+    ...(p.Status === TEMPORARILY_CLOSED_STATUS
+      ? {
+          operationalStatus: TEMPORARILY_CLOSED_STATUS,
+          operationalStatusComments: present(p.RampStatusComments) ? String(p.RampStatusComments).trim() : null,
+        }
+      : {}),
     rampType: p.RampType,
     accessType: p.AccessType,
     adminEntity: p.PrimaryAdminEntity,
@@ -450,6 +472,18 @@ const flRecords = eligible.map((f) => {
     hasPhotos: p.hasPhotos === 1,
     lastEditedDate: isoDate(p.last_edited_date),
   };
+
+  // FWC can bulk-touch last_edited_date across the entire layer. Preserve
+  // per-record provenance stamps when the public fields did not change so a
+  // reviewed refresh stays focused and auditable instead of rewriting thousands
+  // of unchanged records.
+  if (priorRecord && materialComparable(priorRecord) === materialComparable(mappedRecord)) {
+    mappedRecord.sourceSnapshotDate = priorRecord.sourceSnapshotDate;
+    mappedRecord.sourceProcessingNote = priorRecord.sourceProcessingNote;
+    mappedRecord.lastEditedDate = priorRecord.lastEditedDate;
+  }
+
+  return mappedRecord;
 });
 
 console.log(`FWC records added:      ${flRecords.length}`);
@@ -468,16 +502,16 @@ const reviewedRedirects = new Map(
     redirect.destination.replace(/^\//, ''),
   ]),
 );
-const nextIndexableRoutes = new Set(
+const nextRoutableRoutes = new Set(
   flRecords.filter(isDirectoryIndexable).map((record) => `${record.stateSlug}/${record.slug}`),
 );
 const unhandledRetirements = priorFwcRecords
   .filter(isDirectoryIndexable)
   .map((record) => `${record.stateSlug}/${record.slug}`)
   .filter((route) => {
-    if (nextIndexableRoutes.has(route) || acknowledgedRetirements.has(route)) return false;
+    if (nextRoutableRoutes.has(route) || acknowledgedRetirements.has(route)) return false;
     const destination = reviewedRedirects.get(route);
-    return !destination || !nextIndexableRoutes.has(destination);
+    return !destination || !nextRoutableRoutes.has(destination);
   });
 if (unhandledRetirements.length) {
   console.error('Previously published FWC routes require an explicit retirement or replacement review:');
@@ -486,17 +520,12 @@ if (unhandledRetirements.length) {
 }
 
 if (checkOnly) {
-  const comparable = (record) => {
-    const copy = { ...record };
-    delete copy.sourceSnapshotDate;
-    return JSON.stringify(copy);
-  };
   const currentByKey = new Map(priorFwcRecords.map((record) => [fwcSourceKey(record), record]));
   const expectedByKey = new Map(flRecords.map((record) => [fwcSourceKey(record), record]));
   const added = [...expectedByKey.keys()].filter((key) => !currentByKey.has(key));
   const removed = [...currentByKey.keys()].filter((key) => !expectedByKey.has(key));
   const changed = [...expectedByKey.keys()].filter(
-    (key) => currentByKey.has(key) && comparable(currentByKey.get(key)) !== comparable(expectedByKey.get(key)),
+    (key) => currentByKey.has(key) && materialComparable(currentByKey.get(key)) !== materialComparable(expectedByKey.get(key)),
   );
 
   console.log(`FWC drift check: ${added.length} added, ${removed.length} removed, ${changed.length} changed.`);

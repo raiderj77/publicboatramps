@@ -15,6 +15,8 @@ test('portfolio footer links are removed', () => {
 });
 
 function isIndexableRecord(record) {
+  if (record.operationalStatus && record.operationalStatus !== 'Open for Business') return false;
+
   const mandatory = [record.name, record.lat, record.lng, record.city, record.state];
   if (mandatory.some((value) => value === null || value === undefined || value === '')) return false;
   const optional = [
@@ -295,9 +297,10 @@ test('FWC snapshot is current, qualified, and reproducible', () => {
   const importer = read('scripts/import-fl-fwc.mjs');
   const driftWorkflow = read('.github/workflows/fwc-source-drift.yml');
 
-  assert.equal(fwc.length, 2415);
-  assert.equal(fwc.filter((location) => location.isFeeRequired === 'No').length, 1627);
-  assert.ok(fwc.every((location) => location.sourceSnapshotDate === '2026-08-03'));
+  assert.equal(fwc.length, 2419);
+  assert.equal(fwc.filter((location) => location.isFeeRequired === 'No').length, 1632);
+  assert.ok(fwc.every((location) => /^\d{4}-\d{2}-\d{2}$/.test(location.sourceSnapshotDate)));
+  assert.equal(fwc.filter((location) => location.sourceSnapshotDate === '2026-09-09').length, 12);
   assert.ok(fwc.every((location) => location.sourceOriginalMetadataUrl && location.sourceProcessingNote));
   assert.ok(fwc.every((location) => !location.lastEditedDate || /^\d{4}-\d{2}-\d{2}T/.test(location.lastEditedDate)));
 
@@ -310,13 +313,13 @@ test('FWC snapshot is current, qualified, and reproducible', () => {
 
   const routes = fwc.map((location) => `${location.stateSlug}/${location.slug}`);
   assert.equal(new Set(routes).size, routes.length);
-  assert.equal(fwc.filter((location) => location.state === 'Florida').length, 2392);
+  assert.equal(fwc.filter((location) => location.state === 'Florida').length, 2396);
   assert.equal(fwc.filter((location) => location.state === 'Alabama').length, 9);
   assert.equal(fwc.filter((location) => location.state === 'Georgia').length, 14);
   assert.equal(fwc.filter((location) => location.state === 'New York').length, 0);
 
   const indexableByState = Object.groupBy(locations.filter(isIndexableRecord), (location) => location.state);
-  assert.equal(indexableByState.Florida.length, 2315);
+  assert.equal(indexableByState.Florida.length, 2314);
   assert.equal(indexableByState.Alabama.length, 7);
   assert.equal(indexableByState.Georgia.length, 13);
 
@@ -333,9 +336,33 @@ test('FWC snapshot is current, qualified, and reproducible', () => {
   assert.match(importer, /FWC_SNAPSHOT_DATE must use YYYY-MM-DD format/);
   assert.match(importer, /temporaryLocationsPath/);
   assert.match(importer, /renameSync\(temporaryLocationsPath, locationsPath\)/);
+  assert.match(importer, /materialComparable/);
   assert.match(importer, /unhandledRetirements/);
+  assert.match(importer, /priorRecord && isDirectoryIndexable\(priorRecord\)/);
+  assert.match(importer, /Previously published temporary closures retained/);
   assert.match(driftWorkflow, /schedule:/);
   assert.match(driftWorkflow, /npm run check:fwc/);
+});
+
+test('previously published temporary closures stay available only as noindex status notices', () => {
+  const locations = JSON.parse(read('src/data/locations.json'));
+  const detail = read('src/app/[state]/[slug]/page.tsx');
+  const qualityGate = read('src/lib/quality-gate.ts');
+  const temporarilyClosed = locations.filter(
+    (location) => location.dataSource === 'FWC_FL' && location.operationalStatus === 'Temporarily Closed',
+  );
+
+  assert.deepEqual(
+    temporarilyClosed.map((location) => location.rampId).sort(),
+    ['DU70007SJ', 'GI10008QS', 'LE00046RA', 'SR00043NL', 'SR70018OO'],
+  );
+  assert.ok(temporarilyClosed.every((location) => location.operationalStatusComments));
+  assert.ok(temporarilyClosed.every((location) => !isIndexableRecord(location)));
+  assert.match(qualityGate, /loc\.operationalStatus && loc\.operationalStatus !== 'Open for Business'/);
+  assert.match(detail, /isTemporarilyClosed\(location\)/);
+  assert.match(detail, /Temporarily closed in the FWC inventory/);
+  assert.match(detail, /robots: \{ index: false, follow: true \}/);
+  assert.match(detail, /Do not use earlier hours, fees, facility details, or access descriptions/);
 });
 
 test('previously published source URLs receive explicit lifecycle treatment', () => {

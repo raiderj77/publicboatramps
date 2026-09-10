@@ -1,4 +1,12 @@
+export const TEMPORARILY_CLOSED_STATUS = 'Temporarily Closed';
+
+export function isTemporarilyClosed(loc: Record<string, any>): boolean {
+  return loc.operationalStatus === TEMPORARILY_CLOSED_STATUS;
+}
+
 export function isIndexable(loc: Record<string, any>): boolean {
+  if (loc.operationalStatus && loc.operationalStatus !== 'Open for Business') return false;
+
   const mandatory = [loc.name, loc.lat, loc.lng, loc.city, loc.state];
   if (mandatory.some(v => v === null || v === undefined || v === '')) return false;
 

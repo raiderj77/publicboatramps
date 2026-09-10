@@ -6,7 +6,7 @@ import NearbyServices from '@/components/NearbyServices';
 import locations from '@/data/locations';
 import { FWC_ACCESS_URL, getDataSourceAttribution } from '@/lib/data-sources';
 import { serializeJsonLd } from '@/lib/json-ld';
-import { isIndexable } from '@/lib/quality-gate';
+import { isIndexable, isTemporarilyClosed } from '@/lib/quality-gate';
 import { getRetiredRamp, retiredRamps } from '@/lib/retired-ramps';
 
 export const revalidate = 86400;
@@ -45,7 +45,7 @@ function getStateName(slug: string) {
 
 export async function generateStaticParams() {
   const activeParams = (locations as any[])
-    .filter(isIndexable)
+    .filter((location) => isIndexable(location) || isTemporarilyClosed(location))
     .map((l) => ({ state: l.stateSlug, slug: l.slug }));
   const retiredParams = retiredRamps.map((ramp) => ({ state: ramp.stateSlug, slug: ramp.slug }));
   return [...activeParams, ...retiredParams];
@@ -54,6 +54,14 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ state: string; slug: string }> }): Promise<Metadata> {
   const { state, slug } = await params;
   const location = locations.find((l) => l.slug === slug && l.stateSlug === state);
+  if (location && isTemporarilyClosed(location)) {
+    return {
+      title: `${location.name} | Temporarily Closed`,
+      description: 'The official FWC inventory currently marks this boat ramp temporarily closed. Review the source status before traveling.',
+      alternates: { canonical: `https://publicboatramps.com/${state}/${slug}` },
+      robots: { index: false, follow: true },
+    };
+  }
   if (!location || !isIndexable(location as Record<string, any>)) {
     const retiredRamp = getRetiredRamp(state, slug);
     if (!retiredRamp) return { robots: { index: false, follow: false } };
@@ -165,6 +173,12 @@ function isValidHttpsUrl(url: unknown): url is string {
   }
 }
 
+function normalizeOfficialHttpsUrl(url: unknown): string | null {
+  if (!url || typeof url !== 'string') return null;
+  const candidate = /^www\./i.test(url.trim()) ? `https://${url.trim()}` : url.trim();
+  return isValidHttpsUrl(candidate) ? candidate : null;
+}
+
 function formatDate(dateStr: unknown): string | null {
   if (!val(dateStr)) return null;
   try {
@@ -257,6 +271,56 @@ export default async function LocationPage({ params }: { params: Promise<{ state
   const { state, slug } = await params;
   const location = locations.find((l) => l.slug === slug && l.stateSlug === state);
   const stateName = getStateName(state);
+
+  if (location && isTemporarilyClosed(location)) {
+    const officialFacilityUrl = normalizeOfficialHttpsUrl(location.externalUrl);
+    const statusChecked = formatDate(location.sourceSnapshotDate);
+
+    return (
+      <section style={{ padding: '4rem 1.5rem 6rem' }}>
+        <div className="container" style={{ maxWidth: '760px' }}>
+          <p className="section-label">Official Source Status</p>
+          <h1 style={{ fontFamily: 'var(--font-display)', color: 'var(--navy)', fontSize: 'clamp(2rem, 5vw, 3rem)', lineHeight: 1.15, marginBottom: '1rem' }}>
+            {location.name}
+          </h1>
+          <div className="card" style={{ padding: '2rem', borderLeft: '4px solid #b45309' }}>
+            <h2 style={{ fontFamily: 'var(--font-display)', color: 'var(--navy)', fontSize: '1.35rem', marginBottom: '0.75rem' }}>
+              Temporarily closed in the FWC inventory
+            </h2>
+            <p style={{ lineHeight: 1.8, marginBottom: '1rem' }}>
+              The official Florida Fish and Wildlife Conservation Commission inventory currently marks this ramp as temporarily closed.
+            </p>
+            {location.operationalStatusComments && (
+              <p style={{ lineHeight: 1.8, marginBottom: '1rem', whiteSpace: 'pre-line' }}>
+                <strong>Source status note:</strong> {location.operationalStatusComments}
+              </p>
+            )}
+            <p style={{ lineHeight: 1.8, marginBottom: '1rem' }}>
+              Do not use earlier hours, fees, facility details, or access descriptions on this directory page to plan a launch while this notice is active. Confirm reopening and current conditions with FWC or the managing agency before traveling.
+            </p>
+            {statusChecked && (
+              <p style={{ color: 'var(--gray)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+                Directory source-status check: {statusChecked}
+              </p>
+            )}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+              {officialFacilityUrl && (
+                <a href={officialFacilityUrl} target="_blank" rel="noopener noreferrer nofollow" className="btn btn-gold">
+                  Check the Managing Agency
+                </a>
+              )}
+              <a href={FWC_ACCESS_URL} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ color: 'var(--navy)', borderColor: 'rgba(10,22,40,0.35)' }}>
+                Check the Official FWC Finder
+              </a>
+              <Link href={`/${state}`} className="btn btn-outline" style={{ color: 'var(--navy)', borderColor: 'rgba(10,22,40,0.35)' }}>
+                Browse Current {stateName} Records
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (!location || !isIndexable(location)) {
     const retiredRamp = getRetiredRamp(state, slug);
