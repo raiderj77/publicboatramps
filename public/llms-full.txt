@@ -4,7 +4,7 @@
 
 ## Current indexed scope
 
-As of August 3, 2026, the site indexes 2,335 ramp listings across three states: 2,315 in Florida, 13 in Georgia, and 7 in Alabama. It also publishes 191 Florida water-body directories and two Georgia water-body directories. A larger raw location collection is not indexed because those records do not yet meet the quality standard.
+As of September 9, 2026, the site indexes 2,334 ramp listings across three states: 2,314 in Florida, 13 in Georgia, and 7 in Alabama. It also publishes 191 Florida water-body directories and two Georgia water-body directories. A larger raw location collection is not indexed because those records do not yet meet the quality standard.
 
 ## Quality and source method
 

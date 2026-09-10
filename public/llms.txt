@@ -4,8 +4,8 @@
 
 ## Current indexed coverage
 
-- 2,335 data-rich ramp listings
-- Florida: 2,315 listings
+- 2,334 data-rich ramp listings
+- Florida: 2,314 listings
 - Georgia: 13 listings
 - Alabama: 7 listings
 - 191 Florida water-body directory pages
