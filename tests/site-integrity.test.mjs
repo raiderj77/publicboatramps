@@ -217,7 +217,7 @@ test('public trust and discovery files are present', () => {
     ),
   );
   const llms = llmsFiles.join('\n');
-  assert.match(llmsFiles[1], /As of September 9, 2026/);
+  assert.match(llmsFiles[1], /As of October 6, 2026/);
   assert.doesNotMatch(llms, /Coverage: All 50|102\+ public boat ramp/);
   assert.doesNotMatch(llms, /Editorial guides/);
   assert.match(llms, /FWC-FWRI/);
@@ -313,10 +313,10 @@ test('FWC snapshot is current, qualified, and reproducible', () => {
   const importer = read('scripts/import-fl-fwc.mjs');
   const driftWorkflow = read('.github/workflows/fwc-source-drift.yml');
 
-  assert.equal(fwc.length, 2419);
-  assert.equal(fwc.filter((location) => location.isFeeRequired === 'No').length, 1632);
+  assert.equal(fwc.length, 2420);
+  assert.equal(fwc.filter((location) => location.isFeeRequired === 'No').length, 1633);
   assert.ok(fwc.every((location) => /^\d{4}-\d{2}-\d{2}$/.test(location.sourceSnapshotDate)));
-  assert.equal(fwc.filter((location) => location.sourceSnapshotDate === '2026-09-09').length, 12);
+  assert.equal(fwc.filter((location) => location.sourceSnapshotDate === '2026-10-06').length, 12);
   assert.ok(fwc.every((location) => location.sourceOriginalMetadataUrl && location.sourceProcessingNote));
   assert.ok(fwc.every((location) => !location.lastEditedDate || /^\d{4}-\d{2}-\d{2}T/.test(location.lastEditedDate)));
 
@@ -329,13 +329,13 @@ test('FWC snapshot is current, qualified, and reproducible', () => {
 
   const routes = fwc.map((location) => `${location.stateSlug}/${location.slug}`);
   assert.equal(new Set(routes).size, routes.length);
-  assert.equal(fwc.filter((location) => location.state === 'Florida').length, 2396);
+  assert.equal(fwc.filter((location) => location.state === 'Florida').length, 2397);
   assert.equal(fwc.filter((location) => location.state === 'Alabama').length, 9);
   assert.equal(fwc.filter((location) => location.state === 'Georgia').length, 14);
   assert.equal(fwc.filter((location) => location.state === 'New York').length, 0);
 
   const indexableByState = Object.groupBy(locations.filter(isIndexableRecord), (location) => location.state);
-  assert.equal(indexableByState.Florida.length, 2314);
+  assert.equal(indexableByState.Florida.length, 2313);
   assert.equal(indexableByState.Alabama.length, 7);
   assert.equal(indexableByState.Georgia.length, 13);
 
@@ -370,7 +370,7 @@ test('previously published temporary closures stay available only as noindex sta
 
   assert.deepEqual(
     temporarilyClosed.map((location) => location.rampId).sort(),
-    ['DU70007SJ', 'GI10008QS', 'LE00046RA', 'SR00043NL', 'SR70018OO'],
+    ['CI00066KO', 'CI44405SX', 'DU70007SJ', 'GI10008QS', 'LE00046RA', 'SR00043NL', 'SR70018OO'],
   );
   assert.ok(temporarilyClosed.every((location) => location.operationalStatusComments));
   assert.ok(temporarilyClosed.every((location) => !isIndexableRecord(location)));
