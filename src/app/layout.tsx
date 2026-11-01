@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import Link from 'next/link';
+import AnalyticsConsent from '@/components/AnalyticsConsent';
 import { Playfair_Display, Lora } from 'next/font/google';
 import { FWC_INVENTORY_URL, OSM_COPYRIGHT_URL, USGS_BOAT_RAMPS_URL } from '@/lib/data-sources';
 import { activeStates, popularWaterBodies } from '@/lib/nav-data';
@@ -171,6 +172,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </footer>
+        <AnalyticsConsent />
         <Script id="nav-dropdown-toggle" strategy="afterInteractive">{`
           document.addEventListener('click', (e) => {
             const btn = e.target.closest('[data-nav-toggle]');

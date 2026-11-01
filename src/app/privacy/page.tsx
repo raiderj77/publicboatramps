@@ -37,15 +37,7 @@ export default function PrivacyPage() {
 
       <h2 style={heading}>Cookies, analytics, and advertising</h2>
       <p>
-        Public Boat Ramps Directory does not currently load Google Analytics, Microsoft Clarity, Google
-        AdSense advertising scripts, or another optional analytics or advertising tracker. We do not
-        intentionally set advertising or analytics cookies. The site&apos;s AdSense account identifier and
-        ads.txt file may remain published for ownership verification, but that does not mean ads are being
-        served or that advertising cookies are active.
-      </p>
-      <p style={{ marginTop: '0.75rem' }}>
-        If optional analytics or advertising is added later, this policy and any required consent controls
-        will be updated before those tools are enabled.
+        Public Boat Ramps Directory uses Google Analytics (GA4) only after you accept via the consent control shown on this site. Google Analytics does not load, and sets no analytics cookies, until you accept; if you decline or have not chosen, it never loads. When it runs, it collects standard page-view and usage data (pages visited, approximate location, device and browser information) so we can see which pages are useful. Advertising features, ad personalization, and Google signals are off. You can change or withdraw your choice at any time using the Privacy choices control shown on every page; withdrawing stops further collection and clears the analytics cookies we are able to clear. Global Privacy Control and Do Not Track signals are treated as a decline. Microsoft Clarity and advertising scripts are not loaded. The site&apos;s AdSense account identifier and ads.txt file remain published for ownership verification only; no ads are served and no advertising cookies are set.
       </p>
 
       <h2 style={heading}>Optional location search</h2>

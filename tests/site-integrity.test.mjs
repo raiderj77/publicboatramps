@@ -38,13 +38,30 @@ function isIndexableRecord(record) {
   }).length >= 4;
 }
 
-test('optional advertising and analytics scripts stay disabled', () => {
+test('optional analytics is consent- and env-gated; advertising stays off', () => {
   const layout = read('src/app/layout.tsx');
   for (const host of ['googletagmanager.com', 'googlesyndication.com', 'clarity.ms']) {
     assert.doesNotMatch(layout, new RegExp(host.replace('.', '\\.')));
   }
   assert.match(layout, /google-adsense-account/);
   assert.ok(existsSync(new URL('../public/ads.txt', import.meta.url)));
+
+  const config = read('next.config.ts');
+  for (const host of ['googlesyndication.com', 'clarity.ms']) {
+    assert.doesNotMatch(config, new RegExp(host.replace('.', '\\.')));
+  }
+  assert.match(config, /googletagmanager\.com/);
+
+  const component = read('src/components/AnalyticsConsent.tsx');
+  assert.match(component, /NEXT_PUBLIC_GA_ID/);
+  assert.match(component, /localStorage/);
+  assert.match(component, /analytics_storage: 'denied'/);
+  assert.ok(component.indexOf('localStorage.getItem') < component.indexOf('googletagmanager.com/gtag/js'));
+
+  const privacy = read('src/app/privacy/page.tsx');
+  assert.match(privacy, /only after you accept/i);
+  assert.match(privacy, /withdraw/i);
+  assert.doesNotMatch(privacy, /does not currently load Google Analytics/i);
 });
 
 test('structured data only advertises implemented features', () => {
@@ -156,7 +173,8 @@ test('homepage avoids unsupported nationwide crowd and availability claims', () 
 
 test('privacy copy matches the deployed tracking configuration', () => {
   const privacy = read('src/app/privacy/page.tsx');
-  assert.match(privacy, /does not currently load Google Analytics/);
+  assert.match(privacy, /only after you accept via the consent control/);
+  assert.doesNotMatch(privacy, /does not currently load Google Analytics/);
   assert.match(privacy, /Vercel may process routine request data/);
   assert.match(privacy, /do not sell personal information/);
   assert.match(privacy, /do not promise zero logging or immediate deletion/);
