@@ -1,3 +1,4 @@
+import { countyHubsForState, cityHubsForState } from '@/lib/hubs';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -456,6 +457,14 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
           </div>
         </div>
       </section>
+      {(['county', 'city'] as const).map(kind => {
+        const hubs = kind === 'county' ? countyHubsForState(state) : cityHubsForState(state);
+        return hubs.length > 0 && <section key={kind} style={{ padding: '3.5rem 1.5rem', background: 'var(--cream)' }}><div className="container">
+          <p className="section-label">Browse by {kind}</p><h2 className="section-title">Browse by {kind}</h2>
+          <div className="grid-3">{hubs.map(h => <Link className="card" style={{ padding: '1rem' }} key={h.slug} href={`/${state}/${kind}/${h.slug}`}>{h.name}{kind === 'county' ? ' County' : ''} ({h.rampCount} ramps)</Link>)}</div>
+        </div></section>;
+      })}
+
 
       {/* ── Data attribution ── */}
       {(sig.hasFwcData || sig.hasUsgsData || sig.hasOsmData) && (

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -49,6 +50,7 @@ export default function AdvertisePage() {
               A manually reviewed business name, service category, website, phone number, and service area. Basic
               profiles are not guaranteed placement or prominence.
             </p>
+            <p><Link href="/claim">Run this business? Claim your free profile</Link></p>
           </div>
 
           <div style={{ ...cardStyle, borderColor: 'rgba(201,168,76,0.65)' }}>
