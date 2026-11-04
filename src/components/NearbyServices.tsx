@@ -1,3 +1,5 @@
+import { isPartnerClaimed } from '@/data/claims';
+import ProfileVisitCount from './ProfileVisitCount';
 import Link from 'next/link';
 import { partners, type Partner } from '@/data/partners';
 
@@ -145,6 +147,7 @@ export default function NearbyServices({ state, county, city }: Props) {
                     <p style={{ margin: 0, color: '#596474', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                       {isPaid ? 'Paid Advertisement' : 'Reviewed Business Profile'} · {partner.category}
                     </p>
+                    {isPartnerClaimed(partner.id) && <span className="chip" style={{ background: 'var(--gold)', color: 'var(--navy)', alignSelf: 'flex-start' }}>Claimed profile</span>}
                     <h3 style={{ margin: 0, color: 'var(--navy)', fontFamily: 'var(--font-display)', fontSize: '1.2rem' }}>
                       {partner.name}
                     </h3>
@@ -168,6 +171,7 @@ export default function NearbyServices({ state, county, city }: Props) {
                         </a>
                       )}
                     </div>
+                    <ProfileVisitCount profileKey={'partner:' + partner.id} />
                   </article>
                 );
               })}

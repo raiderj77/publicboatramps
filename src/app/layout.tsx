@@ -165,7 +165,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </p>
               </div>
               <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap' }}>
-                {[['Find Ramps', '/find'], ['Advertise', '/advertise'], ['About', '/about'], ['Accessibility', '/accessibility'], ['Privacy', '/privacy'], ['Terms', '/terms'], ['Contact', '/contact']].map(([label, href]) => (
+                {[['Find Ramps', '/find'], ['Advertise', '/advertise'], ['Claim Your Profile', '/claim'], ['About', '/about'], ['Accessibility', '/accessibility'], ['Privacy', '/privacy'], ['Terms', '/terms'], ['Contact', '/contact']].map(([label, href]) => (
                   <Link key={href} href={href} style={{ color: '#b8c5d6', fontSize: '0.85rem', textDecoration: 'none' }}>{label}</Link>
                 ))}
               </div>

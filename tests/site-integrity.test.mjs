@@ -449,3 +449,38 @@ test('the public footer does not cross-link to MindCheck Tools', () => {
   const layout = read('src/app/layout.tsx');
   assert.doesNotMatch(layout, /mindchecktools\.com|Mind Check Tools/i);
 });
+
+test('county and city hubs meet the publication floors', () => {
+  const source = read('src/lib/hubs.ts');
+  assert.match(source, /COUNTY_FLOOR = 10/);
+  assert.match(source, /CITY_FLOOR = 8/);
+  const indexed = JSON.parse(read('src/data/locations.json')).filter(isIndexableRecord);
+  const slugify = value => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  for (const [field, floor, expected] of [['county', 10, 59], ['city', 8, 105]]) {
+    const groups = new Map();
+    for (const ramp of indexed) {
+      if (!ramp[field]?.trim()) continue;
+      const key = `${ramp.stateSlug}:${slugify(ramp[field])}`;
+      groups.set(key, (groups.get(key) ?? 0) + 1);
+    }
+    const published = [...groups.values()].filter(count => count >= floor);
+    assert.equal(published.length, expected);
+    assert.ok(published.every(count => count >= floor));
+  }
+});
+
+test('claim data keeps emails private and tokens expire after 48 hours', () => {
+  assert.doesNotMatch(read('src/data/claims.ts'), /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
+  const token = read('src/lib/claim-token.ts');
+  assert.match(token, /timingSafeEqual/);
+  assert.match(token, /TOKEN_TTL_MS = 48 \* 60 \* 60 \* 1000/);
+  const verify = read('src/app/api/claim/verify/route.ts');
+  const success = verify.match(/NextResponse\.json\(\{ ok: true,[\s\S]*?\}\)/)?.[0];
+  assert.ok(success);
+  assert.doesNotMatch(success, /\bemail\s*:/);
+});
+
+test('claim email and profile visits expose honest configuration fallbacks', () => {
+  assert.match(read('src/lib/claim-mailer.ts'), /not-configured/);
+  assert.match(read('src/lib/visit-store.ts'), /VISIT_COUNTER_API_URL/);
+});
