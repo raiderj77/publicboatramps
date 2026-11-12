@@ -334,6 +334,87 @@ export default async function StatePage({ params }: { params: Promise<{ state: s
         </section>
       )}
 
+      {/* ── Florida fees, parking and low water notes ── */}
+      {state === 'florida' && (
+        <section style={{ padding: '3.5rem 1.5rem', background: 'var(--white)' }}>
+          <div className="container" style={{ maxWidth: '820px' }}>
+            <p className="section-label">Before You Tow</p>
+            <h2 className="section-title">Florida Ramp Fees, Parking and Low Water Notes</h2>
+            <p style={{ lineHeight: 1.7, color: '#445', marginTop: '1rem' }}>
+              <strong>Fast answer:</strong> most Florida public ramps cost nothing to launch from.
+              In this directory, 1,613 of the 2,314 Florida records show no launch fee recorded,
+              and the ramps the Florida Fish and Wildlife Conservation Commission (FWC) built itself
+              are free of charge. What you usually pay for is parking or park entry, not the launch.
+              The two seasons to plan around are the winter dry season, when lake and canal ramps go
+              shallow, and scheduled fee changes at county ramps.
+            </p>
+
+            <h3 style={{ fontFamily: 'var(--font-display)', color: 'var(--navy)', marginTop: '2rem', marginBottom: '0.5rem' }}>Fees and parking</h3>
+            <ul style={{ lineHeight: 1.7, color: '#445', paddingLeft: '1.25rem' }}>
+              <li>
+                <strong>FWC ramps are free.</strong> Since the mid-1950s, the Commission has built
+                boat ramps that are available to the boating public free of charge, and most of its
+                sites are open 24 hours a day. FWC currently maintains over 200 access sites
+                statewide. (<a href="http://myfwc.com/boating/boat-ramps-access" target="_blank" rel="noopener noreferrer">FWC, Boat Ramps and Access</a>)
+              </li>
+              <li>
+                <strong>State park ramps sit behind the entrance fee.</strong> Ramps inside Florida
+                state parks require the park&apos;s per vehicle daily entrance fee, and Florida State
+                Parks notes that boat launching can carry an additional fee at some parks, so check
+                the individual park page before you go. (<a href="https://www.floridastateparks.org/fees" target="_blank" rel="noopener noreferrer">Florida State Parks, Fees</a>)
+              </li>
+              <li>
+                <strong>County example, Pinellas.</strong> Pinellas County charges for boat ramp
+                parking, not launching: $6 per day at boat ramp pay stations today, rising to $12
+                per day on December 1, 2026. The Annual Boat and Beach Pass is $140 plus tax and
+                covers parking at all county park boat ramps for a year from purchase. Pay stations
+                are cashless (Visa, Mastercard, American Express), work by license plate, and need
+                your vehicle tag number; no receipt has to be displayed. Parking fees are waived
+                with a valid disabled parking permit or tag. (<a href="https://pinellas.gov/boat-ramp-parking" target="_blank" rel="noopener noreferrer">Pinellas County, Boat Ramp Parking</a>)
+              </li>
+              <li>
+                <strong>Hours still vary by ramp.</strong> Many ramps are open 24 hours, including
+                Fort De Soto Park in Pinellas County, but county and city ramps with gates can close
+                at dusk. The record pages in this directory carry the hours we have; confirm with
+                the managing agency when it matters.
+              </li>
+            </ul>
+
+            <h3 style={{ fontFamily: 'var(--font-display)', color: 'var(--navy)', marginTop: '2rem', marginBottom: '0.5rem' }}>Low water notes</h3>
+            <ul style={{ lineHeight: 1.7, color: '#445', paddingLeft: '1.25rem' }}>
+              <li>
+                <strong>Dry season is the risk window.</strong> Florida lake levels fall through the
+                dry season, roughly late fall into spring, and shallow canal and lake ramps lose
+                usable depth first. A ramp that floated your boat in September can leave a trailer
+                axle on dry concrete in April.
+              </li>
+              <li>
+                <strong>Lake Okeechobee has a published trigger.</strong> As the lake level reaches
+                12 feet NGVD and lower, the South Florida Water Management District closes its north
+                shore navigation locks to protect water levels in adjacent canals, and ramps on
+                shallow canals around the lake get tight at the same stages. Check the current lake
+                level before towing to an Okeechobee ramp in the dry season. (<a href="https://sfwmd.gov/sites/default/files/documents/nr_2011_0310_lakeo_locks.pdf" target="_blank" rel="noopener noreferrer">SFWMD, Lake Okeechobee lock closure notice</a>)
+              </li>
+              <li>
+                <strong>Closures are not posted in real time.</strong> FWC states plainly that ramp
+                closures are not reported in real time on its site, and advises checking with local
+                authorities about the status of a ramp before venturing to an unknown one far from
+                home. That advice covers low water groundings as well as repairs and special
+                events. (<a href="http://myfwc.com/boating/boat-ramps-access" target="_blank" rel="noopener noreferrer">FWC, Boat Ramps and Access</a>)
+              </li>
+            </ul>
+
+            <p style={{ lineHeight: 1.7, color: '#667', fontSize: '0.9rem', marginTop: '1.5rem' }}>
+              Sources: Florida Fish and Wildlife Conservation Commission, Pinellas County Parks,
+              Florida State Parks, and the South Florida Water Management District, linked above.
+              Fees and rules checked November 12, 2026. Fees change, and ramp records are not live
+              operational data, so verify access, fees, closures, and conditions with the managing
+              agency before launching.
+            </p>
+          </div>
+        </section>
+      )}
+
       {/* ── Water body section ── */}
       {showWaterBodies && (
         <section style={{ padding: '3.5rem 1.5rem', background: 'var(--cream)' }}>
