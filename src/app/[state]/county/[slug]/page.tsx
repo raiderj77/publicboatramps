@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import StateRampListing from '@/components/StateRampListing';
 import { countyHubs, getCountyHub } from '@/lib/hubs';
+import { getCountyGuide } from '@/lib/county-guides';
 
 export const revalidate = 86400;
 type Props = { params: Promise<{ state: string; slug: string }> };
@@ -22,6 +23,7 @@ export default async function CountyPage({ params }: Props) {
   const { state, slug } = await params;
   const hub = getCountyHub(state, slug);
   if (!hub) notFound();
+  const guide = getCountyGuide(state, slug);
   const label = `${hub.name} County`;
   const cityCount = new Set(hub.ramps.map(r => r.city).filter(Boolean)).size;
   return <>
@@ -36,6 +38,21 @@ export default async function CountyPage({ params }: Props) {
         </div>
       </div>
     </section>
+    {guide && (
+      <section style={{ padding: '3.5rem 1.5rem', background: 'var(--white)' }}>
+        <div className="container" style={{ maxWidth: '820px' }}>
+          <p className="section-label">Before You Tow</p>
+          <h2 className="section-title">{label} Ramp Fees, Parking and Local Notes</h2>
+          <p style={{ lineHeight: 1.7, color: '#445', marginTop: '1rem' }}>{guide.intro}</p>
+          <ul style={{ lineHeight: 1.7, color: '#445', paddingLeft: '1.25rem', marginTop: '1rem' }}>
+            {guide.notes.map(n => <li key={n.slice(0, 32)} style={{ marginBottom: '0.75rem' }}>{n}</li>)}
+          </ul>
+          <p style={{ lineHeight: 1.7, color: '#445', marginTop: '1.5rem', fontSize: '0.95rem' }}>
+            Sources checked {guide.checked}: {guide.sources.map((s, i) => <span key={s.label}>{i > 0 && '; '}{s.url ? <a href={s.url} target="_blank" rel="noopener noreferrer">{s.label}</a> : s.label}</span>)}. Fees and rules change; confirm with the managing agency before you tow.
+          </p>
+        </div>
+      </section>
+    )}
     <section style={{ padding: '3.5rem 1.5rem', background: 'var(--cream)' }}><div className="container">
       <p className="section-label">Full Directory</p><h2 className="section-title">Ramp records in {label}</h2>
       <StateRampListing ramps={hub.ramps} stateSlug={state} />
